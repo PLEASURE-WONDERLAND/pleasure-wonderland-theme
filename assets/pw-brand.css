@@ -252,7 +252,7 @@ a.pw-chip { text-decoration: none; }
 .pw-offer { background: var(--pw-ink); color: #fff; border-radius: var(--pw-radius-lg); padding: clamp(24px, 4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
 .pw-offer__badge { width: 120px; height: 120px; border-radius: 50%; background: var(--pw-coral); color: var(--pw-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; flex: none; transform: rotate(-8deg); }
 .pw-offer__badge span { font-family: var(--pw-heading); font-weight: 800; font-size: 40px; line-height: 1; }
-.pw-offer__badge small { font-weight: 800; letter-spacing: .12em; font-size: 13px; }
+.pw-offer__badge small { font-family: var(--pw-heading); font-weight: 800; letter-spacing: .02em; font-size: 28px; line-height: .95; }
 .pw-offer__copy { flex: 1 1 320px; min-width: 0; }
 .pw-offer__copy h2 { color: #fff; font-size: clamp(26px, 3vw, 36px); margin-bottom: 8px; }
 .pw-offer__copy p { color: var(--pw-lilac-2); margin: 0; font-size: 16px; }
@@ -271,8 +271,8 @@ a.pw-chip { text-decoration: none; }
 .pw-pop__close { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; color: var(--pw-ink); }
 .pw-pop__art { flex: 1 1 260px; min-height: 200px; background: var(--pw-purple); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .pw-pop__art span { font-family: var(--pw-heading); font-weight: 800; font-size: 88px; line-height: 1; letter-spacing: -0.03em; }
-.pw-pop__art small { font-weight: 800; letter-spacing: .2em; color: var(--pw-coral); }
+.pw-pop__art small { font-family: var(--pw-heading); font-weight: 800; font-size: 64px; line-height: .95; letter-spacing: .02em; color: var(--pw-coral); }
 .pw-pop__body { flex: 1 1 320px; padding: 36px 32px 28px; box-sizing: border-box; }
 .pw-pop__input { width: 100%; min-height: 52px; border-radius: 999px; border: 1.5px solid var(--pw-lilac-2); padding: 0 20px; font-size: 16px; box-sizing: border-box; }
 .pw-pop__no { background: none; border: 0; color: var(--pw-muted); text-decoration: underline; cursor: pointer; margin-top: 12px; min-height: 44px; font-size: 14px; width: 100%; }
-@media (max-width: 600px) { .pw-pop__art { min-height: 120px; } .pw-pop__art span { font-size: 56px; } }
+@media (max-width: 600px) { .pw-pop__art { min-height: 120px; } .pw-pop__art span { font-size: 56px; } .pw-pop__art small { font-size: 40px; } }
