@@ -70,7 +70,7 @@
         clearTimeout(this.timer);
         if (this.seen() && !this.querySelector('[data-success]') && !this.hasAttribute('data-preview')) return;
         document.removeEventListener('mouseout', this.onLeave);
-        if (document.querySelector('dialog.pw-age[open]')) { this.timer = setTimeout(() => this.open(), 4000); return; }
+        
         if (!this.dialog.open && !document.querySelector('dialog[open]:not(.pw-pop)')) this.dialog.showModal();
       }
       close() { this.remember(); this.dialog.close(); }
