@@ -1,9 +1,17 @@
+{%- assign is_third_party = false -%}
+{%- if closest.product.tags contains 'third-party' -%}{%- assign is_third_party = true -%}{%- endif -%}
 <div class="pw-trustgrid" {{ block.shopify_attributes }}>
   {%- for i in (1..4) -%}
     {%- capture t %}title_{{ i }}{% endcapture -%}
     {%- capture x %}text_{{ i }}{% endcapture -%}
-    {%- if block.settings[t] != blank -%}
-      <div class="pw-trustgrid__item"><strong>{{ block.settings[t] }}</strong><span class="pw-muted">{{ block.settings[x] }}</span></div>
+    {%- assign tt = block.settings[t] -%}
+    {%- assign tx = block.settings[x] -%}
+    {%- if is_third_party and tt contains 'arranty' -%}
+      {%- assign tt = block.settings.third_party_title | replace: '[vendor]', closest.product.vendor -%}
+      {%- assign tx = block.settings.third_party_text -%}
+    {%- endif -%}
+    {%- if tt != blank -%}
+      <div class="pw-trustgrid__item"><strong>{{ tt }}</strong><span class="pw-muted">{{ tx }}</span></div>
     {%- endif -%}
   {%- endfor -%}
 </div>
@@ -19,7 +27,11 @@
     { "type": "text", "id": "title_3", "label": "Title 3", "default": "2-year warranty+" },
     { "type": "text", "id": "text_3", "label": "Text 3", "default": "Replacement sent first" },
     { "type": "text", "id": "title_4", "label": "Title 4", "default": "Free shipping over $69" },
-    { "type": "text", "id": "text_4", "label": "Text 4", "default": "Australia-wide" }
+    { "type": "text", "id": "text_4", "label": "Text 4", "default": "Australia-wide" },
+    { "type": "header", "content": "Third-party products" },
+    { "type": "paragraph", "content": "On products tagged third-party, any item mentioning a warranty is swapped for this one, because Warranty+ covers our own range only." },
+    { "type": "text", "id": "third_party_title", "label": "Title", "default": "100% genuine [vendor]" },
+    { "type": "text", "id": "third_party_text", "label": "Text", "default": "Held in stock in Australia" }
   ]
 }
 {% endschema %}

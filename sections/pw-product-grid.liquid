@@ -1,3 +1,4 @@
+{%- if section.settings.collection.products_count > 0 or request.design_mode -%}
 <section class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
   <div class="pw-wrap">
     <div class="pw-section-head">
@@ -17,6 +18,8 @@
     </div>
   </div>
 </section>
+
+{%- endif -%}
 
 {% schema %}
 {

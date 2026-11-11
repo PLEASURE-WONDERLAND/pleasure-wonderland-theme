@@ -1,3 +1,12 @@
+{%- liquid
+  assign live_blocks = 0
+  for block in section.blocks
+    if block.settings.collection != blank and block.settings.collection.products_count > 0
+      assign live_blocks = live_blocks | plus: 1
+    endif
+  endfor
+-%}
+{%- if live_blocks > 0 or request.design_mode -%}
 <section id="pw-finder" class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
   <div class="pw-wrap">
     <div class="pw-finder__head">
@@ -6,12 +15,22 @@
     </div>
     <pw-finder>
       <div class="pw-finder__tabs" role="tablist" aria-label="{{ section.settings.eyebrow | escape }}">
+        {%- assign first_done = false -%}
         {%- for block in section.blocks -%}
-          <button type="button" class="pw-chip" role="tab" id="pw-tab-{{ block.id }}" aria-controls="pw-panel-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</button>
+          {%- assign has = false -%}
+          {%- if block.settings.collection != blank and block.settings.collection.products_count > 0 -%}{%- assign has = true -%}{%- endif -%}
+          {%- unless has or request.design_mode -%}{%- continue -%}{%- endunless -%}
+          <button type="button" class="pw-chip" role="tab" id="pw-tab-{{ block.id }}" aria-controls="pw-panel-{{ block.id }}" aria-selected="{% if first_done %}false{% else %}true{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</button>
+          {%- assign first_done = true -%}
         {%- endfor -%}
       </div>
+      {%- assign first_done = false -%}
       {%- for block in section.blocks -%}
-        <div class="pw-finder__panel pw-grid" role="tabpanel" id="pw-panel-{{ block.id }}" aria-labelledby="pw-tab-{{ block.id }}" {% unless forloop.first %}hidden{% endunless %}>
+        {%- assign has = false -%}
+        {%- if block.settings.collection != blank and block.settings.collection.products_count > 0 -%}{%- assign has = true -%}{%- endif -%}
+        {%- unless has or request.design_mode -%}{%- continue -%}{%- endunless -%}
+        <div class="pw-finder__panel pw-grid" role="tabpanel" id="pw-panel-{{ block.id }}" aria-labelledby="pw-tab-{{ block.id }}" {% if first_done %}hidden{% endif %}>
+          {%- assign first_done = true -%}
           {%- if block.settings.collection != blank and block.settings.collection.products_count > 0 -%}
             {%- for product in block.settings.collection.products limit: section.settings.limit -%}
               {%- render 'pw-product-card', product: product, tint: block.settings.tint -%}
@@ -50,6 +69,7 @@
     });
   }
 </script>
+{%- endif -%}
 
 {% schema %}
 {

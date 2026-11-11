@@ -449,9 +449,7 @@
     },
     "pw_warranty": {
       "type": "pw-warranty",
-      "settings": {
-        "legal": ""
-      },
+      "settings": {},
       "blocks": {
         "point_1": {
           "type": "point",
@@ -487,8 +485,7 @@
         "point_2",
         "point_3",
         "point_4"
-      ],
-      "settings": {}
+      ]
     }
   },
   "order": [
