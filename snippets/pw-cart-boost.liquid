@@ -1,0 +1,74 @@
+{% doc %}
+  Free-shipping progress bar and one-tap add-ons for the cart drawer and cart page.
+{% enddoc %}
+{%- liquid
+  assign threshold = settings.pw_free_shipping | default: 69 | times: 100
+  assign remaining = threshold | minus: cart.total_price
+  assign pct = cart.total_price | times: 100 | divided_by: threshold
+  if pct > 100
+    assign pct = 100
+  endif
+  assign in_cart = cart.items | map: 'product_id' | join: ','
+  assign in_cart = ',' | append: in_cart | append: ','
+  assign cut = settings.pw_cutoff_hour | default: 14
+  if cut > 12
+    assign cut_label = cut | minus: 12 | append: 'pm'
+  elsif cut == 12
+    assign cut_label = '12pm'
+  else
+    assign cut_label = cut | append: 'am'
+  endif
+-%}
+{%- if cart.item_count > 0 -%}
+  <div class="pw-cartboost">
+    {%- if threshold > 0 -%}
+      <div class="pw-ship">
+        <p class="pw-ship__msg">
+          {%- if remaining > 0 -%}
+            You're <strong>{{ remaining | money }}</strong> away from <strong>free shipping</strong>
+          {%- else -%}
+            <strong>You've unlocked free shipping</strong> 🎉
+          {%- endif -%}
+        </p>
+        <div class="pw-ship__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ pct }}" aria-label="Progress to free shipping">
+          <span class="pw-ship__fill" style="width: {{ pct }}%"></span>
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- assign shown = 0 -%}
+    {%- capture upsells -%}
+      {%- for p in settings.pw_cart_upsells -%}
+        {%- assign key = ',' | append: p.id | append: ',' -%}
+        {%- if in_cart contains key or p.available == false -%}{%- continue -%}{%- endif -%}
+        {%- assign v = p.selected_or_first_available_variant -%}
+        {%- assign shown = shown | plus: 1 -%}
+        <li class="pw-upsell">
+          <div class="pw-upsell__img">
+            {%- if p.featured_media -%}
+              {{ p.featured_media | image_url: width: 120 | image_tag: loading: 'lazy', alt: p.title }}
+            {%- else -%}
+              <span aria-hidden="true">✦</span>
+            {%- endif -%}
+          </div>
+          <div class="pw-upsell__text">
+            <span class="pw-upsell__title">{{ p.title | remove: 'Pleasure Wonderland ' }}</span>
+            <span class="pw-upsell__price">{{ v.price | money }}</span>
+          </div>
+          <button type="button" class="pw-upsell__add" data-pw-add="{{ v.id }}" aria-label="Add {{ p.title | escape }}">+ Add</button>
+        </li>
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if shown > 0 -%}
+      <div class="pw-upsells">
+        <p class="pw-upsells__head">
+          <strong>Complete the set</strong>
+          {%- if settings.pw_upsell_note != blank -%}<span>{{ settings.pw_upsell_note }}</span>{%- endif -%}
+        </p>
+        <ul class="pw-upsells__list" role="list">{{ upsells }}</ul>
+      </div>
+    {%- endif -%}
+
+    <p class="pw-cartboost__trust">🔒 Discreet plain packaging · Order by {{ cut_label }} for same-day dispatch · Ships from Australia</p>
+  </div>
+{%- endif -%}

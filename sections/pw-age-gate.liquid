@@ -1,0 +1,45 @@
+{%- if section.settings.enabled and template.name != 'password' -%}
+<pw-age-gate {% if request.design_mode %}data-preview{% endif %}>
+  <dialog class="pw-pop pw-age" aria-labelledby="pw-age-title">
+    <div class="pw-pop__body" style="text-align: center">
+      <img src="{{ 'pw-logo-horizontal.svg' | asset_url }}" alt="Pleasure Wonderland" width="200" height="25" style="height: 28px; width: auto; margin: 0 auto 18px">
+      <h2 id="pw-age-title" class="pw-h" style="font-size: clamp(26px, 4vw, 32px); margin: 0 0 10px">{{ section.settings.heading }}</h2>
+      <p class="pw-muted" style="margin: 0 0 20px">{{ section.settings.text }}</p>
+      <button type="button" class="pw-btn pw-btn--dark" data-yes style="width: 100%; min-height: 52px">{{ section.settings.yes }}</button>
+      <a href="{{ section.settings.leave_url }}" class="pw-pop__no" style="display: inline-block; margin-top: 12px">{{ section.settings.no }}</a>
+    </div>
+  </dialog>
+</pw-age-gate>
+<script>
+  if (!customElements.get('pw-age-gate')) {
+    customElements.define('pw-age-gate', class extends HTMLElement {
+      connectedCallback() {
+        this.dialog = this.querySelector('dialog');
+        let ok = false;
+        try { ok = localStorage.getItem('pw_age_ok') === '1'; } catch (e) {}
+        if (ok && !this.hasAttribute('data-preview')) return;
+        this.dialog.addEventListener('cancel', (e) => e.preventDefault());
+        this.querySelector('[data-yes]').addEventListener('click', () => {
+          try { localStorage.setItem('pw_age_ok', '1'); } catch (e) {}
+          this.dialog.close();
+        });
+        this.dialog.showModal();
+      }
+    });
+  }
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PW Age check",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show age check", "default": true, "info": "Asked once per browser." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Are you 18 or over?" },
+    { "type": "text", "id": "text", "label": "Text", "default": "This store sells adult products. Please confirm you're 18+ to continue." },
+    { "type": "text", "id": "yes", "label": "Enter button", "default": "Yes, I'm 18+" },
+    { "type": "text", "id": "no", "label": "Leave link", "default": "No, take me back" },
+    { "type": "text", "id": "leave_url", "label": "Leave link goes to", "default": "https://www.google.com" }
+  ]
+}
+{% endschema %}

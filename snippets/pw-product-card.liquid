@@ -84,7 +84,7 @@
         {%- endif -%}
       </span>
       {%- if product.has_only_default_variant and first_variant.available -%}
-        <form method="post" action="{{ routes.cart_add_url }}">
+        <form method="post" action="{{ routes.cart_add_url }}" data-pw-quick-add>
           <input type="hidden" name="id" value="{{ first_variant.id }}">
           <input type="hidden" name="quantity" value="1">
           <button type="submit" class="pw-quickadd">Quick add</button>

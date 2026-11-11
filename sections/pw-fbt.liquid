@@ -49,9 +49,12 @@
         const btn = this.querySelector('[data-fbt-add]'); btn.disabled = true;
         const main = document.querySelector('product-form-component input[name="id"], form[action*="/cart/add"] input[name="id"]');
         const items = this.chosen().map((i, n) => ({ id: Number(n === 0 && main ? main.value : i.value), quantity: 1 }));
-        const res = await fetch(window.Shopify.routes.root + 'cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ items }) });
-        if (res.ok) { window.location.href = window.Shopify.routes.root + 'cart'; return; }
-        const m = this.querySelector('[data-fbt-msg]'); m.hidden = false; m.textContent = (await res.json()).description; btn.disabled = false;
+        try {
+          await window.pwAddToCart(items, this);
+        } catch (e) {
+          const m = this.querySelector('[data-fbt-msg]'); m.hidden = false; m.textContent = e.message;
+        }
+        btn.disabled = false;
       }
     });
   }

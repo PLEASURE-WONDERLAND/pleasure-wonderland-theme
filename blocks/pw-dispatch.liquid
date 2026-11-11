@@ -1,0 +1,77 @@
+{%- liquid
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+  assign threshold = settings.pw_free_shipping | default: 69 | times: 100
+  assign after_add = cart.total_price | plus: variant.price
+  assign remaining = threshold | minus: after_add
+  assign cut = settings.pw_cutoff_hour | default: 14
+-%}
+<pw-dispatch
+  class="pw-dispatch"
+  data-cutoff="{{ cut }}"
+  data-weekends="{{ settings.pw_dispatch_weekends }}"
+  {{ block.shopify_attributes }}
+>
+  <p class="pw-dispatch__row">
+    <span class="pw-dispatch__dot" aria-hidden="true"></span>
+    <span data-pw-countdown>Order by {% if cut > 12 %}{{ cut | minus: 12 }}pm{% else %}{{ cut }}{% if cut == 12 %}pm{% else %}am{% endif %}{% endif %} for same-day dispatch</span>
+  </p>
+  {%- if threshold > 0 and block.settings.show_shipping -%}
+    <p class="pw-dispatch__row pw-dispatch__ship">
+      <span aria-hidden="true">🚚</span>
+      {%- if remaining > 0 -%}
+        <span>Add <strong>{{ remaining | money }}</strong> more for free shipping</span>
+      {%- else -%}
+        <span><strong>Free shipping</strong> on this order</span>
+      {%- endif -%}
+    </p>
+  {%- endif -%}
+</pw-dispatch>
+<script>
+  if (!customElements.get('pw-dispatch')) {
+    customElements.define('pw-dispatch', class extends HTMLElement {
+      connectedCallback() {
+        this.out = this.querySelector('[data-pw-countdown]');
+        this.cut = Number(this.dataset.cutoff || 14);
+        this.weekends = this.dataset.weekends === 'true';
+        this.tick();
+        this.timer = setInterval(() => this.tick(), 30000);
+      }
+      disconnectedCallback() { clearInterval(this.timer); }
+      now() {
+        const parts = new Intl.DateTimeFormat('en-AU', { timeZone: 'Australia/Sydney', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+        const get = (t) => (parts.find((p) => p.type === t) || {}).value;
+        return { day: get('weekday'), h: Number(get('hour')), m: Number(get('minute')) };
+      }
+      tick() {
+        if (!this.out) return;
+        const { day, h, m } = this.now();
+        const weekend = day === 'Sat' || day === 'Sun';
+        const label = this.cut > 12 ? (this.cut - 12) + 'pm' : this.cut + (this.cut === 12 ? 'pm' : 'am');
+        if (weekend && !this.weekends) {
+          this.out.innerHTML = 'Order now, <strong>dispatched Monday</strong>';
+          return;
+        }
+        const left = this.cut * 60 - (h * 60 + m);
+        if (left > 0) {
+          const hh = Math.floor(left / 60), mm = left % 60;
+          const time = (hh ? hh + 'h ' : '') + mm + 'm';
+          this.out.innerHTML = 'Order within <strong>' + time + '</strong> for <strong>same-day dispatch</strong>';
+        } else {
+          const next = (day === 'Fri' && !this.weekends) ? 'Monday' : 'tomorrow';
+          this.out.innerHTML = 'Order now, <strong>dispatched ' + next + '</strong> · cut-off ' + label;
+        }
+      }
+    });
+  }
+</script>
+{% schema %}
+{
+  "name": "PW Dispatch countdown",
+  "settings": [
+    { "type": "checkbox", "id": "show_shipping", "label": "Show free-shipping nudge", "default": true },
+    { "type": "paragraph", "content": "Cut-off time and free-shipping threshold are set in Theme settings > Pleasure Wonderland." }
+  ],
+  "presets": [{ "name": "PW Dispatch countdown" }]
+}
+{% endschema %}

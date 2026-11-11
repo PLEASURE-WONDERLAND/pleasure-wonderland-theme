@@ -9,10 +9,10 @@
       {%- form 'customer', class: 'pw-offer__form', id: 'pw-offer-form' -%}
         <input type="hidden" name="contact[tags]" value="newsletter,welcome20,offer-band">
         {%- if form.posted_successfully? -%}
-          <div class="pw-code" role="status">
+          <div class="pw-code" role="status" data-pw-apply-code="{{ section.settings.code | escape }}">
             <span>Your code</span>
             <strong>{{ section.settings.code }}</strong>
-            <small>Use it at checkout. We've emailed it to you too.</small>
+            <small>Already applied to your cart. It comes off at checkout.</small>
           </div>
         {%- else -%}
           <label for="pw-offer-email" class="pw-sr">Email address</label>

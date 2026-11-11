@@ -2117,5 +2117,67 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Pleasure Wonderland",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Free shipping"
+      },
+      {
+        "type": "number",
+        "id": "pw_free_shipping",
+        "label": "Free shipping threshold (AUD)",
+        "default": 69,
+        "info": "Match this to your shipping rates in Settings > Shipping."
+      },
+      {
+        "type": "header",
+        "content": "Same-day dispatch"
+      },
+      {
+        "type": "range",
+        "id": "pw_cutoff_hour",
+        "label": "Dispatch cut-off (24h, Sydney time)",
+        "min": 10,
+        "max": 18,
+        "step": 1,
+        "default": 14
+      },
+      {
+        "type": "checkbox",
+        "id": "pw_dispatch_weekends",
+        "label": "Dispatch on weekends",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Cart upsell"
+      },
+      {
+        "type": "product_list",
+        "id": "pw_cart_upsells",
+        "label": "Cart add-ons",
+        "limit": 3,
+        "info": "Shown in the cart drawer. Items already in the cart are skipped."
+      },
+      {
+        "type": "text",
+        "id": "pw_upsell_note",
+        "label": "Add-on offer note",
+        "default": "20% off add-ons on orders over $50"
+      },
+      {
+        "type": "header",
+        "content": "Welcome offer"
+      },
+      {
+        "type": "text",
+        "id": "pw_welcome_code",
+        "label": "Welcome code",
+        "default": "WELCOME20"
+      }
+    ]
   }
 ]

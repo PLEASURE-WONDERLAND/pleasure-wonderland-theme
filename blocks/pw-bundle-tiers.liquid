@@ -12,8 +12,11 @@
   if a2 != blank
     assign t3_full = t3_full | plus: a2.selected_or_first_available_variant.price
   endif
-  assign t2_save = t2_full | times: block.settings.tier2_percent | divided_by: 100
-  assign t3_save = t3_full | times: block.settings.tier3_percent | divided_by: 100
+  assign pct = block.settings.addon_percent
+  assign addons2 = t2_full | minus: base
+  assign addons3 = t3_full | minus: base
+  assign t2_save = addons2 | times: pct | divided_by: 100
+  assign t3_save = addons3 | times: pct | divided_by: 100
   assign t2_price = t2_full | minus: t2_save
   assign t3_price = t3_full | minus: t3_save
 -%}
@@ -67,13 +70,8 @@
         const ids = [this.mainVariantId(), ...(chosen.dataset.items || '').split(',')].filter(Boolean);
         this.btn.disabled = true;
         try {
-          const res = await fetch(window.Shopify.routes.root + 'cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ items: ids.map((id) => ({ id: Number(id), quantity: 1 })) })
-          });
-          if (!res.ok) throw new Error((await res.json()).description || 'Could not add to cart');
-          window.location.href = window.Shopify.routes.root + 'cart';
+          await window.pwAddToCart(ids.map((id) => ({ id })), this);
+          this.btn.disabled = false;
         } catch (e) {
           this.msg.hidden = false; this.msg.textContent = e.message; this.btn.disabled = false;
         }
@@ -94,8 +92,7 @@
     { "type": "text", "id": "tier2_label", "label": "Tier 2 label", "default": "Toy + lube" },
     { "type": "text", "id": "tier3_label", "label": "Tier 3 label", "default": "The Upgrade Kit" },
     { "type": "text", "id": "badge", "label": "Tier 3 badge", "default": "Most popular" },
-    { "type": "range", "id": "tier2_percent", "label": "Tier 2 discount", "min": 0, "max": 30, "step": 1, "unit": "%", "default": 5, "info": "Display only. Create a matching automatic discount in Shopify so checkout applies it." },
-    { "type": "range", "id": "tier3_percent", "label": "Tier 3 discount", "min": 0, "max": 30, "step": 1, "unit": "%", "default": 10, "info": "Display only. Create a matching automatic discount in Shopify so checkout applies it." }
+    { "type": "range", "id": "addon_percent", "label": "Add-on discount", "min": 0, "max": 50, "step": 5, "unit": "%", "default": 20, "info": "Display only. Matches the automatic discount 'Bundle add-ons 20% off' (lube and cleaner, orders over $50). Change both together." }
   ]
 }
 {% endschema %}

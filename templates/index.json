@@ -258,7 +258,8 @@
     },
     "pw_news": {
       "type": "pw-newsletter",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "pw_offer": {
       "type": "pw-offer-band",

@@ -5,7 +5,7 @@
   endif
 -%}
 {%- if show -%}
-<pw-welcome-popup data-delay="{{ section.settings.delay }}" data-days="{{ section.settings.days }}" {% if request.design_mode %}data-preview{% endif %}>
+<pw-welcome-popup data-delay="{{ section.settings.delay }}" data-pages="{{ section.settings.pages }}" data-days="{{ section.settings.days }}" {% if request.design_mode %}data-preview{% endif %}>
   <dialog class="pw-pop" aria-labelledby="pw-pop-title">
     <button type="button" class="pw-pop__close" aria-label="Close" data-close>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
@@ -16,10 +16,10 @@
         <input type="hidden" name="contact[tags]" value="newsletter,welcome20,popup">
         {%- if form.posted_successfully? -%}
           <h2 id="pw-pop-title" class="pw-h" style="font-size: 30px">You're in.</h2>
-          <div class="pw-code" role="status" style="margin-top: 16px">
+          <div class="pw-code" role="status" style="margin-top: 16px" data-pw-apply-code="{{ section.settings.code | escape }}">
             <span>Your code</span>
             <strong>{{ section.settings.code }}</strong>
-            <small>Use it at checkout on your first order.</small>
+            <small>Already applied to your cart. It comes off at checkout.</small>
           </div>
           <button type="button" class="pw-btn pw-btn--dark" data-close style="width: 100%; margin-top: 16px">Start shopping</button>
           <span data-success hidden></span>
@@ -49,10 +49,13 @@
         if (this.querySelector('[data-success]')) { this.remember(true); this.open(); return; }
         if (this.hasAttribute('data-preview')) { this.open(); return; }
         if (this.seen()) return;
-        const delay = Number(this.dataset.delay || 8) * 1000;
-        this.timer = setTimeout(() => this.open(), delay);
+        let views = 1;
+        try { views = Number(sessionStorage.getItem('pw_pv') || 0) + 1; sessionStorage.setItem('pw_pv', String(views)); } catch (e) {}
         this.onLeave = (e) => { if (e.clientY <= 0) this.open(); };
         document.addEventListener('mouseout', this.onLeave);
+        if (views < Number(this.dataset.pages || 2)) return;
+        const delay = Number(this.dataset.delay || 8) * 1000;
+        this.timer = setTimeout(() => this.open(), delay);
       }
       seen() {
         try {
@@ -65,7 +68,9 @@
       remember(signedUp) { try { localStorage.setItem(this.key, JSON.stringify({ at: Date.now(), signedUp: !!signedUp })); } catch (e) {} }
       open() {
         clearTimeout(this.timer);
+        if (this.seen() && !this.querySelector('[data-success]') && !this.hasAttribute('data-preview')) return;
         document.removeEventListener('mouseout', this.onLeave);
+        if (document.querySelector('dialog.pw-age[open]')) { this.timer = setTimeout(() => this.open(), 4000); return; }
         if (!this.dialog.open && !document.querySelector('dialog[open]:not(.pw-pop)')) this.dialog.showModal();
       }
       close() { this.remember(); this.dialog.close(); }
@@ -79,7 +84,8 @@
   "name": "PW Welcome popup",
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "Show popup", "default": true },
-    { "type": "range", "id": "delay", "label": "Show after", "min": 3, "max": 30, "step": 1, "unit": "s", "default": 8 },
+    { "type": "range", "id": "pages", "label": "Show from page view number", "min": 1, "max": 4, "step": 1, "default": 2, "info": "2 = shows on the second page a shopper visits. Exit intent on desktop still triggers it on any page." },
+    { "type": "range", "id": "delay", "label": "Show after", "min": 2, "max": 30, "step": 1, "unit": "s", "default": 4 },
     { "type": "range", "id": "days", "label": "Hide for this many days after closing", "min": 1, "max": 30, "step": 1, "unit": "d", "default": 7 },
     { "type": "text", "id": "big", "label": "Big number", "default": "20%" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Welcome to Pleasure Wonderland" },

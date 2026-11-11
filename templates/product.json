@@ -243,7 +243,10 @@
             },
             "pw_tiers": {
               "type": "pw-bundle-tiers",
-              "settings": {}
+              "settings": {
+                "addon_1": "pleasure-wonderland-water-based-lube-100ml",
+                "addon_2": "pleasure-wonderland-toy-cleaner-spray-100ml"
+              }
             },
             "pw_trust": {
               "type": "pw-trust-grid",
@@ -253,6 +256,12 @@
                 "title_3": "2-year warranty+",
                 "text_3": "Replacement sent first"
               }
+            },
+            "pw_dispatch": {
+              "type": "pw-dispatch",
+              "settings": {
+                "show_shipping": true
+              }
             }
           },
           "block_order": [
@@ -261,6 +270,7 @@
             "variant_picker_R3rGDr",
             "pw_tiers",
             "buy_buttons_eYQEYi",
+            "pw_dispatch",
             "pw_trust",
             "text_aEtTtq"
           ]
@@ -425,7 +435,13 @@
     },
     "pw_fbt": {
       "type": "pw-fbt",
-      "settings": {}
+      "settings": {
+        "products": [
+          "pleasure-wonderland-water-based-lube-100ml",
+          "pleasure-wonderland-toy-cleaner-spray-100ml"
+        ],
+        "text": "Tick what you want. Add-ons are 20% off with your toy, packed in the same plain box."
+      }
     },
     "pw_specs": {
       "type": "pw-specs",
