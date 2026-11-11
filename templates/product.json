@@ -249,7 +249,9 @@
               "type": "pw-trust-grid",
               "settings": {
                 "title_2": "Dispatched today",
-                "text_2": "Order by 2pm"
+                "text_2": "Order by 2pm",
+                "title_3": "2-year warranty+",
+                "text_3": "Replacement sent first"
               }
             }
           },

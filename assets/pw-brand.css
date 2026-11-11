@@ -208,7 +208,7 @@ a.pw-chip { text-decoration: none; }
 .pw-spec-table dd { margin: 0; text-align: right; }
 
 /* Logo images */
-.pw-logo-img { height: 40px; width: auto; display: block; }
+.pw-logo-img { height: 36px; width: auto; display: block; }
 .pw-logo-img--footer { height: 44px; }
 @media (max-width: 749px) { .pw-logo-img { height: 30px; } }
 
@@ -276,3 +276,13 @@ a.pw-chip { text-decoration: none; }
 .pw-pop__input { width: 100%; min-height: 52px; border-radius: 999px; border: 1.5px solid var(--pw-lilac-2); padding: 0 20px; font-size: 16px; box-sizing: border-box; }
 .pw-pop__no { background: none; border: 0; color: var(--pw-muted); text-decoration: underline; cursor: pointer; margin-top: 12px; min-height: 44px; font-size: 14px; width: 100%; }
 @media (max-width: 600px) { .pw-pop__art { min-height: 120px; } .pw-pop__art span { font-size: 56px; } .pw-pop__art small { font-size: 40px; } }
+
+/* Warranty */
+.pw-warranty { background: var(--pw-lilac); border-radius: var(--pw-radius-lg); padding: clamp(28px, 4vw, 48px); display: flex; flex-wrap: wrap; gap: 36px; align-items: center; }
+.pw-warranty__badge { width: 180px; height: 180px; border-radius: 50%; background: var(--pw-ink); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: none; margin-inline: auto; }
+.pw-warranty__badge span { font-family: var(--pw-heading); font-weight: 800; font-size: 84px; line-height: .9; }
+.pw-warranty__badge small { font-family: var(--pw-heading); font-weight: 800; font-size: 24px; color: var(--pw-coral); letter-spacing: .02em; }
+.pw-warranty__copy { flex: 1 1 420px; min-width: 0; }
+.pw-warranty__copy h2 { font-size: clamp(28px, 3.2vw, 40px); margin: 8px 0 10px; }
+.pw-warranty__copy > p { font-size: 17px; margin: 0 0 18px; }
+.pw-warranty__legal { font-size: 12px; color: var(--pw-muted); margin: 18px 0 0; }

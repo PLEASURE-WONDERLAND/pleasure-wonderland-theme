@@ -46,8 +46,8 @@
           "type": "item",
           "settings": {
             "icon": "shield",
-            "title": "[Warranty] warranty",
-            "text": "Discreet billing name"
+            "title": "2-year warranty+",
+            "text": "Faulty? We send the replacement first"
           }
         }
       },
@@ -379,7 +379,7 @@
         "item_4": {
           "type": "item",
           "settings": {
-            "big": "[__]",
+            "big": "2 yrs+",
             "label": "Warranty on our own range"
           }
         }
@@ -431,7 +431,7 @@
           "type": "qa",
           "settings": {
             "question": "Can I return a toy?",
-            "answer": "<p>[Returns policy for hygiene products, and how faulty items are handled under warranty.]</p>"
+            "answer": "<p>Our own range comes with a 2-year warranty+. If something goes wrong, we send you a replacement first and a prepaid return label, so you're never left waiting. [Change-of-mind returns policy for hygiene products.]</p>"
           }
         }
       },
@@ -446,6 +446,46 @@
         "heading": "Good questions",
         "pad_top": 56
       }
+    },
+    "pw_warranty": {
+      "type": "pw-warranty",
+      "settings": {},
+      "blocks": {
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "title": "2-year cover",
+            "text": "on everything in our own range."
+          }
+        },
+        "point_2": {
+          "type": "point",
+          "settings": {
+            "title": "Replacement sent first.",
+            "text": "We ship your new one straight away, so you're never left waiting."
+          }
+        },
+        "point_3": {
+          "type": "point",
+          "settings": {
+            "title": "Free return shipping.",
+            "text": "We send a prepaid label for the faulty one."
+          }
+        },
+        "point_4": {
+          "type": "point",
+          "settings": {
+            "title": "Real people, fast replies.",
+            "text": "Email us and we sort it quickly."
+          }
+        }
+      },
+      "block_order": [
+        "point_1",
+        "point_2",
+        "point_3",
+        "point_4"
+      ]
     }
   },
   "order": [
@@ -460,6 +500,7 @@
     "pw_usp",
     "pw_discreet",
     "pw_promise",
+    "pw_warranty",
     "pw_reviews",
     "pw_faq",
     "pw_news"
