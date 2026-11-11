@@ -1,0 +1,80 @@
+<section class="pw-section" style="--pw-pad-top: 72px; --pw-pad-bottom: 40px">
+  <div class="pw-wrap" style="max-width: 960px; text-align: center">
+    <span class="pw-pill pw-pill--lilac">{{ section.settings.pill }}</span>
+    <h1 class="pw-h pw-hero__title" style="margin-inline: auto">{{ section.settings.heading }}</h1>
+    <p class="pw-muted pw-hero__sub" style="margin-inline: auto">{{ section.settings.intro }}</p>
+  </div>
+</section>
+
+<section class="pw-section" style="--pw-pad-top: 24px; --pw-pad-bottom: 56px">
+  <div class="pw-wrap pw-about__story">
+    <div class="pw-about__art" style="background: #E9E1FF">
+      {%- if section.settings.image -%}
+        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+      {%- else -%}
+        <div class="pw-shape" style="width: 22%; height: 58%; background: #5B3FD1"></div>
+        <div style="width: 30%; height: 30%; background: #FF7A6B; border-radius: 50%"></div>
+      {%- endif -%}
+    </div>
+    <div class="pw-about__copy">
+      <h2 class="pw-h" style="font-size: clamp(28px, 3.2vw, 40px); margin-bottom: 16px">{{ section.settings.story_heading }}</h2>
+      <div class="pw-muted pw-rte">{{ section.settings.story }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="pw-section pw-usp" style="--pw-pad-top: 72px; --pw-pad-bottom: 72px">
+  <div class="pw-wrap">
+    <h2 class="pw-h" style="font-size: clamp(30px, 3.5vw, 40px); text-align: center; margin-bottom: 40px">{{ section.settings.promise_heading }}</h2>
+    <div class="pw-usp__grid">
+      {%- for block in section.blocks -%}
+        <div class="pw-usp__item" {{ block.shopify_attributes }}><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<section class="pw-section" style="--pw-pad-top: 72px; --pw-pad-bottom: 88px">
+  <div class="pw-wrap">
+    <div class="pw-bundle" style="align-items: center; justify-content: space-between; padding: clamp(32px, 5vw, 56px); gap: 24px">
+      <div style="max-width: 560px">
+        <h2 class="pw-h" style="color: #fff; font-size: clamp(30px, 3.5vw, 44px); margin-bottom: 10px">{{ section.settings.cta_heading }}</h2>
+        <p style="color: #CFC6E6; margin: 0; font-size: 17px">{{ section.settings.cta_text }}</p>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap">
+        <a href="{{ section.settings.cta1_link | default: routes.all_products_collection_url }}" class="pw-btn pw-btn--light">{{ section.settings.cta1_label }}</a>
+        <a href="{{ section.settings.cta2_link | default: '/#pw-finder' }}" class="pw-btn pw-btn--coral">{{ section.settings.cta2_label }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PW About",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "pill", "label": "Pill", "default": "About us" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pleasure, without the awkward bits." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Pleasure Wonderland is an Australian online store for toys and intimate essentials. We pick fewer products, test them properly and ship them fast in a plain box." },
+    { "type": "image_picker", "id": "image", "label": "Story image" },
+    { "type": "text", "id": "story_heading", "label": "Story heading", "default": "Why we started" },
+    { "type": "richtext", "id": "story", "label": "Story", "default": "<p>Shopping for a toy should feel easy. Most adult stores list thousands of near-identical products and leave you to work out which ones are any good.</p><p>We do that homework for you. We read the reviews of the bestsellers, find what people keep complaining about, and work with manufacturers to fix it: quieter motors, longer battery life, USB-C charging and body-safe materials. Then we test the samples ourselves before anything goes on sale.</p><p>Most of what we sell is our own range. We also stock genuine products from the big names you already know, so you can compare everything in one place.</p>" },
+    { "type": "text", "id": "promise_heading", "label": "Promises heading", "default": "What you can count on" },
+    { "type": "text", "id": "cta_heading", "label": "CTA heading", "default": "Ready to find your new favourite?" },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Start with our bestsellers, or let the Pleasure Finder narrow it down." },
+    { "type": "text", "id": "cta1_label", "label": "Button 1 label", "default": "Shop bestsellers" },
+    { "type": "url", "id": "cta1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "cta2_label", "label": "Button 2 label", "default": "Help me choose" },
+    { "type": "url", "id": "cta2_link", "label": "Button 2 link" }
+  ],
+  "blocks": [{
+    "type": "promise", "name": "Promise",
+    "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Tested before it's listed" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "" }
+    ]
+  }],
+  "presets": [{ "name": "PW About" }]
+}
+{% endschema %}

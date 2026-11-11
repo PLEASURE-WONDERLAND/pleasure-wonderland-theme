@@ -1,0 +1,55 @@
+<footer class="pw-footer">
+  <div class="pw-wrap pw-footer__grid">
+    <div class="pw-footer__brand">
+      <a href="{{ routes.root_url }}" class="pw-wordmark pw-wordmark--light">pleasure<span>wonderland</span></a>
+      <p>{{ section.settings.blurb }}</p>
+      {%- form 'customer', class: 'pw-footer__form', id: 'pw-footer-news' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,footer">
+        {%- if form.posted_successfully? -%}
+          <p role="status" style="color: #fff; font-weight: 600">You're on the list.</p>
+        {%- else -%}
+          <label for="pw-footer-email" class="pw-sr">Email address</label>
+          <input id="pw-footer-email" type="email" name="contact[email]" placeholder="Your email" required autocomplete="email">
+          <button type="submit" class="pw-btn pw-btn--coral">Join</button>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+    {%- for block in section.blocks -%}
+      <nav class="pw-footer__col" aria-label="{{ block.settings.heading | escape }}" {{ block.shopify_attributes }}>
+        <strong>{{ block.settings.heading }}</strong>
+        {%- for link in block.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endfor -%}
+  </div>
+  <div class="pw-wrap pw-footer__base">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal_name }}. {{ section.settings.notice }}</span>
+    <span style="display: flex; gap: 14px; flex-wrap: wrap">
+      {%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}
+    </span>
+    <span class="pw-footer__pay">
+      {%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pw-footer__payicon' }}{%- endfor -%}
+    </span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "PW Footer",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "textarea", "id": "blurb", "label": "Blurb", "default": "Tested toys and intimate essentials, shipped fast from Australia in a plain box." },
+    { "type": "text", "id": "legal_name", "label": "Legal name", "default": "Pleasure Wonderland" },
+    { "type": "text", "id": "notice", "label": "Notice", "default": "Adults 18+ only. Billing shows as [discreet descriptor]." }
+  ],
+  "blocks": [{
+    "type": "menu", "name": "Menu column",
+    "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+      { "type": "link_list", "id": "menu", "label": "Menu" }
+    ]
+  }],
+  "presets": [{ "name": "PW Footer" }]
+}
+{% endschema %}

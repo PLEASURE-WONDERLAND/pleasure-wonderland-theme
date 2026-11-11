@@ -11,7 +11,9 @@
   "sections": {
     "pw_hero": {
       "type": "pw-hero",
-      "settings": {}
+      "settings": {
+        "cta1_link": "shopify://collections/bestsellers"
+      }
     },
     "pw_trust": {
       "type": "pw-trust-bar",
@@ -64,35 +66,40 @@
           "type": "option",
           "settings": {
             "label": "Something for me",
-            "tint": "#E9E1FF"
+            "tint": "#E9E1FF",
+            "collection": "for-her"
           }
         },
         "option_2": {
           "type": "option",
           "settings": {
             "label": "Something for him",
-            "tint": "#DCE8FF"
+            "tint": "#DCE8FF",
+            "collection": "for-him"
           }
         },
         "option_3": {
           "type": "option",
           "settings": {
             "label": "Something for us",
-            "tint": "#FFD9D3"
+            "tint": "#FFD9D3",
+            "collection": "for-couples"
           }
         },
         "option_4": {
           "type": "option",
           "settings": {
             "label": "Something adventurous",
-            "tint": "#DDD8E6"
+            "tint": "#DDD8E6",
+            "collection": "the-other-side"
           }
         },
         "option_5": {
           "type": "option",
           "settings": {
             "label": "Just browsing",
-            "tint": "#DDF2EA"
+            "tint": "#DDF2EA",
+            "collection": "bestsellers"
           }
         }
       },
@@ -114,7 +121,8 @@
             "title": "For Her",
             "text": "Air-pulse, bullets, wands",
             "bg": "#E9E1FF",
-            "fg": "#1D1530"
+            "fg": "#1D1530",
+            "link": "shopify://collections/for-her"
           }
         },
         "tile_2": {
@@ -123,7 +131,8 @@
             "title": "For Him",
             "text": "Strokers, sleeves, rings",
             "bg": "#DCE8FF",
-            "fg": "#1D1530"
+            "fg": "#1D1530",
+            "link": "shopify://collections/for-him"
           }
         },
         "tile_3": {
@@ -132,7 +141,8 @@
             "title": "For Couples",
             "text": "Remote and app play",
             "bg": "#FFD9D3",
-            "fg": "#1D1530"
+            "fg": "#1D1530",
+            "link": "shopify://collections/for-couples"
           }
         },
         "tile_4": {
@@ -141,7 +151,8 @@
             "title": "The Other Side",
             "text": "Tease, restraint, impact",
             "bg": "#1D1530",
-            "fg": "#FFFFFF"
+            "fg": "#FFFFFF",
+            "link": "shopify://collections/the-other-side"
           }
         },
         "tile_5": {
@@ -150,7 +161,8 @@
             "title": "Lube & Care",
             "text": "The essentials",
             "bg": "#DDF2EA",
-            "fg": "#1D1530"
+            "fg": "#1D1530",
+            "link": "shopify://collections/lube-essentials"
           }
         }
       },
@@ -193,12 +205,15 @@
         "line_2",
         "line_3"
       ],
-      "settings": {}
+      "settings": {
+        "link": "shopify://collections/bundles"
+      }
     },
     "pw_best": {
       "type": "pw-product-grid",
       "settings": {
-        "heading": "Bestsellers"
+        "heading": "Bestsellers",
+        "collection": "bestsellers"
       }
     },
     "pw_usp": {

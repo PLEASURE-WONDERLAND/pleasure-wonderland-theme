@@ -1,0 +1,58 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "pw-about",
+      "blocks": {
+        "promise_1": {
+          "type": "promise",
+          "settings": {
+            "title": "Tested before it's listed",
+            "text": "Every own-brand product is sampled and tested for noise, battery life, charging and comfort before it goes on sale."
+          }
+        },
+        "promise_2": {
+          "type": "promise",
+          "settings": {
+            "title": "Plain box, discreet billing",
+            "text": "No logos or clues on the outside, and a neutral name on your bank statement."
+          }
+        },
+        "promise_3": {
+          "type": "promise",
+          "settings": {
+            "title": "Shipped from Australia",
+            "text": "Stock is held locally, so orders leave fast and arrive fast."
+          }
+        },
+        "promise_4": {
+          "type": "promise",
+          "settings": {
+            "title": "Straight answers",
+            "text": "Real specs, honest comparisons and guides that help you choose. No guesswork."
+          }
+        }
+      },
+      "block_order": [
+        "promise_1",
+        "promise_2",
+        "promise_3",
+        "promise_4"
+      ],
+      "settings": {
+        "cta1_link": "shopify://collections/bestsellers"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
