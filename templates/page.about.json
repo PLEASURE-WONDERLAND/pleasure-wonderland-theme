@@ -48,7 +48,9 @@
         "promise_4"
       ],
       "settings": {
-        "cta1_link": "shopify://collections/bestsellers"
+        "cta1_link": "shopify://collections/bestsellers",
+        "cta2_link": "shopify://collections/for-her",
+        "cta2_label": "Shop For Her"
       }
     }
   },
