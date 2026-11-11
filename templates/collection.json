@@ -253,7 +253,7 @@
           "type": "qa",
           "settings": {
             "question": "How fast is shipping?",
-            "answer": "<p>Orders ship from Australia. [Dispatch cut-off and delivery times by state].</p>"
+            "answer": "<p>Order by 2pm on a business day and it ships the same day from Australia. Standard shipping is free over $69.</p>"
           }
         }
       },

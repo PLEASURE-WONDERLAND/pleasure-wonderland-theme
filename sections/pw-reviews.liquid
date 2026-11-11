@@ -1,0 +1,39 @@
+{%- if section.blocks.size > 0 -%}
+<section class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
+  <div class="pw-wrap">
+    <div class="pw-section-head"><h2 class="pw-h">{{ section.settings.heading }}</h2>{%- if section.settings.link != blank -%}<a href="{{ section.settings.link }}" style="font-weight: 600">{{ section.settings.link_label }}</a>{%- endif -%}</div>
+    <div class="pw-reviews">
+      {%- for block in section.blocks -%}
+        <figure class="pw-review" {{ block.shopify_attributes }}>
+          <div class="pw-review__stars" role="img" aria-label="{{ block.settings.stars }} out of 5 stars">{% for i in (1..block.settings.stars) %}★{% endfor %}</div>
+          <blockquote>{{ block.settings.quote }}</blockquote>
+          <figcaption><strong>{{ block.settings.name }}</strong>{% if block.settings.verified %} · Verified buyer{% endif %}{% if block.settings.product != blank %}<br><span class="pw-muted">{{ block.settings.product }}</span>{% endif %}</figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PW Reviews",
+  "max_blocks": 9,
+  "settings": [
+    { "type": "paragraph", "content": "Only add real customer reviews. This section stays hidden until you add one." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What customers say" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Read all reviews" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "range", "id": "pad_top", "label": "Top padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 56 },
+    { "type": "range", "id": "pad_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 56 }
+  ],
+  "blocks": [{ "type": "review", "name": "Review", "settings": [
+    { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "textarea", "id": "quote", "label": "Review text" },
+    { "type": "text", "id": "name", "label": "First name and initial" },
+    { "type": "text", "id": "product", "label": "Product bought" },
+    { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true }
+  ]}],
+  "presets": [{ "name": "PW Reviews" }]
+}
+{% endschema %}

@@ -1,0 +1,40 @@
+<section class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
+  <div class="pw-wrap">
+    <div class="pw-promise">
+      <div class="pw-promise__grid">
+        {%- for block in section.blocks -%}
+          <div class="pw-promise__item" {{ block.shopify_attributes }}>
+            <div class="pw-promise__big">{{ block.settings.big }}</div>
+            <div class="pw-promise__label">{{ block.settings.label }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="pw-promise__foot">
+        <span class="pw-promise__secure">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+          {{ section.settings.secure_text }}
+        </span>
+        <span class="pw-footer__pay">
+          {%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pw-footer__payicon' }}{%- endfor -%}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PW Promise band",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "secure_text", "label": "Secure checkout text", "default": "Secure, encrypted checkout" },
+    { "type": "range", "id": "pad_top", "label": "Top padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 24 },
+    { "type": "range", "id": "pad_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 56 }
+  ],
+  "blocks": [{ "type": "item", "name": "Promise", "settings": [
+    { "type": "text", "id": "big", "label": "Big text", "default": "2pm" },
+    { "type": "text", "id": "label", "label": "Label", "default": "Same-day dispatch cut-off" }
+  ]}],
+  "presets": [{ "name": "PW Promise band" }]
+}
+{% endschema %}

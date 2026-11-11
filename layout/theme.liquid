@@ -7,6 +7,9 @@
   dir="{{ request.locale.direction | default: 'ltr' }}"
 >
   <head>
+    {%- if settings.favicon == blank -%}
+      <link rel="icon" type="image/png" href="{{ 'pw-favicon.png' | asset_url }}">
+    {%- endif -%}
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -159,5 +162,6 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+    {% section 'pw-welcome-popup' %}
   </body>
 </html>

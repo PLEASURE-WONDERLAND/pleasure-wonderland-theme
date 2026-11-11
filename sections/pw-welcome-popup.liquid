@@ -1,0 +1,94 @@
+{%- liquid
+  assign show = section.settings.enabled
+  if template.name == 'cart' or template.name == 'password' or customer
+    assign show = false
+  endif
+-%}
+{%- if show -%}
+<pw-welcome-popup data-delay="{{ section.settings.delay }}" data-days="{{ section.settings.days }}" {% if request.design_mode %}data-preview{% endif %}>
+  <dialog class="pw-pop" aria-labelledby="pw-pop-title">
+    <button type="button" class="pw-pop__close" aria-label="Close" data-close>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <div class="pw-pop__art" aria-hidden="true"><span>{{ section.settings.big }}</span><small>OFF</small></div>
+    <div class="pw-pop__body">
+      {%- form 'customer', id: 'pw-pop-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,welcome20,popup">
+        {%- if form.posted_successfully? -%}
+          <h2 id="pw-pop-title" class="pw-h" style="font-size: 30px">You're in.</h2>
+          <div class="pw-code" role="status" style="margin-top: 16px">
+            <span>Your code</span>
+            <strong>{{ section.settings.code }}</strong>
+            <small>Use it at checkout on your first order.</small>
+          </div>
+          <button type="button" class="pw-btn pw-btn--dark" data-close style="width: 100%; margin-top: 16px">Start shopping</button>
+          <span data-success hidden></span>
+        {%- else -%}
+          <div class="pw-eyebrow">{{ section.settings.eyebrow }}</div>
+          <h2 id="pw-pop-title" class="pw-h" style="font-size: clamp(28px, 4vw, 36px); margin: 8px 0 10px">{{ section.settings.heading }}</h2>
+          <p class="pw-muted" style="margin: 0 0 18px">{{ section.settings.text }}</p>
+          <label for="pw-pop-email" class="pw-sr">Email address</label>
+          <input id="pw-pop-email" type="email" name="contact[email]" placeholder="you@email.com" required autocomplete="email" class="pw-pop__input">
+          <button type="submit" class="pw-btn pw-btn--dark" style="width: 100%; min-height: 52px; margin-top: 10px">{{ section.settings.button }}</button>
+          <button type="button" class="pw-pop__no" data-close>{{ section.settings.decline }}</button>
+          <small class="pw-muted" style="display: block; margin-top: 10px; font-size: 12px">{{ section.settings.terms }}</small>
+          {%- if form.errors -%}<p role="alert" style="color: #B42318; font-weight: 600">{{ form.errors | default_errors }}</p>{%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </dialog>
+</pw-welcome-popup>
+<script>
+  if (!customElements.get('pw-welcome-popup')) {
+    customElements.define('pw-welcome-popup', class extends HTMLElement {
+      connectedCallback() {
+        this.dialog = this.querySelector('dialog');
+        this.key = 'pw_welcome_popup';
+        this.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => this.close()));
+        this.dialog.addEventListener('cancel', () => this.remember());
+        if (this.querySelector('[data-success]')) { this.remember(true); this.open(); return; }
+        if (this.hasAttribute('data-preview')) { this.open(); return; }
+        if (this.seen()) return;
+        const delay = Number(this.dataset.delay || 8) * 1000;
+        this.timer = setTimeout(() => this.open(), delay);
+        this.onLeave = (e) => { if (e.clientY <= 0) this.open(); };
+        document.addEventListener('mouseout', this.onLeave);
+      }
+      seen() {
+        try {
+          const v = JSON.parse(localStorage.getItem(this.key) || 'null');
+          if (!v) return false;
+          if (v.signedUp) return true;
+          return Date.now() - v.at < Number(this.dataset.days || 7) * 864e5;
+        } catch (e) { return false; }
+      }
+      remember(signedUp) { try { localStorage.setItem(this.key, JSON.stringify({ at: Date.now(), signedUp: !!signedUp })); } catch (e) {} }
+      open() {
+        clearTimeout(this.timer);
+        document.removeEventListener('mouseout', this.onLeave);
+        if (!this.dialog.open && !document.querySelector('dialog[open]:not(.pw-pop)')) this.dialog.showModal();
+      }
+      close() { this.remember(); this.dialog.close(); }
+    });
+  }
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PW Welcome popup",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show popup", "default": true },
+    { "type": "range", "id": "delay", "label": "Show after", "min": 3, "max": 30, "step": 1, "unit": "s", "default": 8 },
+    { "type": "range", "id": "days", "label": "Hide for this many days after closing", "min": 1, "max": 30, "step": 1, "unit": "d", "default": 7 },
+    { "type": "text", "id": "big", "label": "Big number", "default": "20%" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Welcome to Pleasure Wonderland" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Take 20% off your first order" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Your code appears straight away. Emails come from a discreet sender name, and you can unsubscribe any time." },
+    { "type": "text", "id": "button", "label": "Button", "default": "Reveal my code" },
+    { "type": "text", "id": "decline", "label": "Decline link", "default": "No thanks, I'll pay full price" },
+    { "type": "text", "id": "code", "label": "Discount code", "default": "WELCOME20" },
+    { "type": "text", "id": "terms", "label": "Terms", "default": "First order only. Min spend $79, max discount $40." }
+  ]
+}
+{% endschema %}

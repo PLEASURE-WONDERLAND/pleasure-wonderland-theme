@@ -247,7 +247,10 @@
             },
             "pw_trust": {
               "type": "pw-trust-grid",
-              "settings": {}
+              "settings": {
+                "title_2": "Dispatched today",
+                "text_2": "Order by 2pm"
+              }
             }
           },
           "block_order": [

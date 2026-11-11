@@ -31,7 +31,7 @@
           "settings": {
             "icon": "fast",
             "title": "Fast Aussie dispatch",
-            "text": "Order by [cut-off] for same-day"
+            "text": "Order by 2pm for same-day dispatch"
           }
         },
         "item_3": {
@@ -259,16 +259,209 @@
     "pw_news": {
       "type": "pw-newsletter",
       "settings": {}
+    },
+    "pw_offer": {
+      "type": "pw-offer-band",
+      "settings": {}
+    },
+    "pw_test": {
+      "type": "pw-how-we-test",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "We read the bad reviews",
+            "text": "We go through the complaints on the bestsellers: too loud, weak battery, fiddly charging, hard to clean."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "We sample the alternatives",
+            "text": "We order samples from several manufacturers and ask for changes where they fall short."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "We test them ourselves",
+            "text": "Noise, run time, charging, water resistance, comfort and how easy it is to clean."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Only the best gets listed",
+            "text": "If it doesn't beat what's already out there, it doesn't go on sale."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {}
+    },
+    "pw_discreet": {
+      "type": "pw-discreet",
+      "blocks": {
+        "tick_1": {
+          "type": "tick",
+          "settings": {
+            "title": "Plain box.",
+            "text": "No logos, no product names, nothing to give it away."
+          }
+        },
+        "tick_2": {
+          "type": "tick",
+          "settings": {
+            "title": "Neutral sender name",
+            "text": "on the label."
+          }
+        },
+        "tick_3": {
+          "type": "tick",
+          "settings": {
+            "title": "Discreet billing name",
+            "text": "on your bank statement."
+          }
+        },
+        "tick_4": {
+          "type": "tick",
+          "settings": {
+            "title": "Your data stays private.",
+            "text": "We never sell or share your details."
+          }
+        },
+        "tick_5": {
+          "type": "tick",
+          "settings": {
+            "title": "Fast and tracked.",
+            "text": "Order by 2pm for same-day dispatch from Australia."
+          }
+        }
+      },
+      "block_order": [
+        "tick_1",
+        "tick_2",
+        "tick_3",
+        "tick_4",
+        "tick_5"
+      ],
+      "settings": {}
+    },
+    "pw_promise": {
+      "type": "pw-promise",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "big": "2pm",
+            "label": "Same-day dispatch cut-off"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "big": "$69",
+            "label": "Free shipping threshold"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "big": "100%",
+            "label": "Plain, unbranded packaging"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "big": "[__]",
+            "label": "Warranty on our own range"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ],
+      "settings": {}
+    },
+    "pw_reviews": {
+      "type": "pw-reviews",
+      "settings": {}
+    },
+    "pw_faq": {
+      "type": "pw-faq",
+      "blocks": {
+        "qa_1": {
+          "type": "qa",
+          "settings": {
+            "question": "How discreet is delivery?",
+            "answer": "<p>Your order arrives in a plain box with a neutral sender name, and your bank statement shows a discreet billing name.</p>"
+          }
+        },
+        "qa_2": {
+          "type": "qa",
+          "settings": {
+            "question": "When will my order ship?",
+            "answer": "<p>Order by 2pm on a business day and it's dispatched the same day from Australia.</p>"
+          }
+        },
+        "qa_3": {
+          "type": "qa",
+          "settings": {
+            "question": "Is shipping free?",
+            "answer": "<p>Standard shipping is free on orders over $69 Australia-wide.</p>"
+          }
+        },
+        "qa_4": {
+          "type": "qa",
+          "settings": {
+            "question": "Are your products body-safe?",
+            "answer": "<p>Our own range uses body-safe materials, and every product is tested before it goes on sale. Material details are listed on each product page.</p>"
+          }
+        },
+        "qa_5": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I return a toy?",
+            "answer": "<p>[Returns policy for hygiene products, and how faulty items are handled under warranty.]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_1",
+        "qa_2",
+        "qa_3",
+        "qa_4",
+        "qa_5"
+      ],
+      "settings": {
+        "heading": "Good questions",
+        "pad_top": 56
+      }
     }
   },
   "order": [
     "pw_hero",
     "pw_trust",
+    "pw_offer",
     "pw_finder",
     "pw_vibes",
     "pw_bundle",
     "pw_best",
+    "pw_test",
     "pw_usp",
+    "pw_discreet",
+    "pw_promise",
+    "pw_reviews",
+    "pw_faq",
     "pw_news"
   ]
 }
