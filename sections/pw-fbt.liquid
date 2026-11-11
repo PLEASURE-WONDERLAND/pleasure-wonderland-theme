@@ -1,0 +1,72 @@
+{%- assign main = product -%}
+{%- assign extras = section.settings.products -%}
+{%- if main != blank and extras.count > 0 -%}
+<section class="pw-section" style="--pw-pad-top: 56px; --pw-pad-bottom: 24px">
+  <div class="pw-wrap">
+    <pw-fbt class="pw-fbt">
+      <h2 class="pw-h" style="font-size: clamp(26px, 3vw, 32px); margin-bottom: 6px">{{ section.settings.heading }}</h2>
+      <p class="pw-muted" style="margin: 0 0 24px">{{ section.settings.text }}</p>
+      <div class="pw-fbt__row">
+        <div class="pw-fbt__item">
+          <div class="pw-fbt__img">{%- if main.featured_media -%}{{ main.featured_media | image_url: width: 200 | image_tag: loading: 'lazy' }}{%- endif -%}</div>
+          <div><div style="font-weight: 600">This item</div><div class="pw-muted" style="font-size: 14px">{{ main.selected_or_first_available_variant.price | money }}</div></div>
+          <input type="hidden" data-fbt-main value="{{ main.selected_or_first_available_variant.id }}" data-price="{{ main.selected_or_first_available_variant.price }}">
+        </div>
+        {%- for p in extras limit: 3 -%}
+          {%- assign v = p.selected_or_first_available_variant -%}
+          <span class="pw-h" style="font-size: 28px" aria-hidden="true">+</span>
+          <label class="pw-fbt__item" style="cursor: pointer">
+            <input type="checkbox" checked value="{{ v.id }}" data-price="{{ v.price }}" {% unless v.available %}disabled{% endunless %} style="width: 20px; height: 20px; accent-color: #1D1530">
+            <div class="pw-fbt__img">{%- if p.featured_media -%}{{ p.featured_media | image_url: width: 200 | image_tag: loading: 'lazy' }}{%- endif -%}</div>
+            <div><div style="font-weight: 600">{{ p.title }}</div><div class="pw-muted" style="font-size: 14px">{{ v.price | money }}</div></div>
+          </label>
+        {%- endfor -%}
+        <div class="pw-fbt__total">
+          <div class="pw-muted" style="font-size: 14px">Total</div>
+          <div class="pw-h" style="font-size: 30px" data-fbt-total></div>
+          <button type="button" class="pw-btn pw-btn--coral" data-fbt-add style="margin-top: 8px">Add selected</button>
+          <p role="status" class="pw-muted" data-fbt-msg hidden></p>
+        </div>
+      </div>
+    </pw-fbt>
+  </div>
+</section>
+<script>
+  if (!customElements.get('pw-fbt')) {
+    customElements.define('pw-fbt', class extends HTMLElement {
+      connectedCallback() {
+        this.fmt = new Intl.NumberFormat('{{ request.locale.iso_code }}-{{ localization.country.iso_code }}', { style: 'currency', currency: '{{ cart.currency.iso_code }}' });
+        this.querySelectorAll('input[type="checkbox"]').forEach((c) => c.addEventListener('change', () => this.update()));
+        this.querySelector('[data-fbt-add]').addEventListener('click', () => this.add());
+        this.update();
+      }
+      chosen() { return [this.querySelector('[data-fbt-main]'), ...this.querySelectorAll('input[type="checkbox"]:checked')]; }
+      update() {
+        const total = this.chosen().reduce((a, i) => a + Number(i.dataset.price), 0);
+        this.querySelector('[data-fbt-total]').textContent = this.fmt.format(total / 100);
+      }
+      async add() {
+        const btn = this.querySelector('[data-fbt-add]'); btn.disabled = true;
+        const main = document.querySelector('product-form-component input[name="id"], form[action*="/cart/add"] input[name="id"]');
+        const items = this.chosen().map((i, n) => ({ id: Number(n === 0 && main ? main.value : i.value), quantity: 1 }));
+        const res = await fetch(window.Shopify.routes.root + 'cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ items }) });
+        if (res.ok) { window.location.href = window.Shopify.routes.root + 'cart'; return; }
+        const m = this.querySelector('[data-fbt-msg]'); m.hidden = false; m.textContent = (await res.json()).description; btn.disabled = false;
+      }
+    });
+  }
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PW Bought together",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently bought together" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Tick what you want. Added to the same plain box." },
+    { "type": "product_list", "id": "products", "label": "Products to pair", "limit": 3 }
+  ],
+  "presets": [{ "name": "PW Bought together" }]
+}
+{% endschema %}

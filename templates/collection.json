@@ -9,91 +9,53 @@
  */
 {
   "sections": {
-    "section": {
-      "type": "section",
+    "pw_head": {
+      "type": "pw-collection-hero",
       "blocks": {
-        "text_tqQTNE": {
-          "type": "text",
-          "name": "t:names.title",
+        "chip_0": {
+          "type": "chip",
           "settings": {
-            "text": "<h1>{{ closest.collection.title }}</h1>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "label": "New",
+            "tag": "new"
+          }
         },
-        "text_twGGkJ": {
-          "type": "text",
-          "name": "t:names.description",
+        "chip_1": {
+          "type": "chip",
           "settings": {
-            "text": "{{ closest.collection.description }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "label": "Beginner-friendly",
+            "tag": "beginner"
+          }
+        },
+        "chip_2": {
+          "type": "chip",
+          "settings": {
+            "label": "Quiet",
+            "tag": "quiet"
+          }
+        },
+        "chip_3": {
+          "type": "chip",
+          "settings": {
+            "label": "Waterproof",
+            "tag": "waterproof"
+          }
+        },
+        "chip_4": {
+          "type": "chip",
+          "settings": {
+            "label": "App-controlled",
+            "tag": "app-controlled"
+          }
         }
       },
       "block_order": [
-        "text_tqQTNE",
-        "text_twGGkJ"
+        "chip_0",
+        "chip_1",
+        "chip_2",
+        "chip_3",
+        "chip_4"
       ],
-      "name": "t:names.heading",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
+      "settings": {}
     },
     "main": {
       "type": "main-collection",
@@ -227,10 +189,89 @@
         "padding-block-start": 0,
         "padding-block-end": 32
       }
+    },
+    "pw_addons": {
+      "type": "pw-addon-row",
+      "settings": {
+        "collection": "lube-essentials"
+      }
+    },
+    "pw_bundle": {
+      "type": "pw-bundle-banner",
+      "blocks": {
+        "line_1": {
+          "type": "line",
+          "settings": {
+            "item": "Mini rechargeable vibrator",
+            "value": "$49.95"
+          }
+        },
+        "line_2": {
+          "type": "line",
+          "settings": {
+            "item": "Water-based lube 50ml",
+            "value": "$14.95"
+          }
+        },
+        "line_3": {
+          "type": "line",
+          "settings": {
+            "item": "Satin blindfold or toy cleaner",
+            "value": "$12.95"
+          }
+        }
+      },
+      "block_order": [
+        "line_1",
+        "line_2",
+        "line_3"
+      ],
+      "settings": {
+        "heading": "New to this? Start with the Curious Kit.",
+        "link": "shopify://collections/bundles",
+        "pad_top": 24
+      }
+    },
+    "pw_faq": {
+      "type": "pw-faq",
+      "blocks": {
+        "qa_1": {
+          "type": "qa",
+          "settings": {
+            "question": "Which toy should I start with?",
+            "answer": "<p>Try the Pleasure Finder on our homepage, or start with an air-pulse toy or a rechargeable bullet. Both are easy to use and great value.</p>"
+          }
+        },
+        "qa_2": {
+          "type": "qa",
+          "settings": {
+            "question": "How discreet is delivery?",
+            "answer": "<p>Plain outer box, neutral return address and a discreet billing name on your statement.</p>"
+          }
+        },
+        "qa_3": {
+          "type": "qa",
+          "settings": {
+            "question": "How fast is shipping?",
+            "answer": "<p>Orders ship from Australia. [Dispatch cut-off and delivery times by state].</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_1",
+        "qa_2",
+        "qa_3"
+      ],
+      "settings": {
+        "heading": "Questions"
+      }
     }
   },
   "order": [
-    "section",
-    "main"
+    "pw_head",
+    "main",
+    "pw_addons",
+    "pw_bundle",
+    "pw_faq"
   ]
 }

@@ -1,0 +1,40 @@
+{%- assign m = product.metafields.custom -%}
+<section class="pw-section" style="--pw-pad-top: 56px; --pw-pad-bottom: 56px">
+  <div class="pw-wrap pw-specs">
+    <div class="pw-specs__col">
+      <h2 class="pw-h" style="font-size: clamp(26px, 3vw, 32px); margin-bottom: 12px">{{ section.settings.why_heading }}</h2>
+      <div class="pw-muted pw-rte">{%- if m.why_we_made_it != blank -%}{{ m.why_we_made_it | metafield_tag }}{%- else -%}{{ section.settings.why_text }}{%- endif -%}</div>
+      <div class="pw-stats">
+        <div class="pw-stat" style="background: #E9E1FF"><strong>{{ m.noise_db | default: '[__]' }} dB</strong><span class="pw-muted">at max setting</span></div>
+        <div class="pw-stat" style="background: #FFD9D3"><strong>{{ m.run_time_min | default: '[__]' }} min</strong><span class="pw-muted">per charge</span></div>
+        <div class="pw-stat" style="background: #DDF2EA"><strong>{{ m.ip_rating | default: '[IPX_]' }}</strong><span class="pw-muted">water rating</span></div>
+      </div>
+    </div>
+    <div class="pw-specs__col">
+      <h2 class="pw-h" style="font-size: clamp(26px, 3vw, 32px); margin-bottom: 6px">Specs</h2>
+      <dl class="pw-spec-table">
+        <div><dt>Material</dt><dd>{{ m.material | default: '[Body-safe silicone, grade]' }}</dd></div>
+        <div><dt>Dimensions</dt><dd>{{ m.dimensions | default: '[__ x __ x __ mm]' }}</dd></div>
+        <div><dt>Charging</dt><dd>{{ m.charging | default: 'USB-C' }}</dd></div>
+        <div><dt>Modes</dt><dd>{{ m.modes | default: '[__] intensities, [__] patterns' }}</dd></div>
+        <div><dt>In the box</dt><dd>{{ m.in_the_box | default: 'Toy, USB-C cable, storage pouch, guide' }}</dd></div>
+      </dl>
+      <details class="pw-acc"><summary>How to clean it</summary><div class="pw-muted pw-rte">{%- if m.cleaning != blank -%}{{ m.cleaning | metafield_tag }}{%- else -%}{{ section.settings.cleaning }}{%- endif -%}</div></details>
+      <details class="pw-acc"><summary>Shipping &amp; returns</summary><div class="pw-muted pw-rte">{{ section.settings.shipping }}</div></details>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PW Product specs",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "why_heading", "label": "Heading", "default": "Why we made it" },
+    { "type": "richtext", "id": "why_text", "label": "Fallback text", "default": "<p>We read the negative reviews of the bestsellers in this category, found the top complaints, and fixed them.</p>", "info": "Used when the product has no custom.why_we_made_it metafield." },
+    { "type": "richtext", "id": "cleaning", "label": "Cleaning fallback", "default": "<p>Wash with warm water and toy cleaner before and after use. Dry fully before storing in the pouch.</p>" },
+    { "type": "richtext", "id": "shipping", "label": "Shipping & returns", "default": "<p>Ships in a plain box from Australia. Free standard shipping over $69. [Returns policy for hygiene products].</p>" }
+  ],
+  "presets": [{ "name": "PW Product specs" }]
+}
+{% endschema %}

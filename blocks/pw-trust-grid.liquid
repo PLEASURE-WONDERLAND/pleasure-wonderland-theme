@@ -1,0 +1,25 @@
+<div class="pw-trustgrid" {{ block.shopify_attributes }}>
+  {%- for i in (1..4) -%}
+    {%- capture t %}title_{{ i }}{% endcapture -%}
+    {%- capture x %}text_{{ i }}{% endcapture -%}
+    {%- if block.settings[t] != blank -%}
+      <div class="pw-trustgrid__item"><strong>{{ block.settings[t] }}</strong><span class="pw-muted">{{ block.settings[x] }}</span></div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "PW Trust grid",
+  "settings": [
+    { "type": "text", "id": "title_1", "label": "Title 1", "default": "Plain-box delivery" },
+    { "type": "text", "id": "text_1", "label": "Text 1", "default": "Discreet billing name" },
+    { "type": "text", "id": "title_2", "label": "Title 2", "default": "Dispatched today" },
+    { "type": "text", "id": "text_2", "label": "Text 2", "default": "Order by [cut-off]" },
+    { "type": "text", "id": "title_3", "label": "Title 3", "default": "[Warranty] warranty" },
+    { "type": "text", "id": "text_3", "label": "Text 3", "default": "Hassle-free claims" },
+    { "type": "text", "id": "title_4", "label": "Title 4", "default": "Free shipping over $69" },
+    { "type": "text", "id": "text_4", "label": "Text 4", "default": "Australia-wide" }
+  ]
+}
+{% endschema %}

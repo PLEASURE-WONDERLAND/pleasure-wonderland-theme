@@ -1,0 +1,101 @@
+{%- liquid
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+  assign a1 = block.settings.addon_1
+  assign a2 = block.settings.addon_2
+  assign base = variant.price
+  assign t2_full = base
+  if a1 != blank
+    assign t2_full = t2_full | plus: a1.selected_or_first_available_variant.price
+  endif
+  assign t3_full = t2_full
+  if a2 != blank
+    assign t3_full = t3_full | plus: a2.selected_or_first_available_variant.price
+  endif
+  assign t2_save = t2_full | times: block.settings.tier2_percent | divided_by: 100
+  assign t3_save = t3_full | times: block.settings.tier3_percent | divided_by: 100
+  assign t2_price = t2_full | minus: t2_save
+  assign t3_price = t3_full | minus: t3_save
+-%}
+{%- if product != blank and a1 != blank -%}
+<pw-bundle-tiers class="pw-tiers" data-variant-source {{ block.shopify_attributes }}>
+  <div class="pw-tiers__label">{{ block.settings.heading }}</div>
+  <div class="pw-tiers__options" role="radiogroup" aria-label="{{ block.settings.heading | escape }}">
+    <label class="pw-tier">
+      <input type="radio" name="pw-tier-{{ block.id }}" value="1" checked>
+      <span class="pw-tier__radio" aria-hidden="true"></span>
+      <span class="pw-tier__text"><strong>{{ block.settings.tier1_label }}</strong><span class="pw-muted">{{ product.title }}</span></span>
+      <span class="pw-tier__price"><strong>{{ base | money }}</strong></span>
+    </label>
+    <label class="pw-tier">
+      <input type="radio" name="pw-tier-{{ block.id }}" value="2" data-items="{{ a1.selected_or_first_available_variant.id }}">
+      <span class="pw-tier__radio" aria-hidden="true"></span>
+      <span class="pw-tier__text"><strong>{{ block.settings.tier2_label }}</strong><span class="pw-muted">+ {{ a1.title }}</span></span>
+      <span class="pw-tier__price"><strong>{{ t2_price | money }}</strong>{%- if t2_save > 0 -%}<span class="pw-tier__save">Save {{ t2_save | money }}</span>{%- endif -%}</span>
+    </label>
+    {%- if a2 != blank -%}
+      <label class="pw-tier">
+        <input type="radio" name="pw-tier-{{ block.id }}" value="3" data-items="{{ a1.selected_or_first_available_variant.id }},{{ a2.selected_or_first_available_variant.id }}">
+        <span class="pw-tier__radio" aria-hidden="true"></span>
+        <span class="pw-tier__text"><strong>{{ block.settings.tier3_label }}{% if block.settings.badge != blank %} <span class="pw-pill pw-pill--coral" style="padding: 3px 9px; font-size: 11px">{{ block.settings.badge }}</span>{% endif %}</strong><span class="pw-muted">+ {{ a1.title }} + {{ a2.title }}</span></span>
+        <span class="pw-tier__price"><strong>{{ t3_price | money }}</strong>{%- if t3_save > 0 -%}<span class="pw-tier__save">Save {{ t3_save | money }}</span>{%- endif -%}</span>
+      </label>
+    {%- endif -%}
+  </div>
+  <button type="button" class="pw-btn pw-btn--dark pw-tiers__add" hidden>Add bundle to cart</button>
+  <p class="pw-tiers__msg" role="status" hidden></p>
+</pw-bundle-tiers>
+
+<script>
+  if (!customElements.get('pw-bundle-tiers')) {
+    customElements.define('pw-bundle-tiers', class extends HTMLElement {
+      connectedCallback() {
+        this.btn = this.querySelector('.pw-tiers__add');
+        this.msg = this.querySelector('.pw-tiers__msg');
+        this.querySelectorAll('input[type="radio"]').forEach((r) => r.addEventListener('change', () => {
+          this.btn.hidden = r.value === '1';
+        }));
+        this.btn.addEventListener('click', () => this.add());
+      }
+      mainVariantId() {
+        const scope = this.closest('.product-information, product-information, main, body');
+        const input = scope.querySelector('form[action*="/cart/add"] input[name="id"], product-form-component input[name="id"]');
+        return input ? input.value : null;
+      }
+      async add() {
+        const chosen = this.querySelector('input[type="radio"]:checked');
+        const ids = [this.mainVariantId(), ...(chosen.dataset.items || '').split(',')].filter(Boolean);
+        this.btn.disabled = true;
+        try {
+          const res = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ items: ids.map((id) => ({ id: Number(id), quantity: 1 })) })
+          });
+          if (!res.ok) throw new Error((await res.json()).description || 'Could not add to cart');
+          window.location.href = window.Shopify.routes.root + 'cart';
+        } catch (e) {
+          this.msg.hidden = false; this.msg.textContent = e.message; this.btn.disabled = false;
+        }
+      }
+    });
+  }
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PW Bundle & save",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Bundle & save" },
+    { "type": "product", "id": "addon_1", "label": "Add-on 1 (e.g. lube)" },
+    { "type": "product", "id": "addon_2", "label": "Add-on 2 (e.g. toy cleaner)" },
+    { "type": "text", "id": "tier1_label", "label": "Tier 1 label", "default": "Just the toy" },
+    { "type": "text", "id": "tier2_label", "label": "Tier 2 label", "default": "Toy + lube" },
+    { "type": "text", "id": "tier3_label", "label": "Tier 3 label", "default": "The Upgrade Kit" },
+    { "type": "text", "id": "badge", "label": "Tier 3 badge", "default": "Most popular" },
+    { "type": "range", "id": "tier2_percent", "label": "Tier 2 discount", "min": 0, "max": 30, "step": 1, "unit": "%", "default": 5, "info": "Display only. Create a matching automatic discount in Shopify so checkout applies it." },
+    { "type": "range", "id": "tier3_percent", "label": "Tier 3 discount", "min": 0, "max": 30, "step": 1, "unit": "%", "default": 10, "info": "Display only. Create a matching automatic discount in Shopify so checkout applies it." }
+  ]
+}
+{% endschema %}

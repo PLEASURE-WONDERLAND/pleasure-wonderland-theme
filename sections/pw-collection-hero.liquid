@@ -1,0 +1,43 @@
+{%- assign c = collection -%}
+<section class="pw-section" style="--pw-pad-top: 28px; --pw-pad-bottom: 8px">
+  <div class="pw-wrap">
+    <nav aria-label="Breadcrumb" class="pw-muted" style="font-size: 13px; margin-bottom: 18px"><a href="{{ routes.root_url }}" style="color: inherit">Home</a> / {{ c.title }}</nav>
+    <div class="pw-colhero">
+      <div style="max-width: 640px">
+        <h1 class="pw-h" style="font-size: clamp(40px, 5vw, 56px); margin-bottom: 10px">{{ c.title }}</h1>
+        {%- if c.description != blank -%}<div class="pw-muted pw-rte">{{ c.description }}</div>{%- endif -%}
+      </div>
+      {%- if section.settings.guide_label != blank and section.settings.guide_link != blank -%}
+        <a href="{{ section.settings.guide_link }}" class="pw-colhero__guide"><span>{{ section.settings.guide_label }}</span><span aria-hidden="true">→</span></a>
+      {%- endif -%}
+    </div>
+    {%- if section.blocks.size > 0 -%}
+      <div class="pw-colhero__chips">
+        <a href="{{ c.url }}" class="pw-chip{% if current_tags == blank %} is-active{% endif %}">All {{ c.products_count }}</a>
+        {%- for block in section.blocks -%}
+          {%- assign tag = block.settings.tag | handleize -%}
+          <a href="{{ c.url }}/{{ tag }}" class="pw-chip{% if current_tags contains tag %} is-active{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PW Collection header",
+  "enabled_on": { "templates": ["collection"] },
+  "settings": [
+    { "type": "text", "id": "guide_label", "label": "Guide link label", "default": "Compare toys side by side" },
+    { "type": "url", "id": "guide_link", "label": "Guide link" }
+  ],
+  "blocks": [{
+    "type": "chip", "name": "Quick filter",
+    "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "Air-pulse" },
+      { "type": "text", "id": "tag", "label": "Product tag", "default": "air-pulse", "info": "Shows products in this collection with this tag." }
+    ]
+  }],
+  "presets": [{ "name": "PW Collection header" }]
+}
+{% endschema %}
