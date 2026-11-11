@@ -21,16 +21,18 @@
   assign t3_price = t3_full | minus: t3_save
   assign default_tier = '1'
   assign bundle_tags = block.settings.default_tags | downcase | split: ','
+  assign tag_str = product.tags | join: ',' | downcase | prepend: ',' | append: ','
   for t in bundle_tags
     assign tt = t | strip
-    if tt != blank and product.tags contains tt
+    assign tkey = ',' | append: tt | append: ','
+    if tt != blank and tag_str contains tkey
       assign default_tier = '2'
       break
     endif
   endfor
 -%}
 {%- if product != blank and a1 != blank -%}
-<pw-bundle-tiers class="pw-tiers" data-variant-source {{ block.shopify_attributes }}>
+<pw-bundle-tiers class="pw-tiers" data-default="{{ default_tier }}" data-variant-source {{ block.shopify_attributes }}>
   <div class="pw-tiers__label">{{ block.settings.heading }}</div>
   <div class="pw-tiers__options" role="radiogroup" aria-label="{{ block.settings.heading | escape }}">
     <label class="pw-tier">
@@ -61,6 +63,8 @@
   if (!customElements.get('pw-bundle-tiers')) {
     customElements.define('pw-bundle-tiers', class extends HTMLElement {
       connectedCallback() {
+        const def = this.querySelector('input[type="radio"][value="' + (this.dataset.default || '1') + '"]');
+        if (def) def.checked = true;
         this.msg = this.querySelector('.pw-tiers__msg');
         this.scope = this.closest('.product-information, product-information, main') || document;
         this.onSubmit = (e) => {
