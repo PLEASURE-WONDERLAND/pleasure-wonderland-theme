@@ -42,9 +42,33 @@
           {%- elsif value.swatch.image -%}
             {%- capture swatch_bg -%}url({{ value.swatch.image | image_url: width: 32 }}) center / cover{%- endcapture -%}
           {%- else -%}
-            {%- assign swatch_bg = value | handleize | split: '-' | last -%}
+            {%- liquid
+              assign vkey = value | handleize
+              case vkey
+                when 'rose-gold'
+                  assign swatch_bg = '#E3B7A0'
+                when 'violet', 'purple', 'lilac'
+                  assign swatch_bg = '#8E6CC9'
+                when 'blue', 'navy'
+                  assign swatch_bg = '#4A7FC1'
+                when 'pink', 'rose'
+                  assign swatch_bg = '#F2A7BE'
+                when 'red', 'wine-red', 'berry'
+                  assign swatch_bg = '#9E2B3E'
+                when 'black'
+                  assign swatch_bg = '#1D1530'
+                when 'white'
+                  assign swatch_bg = '#FFFFFF'
+                when 'mint', 'green'
+                  assign swatch_bg = '#9ED9C0'
+                when 'gold'
+                  assign swatch_bg = '#D4AF6A'
+                else
+                  assign swatch_bg = vkey | split: '-' | last
+              endcase
+            -%}
           {%- endif -%}
-          <span class="pw-dot" style="background: {{ swatch_bg }}" title="{{ value | escape }}"></span>
+          <span class="pw-dot" style="background: {{ swatch_bg }}; box-shadow: inset 0 0 0 1px rgba(29,21,48,.15)" title="{{ value | escape }}"></span>
         {%- endfor -%}
         <span class="pw-muted" style="font-size: 13px; margin-left: 2px">
           {{- colour_option.values.size }} {% if colour_option.values.size == 1 %}colour{% else %}colours{% endif -%}
