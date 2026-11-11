@@ -314,3 +314,22 @@ a.pw-chip { text-decoration: none; }
 .pw-dispatch__dot { width: 10px; height: 10px; border-radius: 50%; background: #1F9D6B; box-shadow: 0 0 0 0 rgba(31, 157, 107, .5); animation: pw-pulse 2s infinite; flex: 0 0 auto; }
 @keyframes pw-pulse { 0% { box-shadow: 0 0 0 0 rgba(31, 157, 107, .5); } 70% { box-shadow: 0 0 0 8px rgba(31, 157, 107, 0); } 100% { box-shadow: 0 0 0 0 rgba(31, 157, 107, 0); } }
 @media (prefers-reduced-motion: reduce) { .pw-dispatch__dot { animation: none; } }
+
+/* Colour variant pills tinted with their own colour */
+.variant-option__button-label.pw-colour-pill {
+  background: color-mix(in srgb, var(--pw-swatch) 18%, #fff);
+  border-color: color-mix(in srgb, var(--pw-swatch) 45%, #fff);
+  color: var(--pw-ink, #1D1530);
+  padding-inline-start: 34px;
+  position: relative;
+}
+.variant-option__button-label.pw-colour-pill::before {
+  content: ""; position: absolute; left: 12px; top: 50%; width: 14px; height: 14px; margin-top: -7px;
+  border-radius: 50%; background: var(--pw-swatch); box-shadow: inset 0 0 0 1px rgba(29, 21, 48, .15); z-index: 1;
+}
+.variant-option__button-label.pw-colour-pill:has(input:checked) {
+  background: color-mix(in srgb, var(--pw-swatch) 40%, #fff);
+  border-color: var(--pw-ink, #1D1530);
+  color: var(--pw-ink, #1D1530);
+}
+.variant-option__button-label.pw-colour-pill:has(input:checked) .variant-option__button-label__pill { opacity: 0; }

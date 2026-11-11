@@ -19,19 +19,28 @@
   assign t3_save = addons3 | times: pct | divided_by: 100
   assign t2_price = t2_full | minus: t2_save
   assign t3_price = t3_full | minus: t3_save
+  assign default_tier = '1'
+  assign bundle_tags = block.settings.default_tags | downcase | split: ','
+  for t in bundle_tags
+    assign tt = t | strip
+    if tt != blank and product.tags contains tt
+      assign default_tier = '2'
+      break
+    endif
+  endfor
 -%}
 {%- if product != blank and a1 != blank -%}
 <pw-bundle-tiers class="pw-tiers" data-variant-source {{ block.shopify_attributes }}>
   <div class="pw-tiers__label">{{ block.settings.heading }}</div>
   <div class="pw-tiers__options" role="radiogroup" aria-label="{{ block.settings.heading | escape }}">
     <label class="pw-tier">
-      <input type="radio" name="pw-tier-{{ block.id }}" value="1" checked>
+      <input type="radio" name="pw-tier-{{ block.id }}" value="1"{% if default_tier == "1" %} checked{% endif %}>
       <span class="pw-tier__radio" aria-hidden="true"></span>
       <span class="pw-tier__text"><strong>{{ block.settings.tier1_label }}</strong><span class="pw-muted">{{ product.title }}</span></span>
       <span class="pw-tier__price"><strong>{{ base | money }}</strong></span>
     </label>
     <label class="pw-tier">
-      <input type="radio" name="pw-tier-{{ block.id }}" value="2" data-items="{{ a1.selected_or_first_available_variant.id }}">
+      <input type="radio" name="pw-tier-{{ block.id }}" value="2"{% if default_tier == "2" %} checked{% endif %} data-items="{{ a1.selected_or_first_available_variant.id }}">
       <span class="pw-tier__radio" aria-hidden="true"></span>
       <span class="pw-tier__text"><strong>{{ block.settings.tier2_label }}</strong><span class="pw-muted">+ {{ a1.title }}</span></span>
       <span class="pw-tier__price"><strong>{{ t2_price | money }}</strong>{%- if t2_save > 0 -%}<span class="pw-tier__save">Save {{ t2_save | money }}</span>{%- endif -%}</span>
@@ -45,7 +54,6 @@
       </label>
     {%- endif -%}
   </div>
-  <button type="button" class="pw-btn pw-btn--dark pw-tiers__add" hidden>Add bundle to cart</button>
   <p class="pw-tiers__msg" role="status" hidden></p>
 </pw-bundle-tiers>
 
@@ -53,28 +61,38 @@
   if (!customElements.get('pw-bundle-tiers')) {
     customElements.define('pw-bundle-tiers', class extends HTMLElement {
       connectedCallback() {
-        this.btn = this.querySelector('.pw-tiers__add');
         this.msg = this.querySelector('.pw-tiers__msg');
-        this.querySelectorAll('input[type="radio"]').forEach((r) => r.addEventListener('change', () => {
-          this.btn.hidden = r.value === '1';
-        }));
-        this.btn.addEventListener('click', () => this.add());
+        this.scope = this.closest('.product-information, product-information, main') || document;
+        this.onSubmit = (e) => {
+          const form = e.target;
+          if (!(form instanceof HTMLFormElement) || !this.scope.contains(form) || !form.closest('product-form-component')) return;
+          const chosen = this.querySelector('input[type="radio"]:checked');
+          if (!chosen || chosen.value === '1') return;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          this.add(form);
+        };
+        document.addEventListener('submit', this.onSubmit, true);
       }
+      disconnectedCallback() { document.removeEventListener('submit', this.onSubmit, true); }
       mainVariantId() {
         const scope = this.closest('.product-information, product-information, main, body');
         const input = scope.querySelector('form[action*="/cart/add"] input[name="id"], product-form-component input[name="id"]');
         return input ? input.value : null;
       }
-      async add() {
+      async add(form) {
         const chosen = this.querySelector('input[type="radio"]:checked');
-        const ids = [this.mainVariantId(), ...(chosen.dataset.items || '').split(',')].filter(Boolean);
-        this.btn.disabled = true;
+        const main = (form && form.querySelector('input[name="id"]')) ? form.querySelector('input[name="id"]').value : this.mainVariantId();
+        const qty = form && form.querySelector('input[name="quantity"]') ? Number(form.querySelector('input[name="quantity"]').value) || 1 : 1;
+        const btn = form && form.querySelector('button[type="submit"]');
+        if (btn) btn.disabled = true;
         try {
-          await window.pwAddToCart(ids.map((id) => ({ id })), this);
-          this.btn.disabled = false;
+          await window.pwAddToCart([{ id: main, quantity: qty }, ...(chosen.dataset.items || '').split(',').filter(Boolean).map((id) => ({ id }))], this);
+          this.msg.hidden = true;
         } catch (e) {
-          this.msg.hidden = false; this.msg.textContent = e.message; this.btn.disabled = false;
+          this.msg.hidden = false; this.msg.textContent = e.message;
         }
+        if (btn) btn.disabled = false;
       }
     });
   }
@@ -88,6 +106,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Bundle & save" },
     { "type": "product", "id": "addon_1", "label": "Add-on 1 (e.g. lube)" },
     { "type": "product", "id": "addon_2", "label": "Add-on 2 (e.g. toy cleaner)" },
+    { "type": "text", "id": "default_tags", "label": "Pre-select toy + lube for these tags", "default": "vibrator,air-pulse,suction,wand,bullet,g-spot,rabbit,couples-vibrator", "info": "Comma separated product tags. Other products start on Just the toy." },
     { "type": "text", "id": "tier1_label", "label": "Tier 1 label", "default": "Just the toy" },
     { "type": "text", "id": "tier2_label", "label": "Tier 2 label", "default": "Toy + lube" },
     { "type": "text", "id": "tier3_label", "label": "Tier 3 label", "default": "The Upgrade Kit" },
