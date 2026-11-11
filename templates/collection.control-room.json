@@ -1,0 +1,285 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "pw_head": {
+      "type": "pw-collection-hero",
+      "blocks": {
+        "chip_0": {
+          "type": "chip",
+          "settings": {
+            "label": "The Tease",
+            "tag": "tease"
+          }
+        },
+        "chip_1": {
+          "type": "chip",
+          "settings": {
+            "label": "The Restraint",
+            "tag": "restraint"
+          }
+        },
+        "chip_2": {
+          "type": "chip",
+          "settings": {
+            "label": "The Impact",
+            "tag": "impact"
+          }
+        },
+        "chip_3": {
+          "type": "chip",
+          "settings": {
+            "label": "The Control",
+            "tag": "control"
+          }
+        },
+        "chip_4": {
+          "type": "chip",
+          "settings": {
+            "label": "Beginner kits",
+            "tag": "beginner"
+          }
+        }
+      },
+      "block_order": [
+        "chip_0",
+        "chip_1",
+        "chip_2",
+        "chip_3",
+        "chip_4"
+      ],
+      "settings": {
+        "guide_label": "New to this? Start with a beginner kit",
+        "guide_link": "shopify://collections/the-control-room"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "filters": {
+          "type": "filters",
+          "static": true,
+          "settings": {
+            "enable_filtering": true,
+            "filter_style": "horizontal",
+            "filter_width": "centered",
+            "text_label_case": "default",
+            "show_swatch_label": false,
+            "show_filter_label": false,
+            "enable_sorting": true,
+            "enable_grid_density": true,
+            "padding-block-start": 8,
+            "padding-block-end": 8,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "facets_margin_bottom": 8,
+            "facets_margin_right": 20
+          },
+          "blocks": {}
+        },
+        "product-card": {
+          "type": "_product-card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "card-gallery": {
+              "type": "_product-card-gallery",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_4nY4eT": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_EzJzMm": {
+              "type": "price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "swatches": {
+              "type": "swatches",
+              "name": "t:names.swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              }
+            }
+          },
+          "block_order": [
+            "card-gallery",
+            "product_title_4nY4eT",
+            "price_EzJzMm",
+            "swatches"
+          ]
+        }
+      },
+      "settings": {
+        "layout_type": "grid",
+        "product_card_size": "medium",
+        "mobile_product_card_size": "small",
+        "product_grid_width": "centered",
+        "full_width_on_mobile": true,
+        "columns_gap_horizontal": 16,
+        "columns_gap_vertical": 24,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 32
+      }
+    },
+    "pw_addons": {
+      "type": "pw-addon-row",
+      "settings": {
+        "collection": "lube-essentials"
+      }
+    },
+    "pw_bundle": {
+      "type": "pw-bundle-banner",
+      "blocks": {
+        "line_1": {
+          "type": "line",
+          "settings": {
+            "item": "Satin blindfold",
+            "value": "The Tease"
+          }
+        },
+        "line_2": {
+          "type": "line",
+          "settings": {
+            "item": "Feather tickler",
+            "value": "The Tease"
+          }
+        },
+        "line_3": {
+          "type": "line",
+          "settings": {
+            "item": "Padded cuffs, quick-release",
+            "value": "The Restraint"
+          }
+        }
+      },
+      "block_order": [
+        "line_1",
+        "line_2",
+        "line_3"
+      ],
+      "settings": {
+        "heading": "First time in The Control Room?",
+        "link": "shopify://collections/the-control-room",
+        "pad_top": 24,
+        "pill": "Beginner kit",
+        "text": "A soft blindfold, a feather tickler and padded cuffs with quick-release clips. Everything to start, in one plain box.",
+        "price": "$[__]",
+        "was": "",
+        "button": "Shop beginner kits"
+      }
+    },
+    "pw_faq": {
+      "type": "pw-faq",
+      "blocks": {
+        "qa_1": {
+          "type": "qa",
+          "settings": {
+            "question": "I'm new to this. Where do I start?",
+            "answer": "<p>Start with The Tease (blindfolds and ticklers) or a beginner kit. Everything is soft, adjustable and easy to take off.</p>"
+          }
+        },
+        "qa_2": {
+          "type": "qa",
+          "settings": {
+            "question": "Are the cuffs safe?",
+            "answer": "<p>Our cuffs are padded and use quick-release clips, so they come off in a second. Agree on a safe word before you start and never leave anyone restrained alone.</p>"
+          }
+        },
+        "qa_3": {
+          "type": "qa",
+          "settings": {
+            "question": "How discreet is delivery?",
+            "answer": "<p>Plain box, neutral sender name, discreet billing name. Order by 2pm for same-day dispatch.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_1",
+        "qa_2",
+        "qa_3"
+      ],
+      "settings": {
+        "heading": "Questions"
+      }
+    }
+  },
+  "order": [
+    "pw_head",
+    "main",
+    "pw_addons",
+    "pw_bundle",
+    "pw_faq"
+  ]
+}

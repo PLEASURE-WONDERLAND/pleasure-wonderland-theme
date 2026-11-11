@@ -90,8 +90,8 @@
           "type": "option",
           "settings": {
             "label": "Something adventurous",
-            "collection": "the-control-room",
-            "tint": "#DDD8E6"
+            "tint": "#DDD8E6",
+            "collection": "the-control-room"
           }
         },
         "option_5": {
@@ -148,11 +148,11 @@
         "tile_4": {
           "type": "tile",
           "settings": {
-            "title": "The Other Side",
-            "text": "Tease, restraint, impact",
-            "link": "shopify://collections/the-control-room",
+            "title": "The Control Room",
+            "text": "Tease, restrain, play",
             "bg": "#1D1530",
-            "fg": "#FFFFFF"
+            "fg": "#FFFFFF",
+            "link": "shopify://collections/the-control-room"
           }
         },
         "tile_5": {
@@ -449,6 +449,9 @@
     },
     "pw_warranty": {
       "type": "pw-warranty",
+      "settings": {
+        "legal": ""
+      },
       "blocks": {
         "point_1": {
           "type": "point",
