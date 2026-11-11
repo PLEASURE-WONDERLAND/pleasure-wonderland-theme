@@ -1,6 +1,9 @@
 {%- liquid
-  assign product = closest.product
-  assign variant = product.selected_or_first_available_variant
+  assign main_p = product
+  if main_p == blank
+    assign main_p = closest.product
+  endif
+  assign variant = main_p.selected_or_first_available_variant
   assign a1 = block.settings.addon_1
   assign a2 = block.settings.addon_2
   assign base = variant.price
@@ -21,7 +24,7 @@
   assign t3_price = t3_full | minus: t3_save
   assign default_tier = '1'
   assign bundle_tags = block.settings.default_tags | downcase | split: ','
-  assign tag_str = product.tags | join: ',' | downcase | prepend: ',' | append: ','
+  assign tag_str = main_p.tags | join: ',' | downcase | prepend: ',' | append: ','
   for t in bundle_tags
     assign tt = t | strip
     assign tkey = ',' | append: tt | append: ','
@@ -31,14 +34,14 @@
     endif
   endfor
 -%}
-{%- if product != blank and a1 != blank -%}
+{%- if main_p != blank and a1 != blank -%}
 <pw-bundle-tiers class="pw-tiers" data-default="{{ default_tier }}" data-variant-source {{ block.shopify_attributes }}>
   <div class="pw-tiers__label">{{ block.settings.heading }}</div>
   <div class="pw-tiers__options" role="radiogroup" aria-label="{{ block.settings.heading | escape }}">
     <label class="pw-tier">
       <input type="radio" name="pw-tier-{{ block.id }}" value="1"{% if default_tier == "1" %} checked{% endif %}>
       <span class="pw-tier__radio" aria-hidden="true"></span>
-      <span class="pw-tier__text"><strong>{{ block.settings.tier1_label }}</strong><span class="pw-muted">{{ product.title }}</span></span>
+      <span class="pw-tier__text"><strong>{{ block.settings.tier1_label }}</strong><span class="pw-muted">{{ main_p.title }}</span></span>
       <span class="pw-tier__price"><strong>{{ base | money }}</strong></span>
     </label>
     <label class="pw-tier">
