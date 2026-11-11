@@ -9,274 +9,251 @@
  */
 {
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "pw_hero": {
+      "type": "pw-hero",
+      "settings": {}
+    },
+    "pw_trust": {
+      "type": "pw-trust-bar",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "item_1": {
+          "type": "item",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.background }}",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "icon": "box",
+            "title": "Plain-box delivery",
+            "text": "No logos, no clues"
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "item_2": {
+          "type": "item",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0, 0, 0, 0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "icon": "fast",
+            "title": "Fast Aussie dispatch",
+            "text": "Order by [cut-off] for same-day"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "battery",
+            "title": "USB-C rechargeable",
+            "text": "Across our own range"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "[Warranty] warranty",
+            "text": "Discreet billing name"
+          }
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
       ],
-      "name": "t:names.hero",
-      "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
-      }
+      "settings": {}
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "pw_finder": {
+      "type": "pw-finder",
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
+        "option_1": {
+          "type": "option",
           "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "button-unstyled",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
+            "label": "Something for me",
+            "tint": "#E9E1FF"
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "option_2": {
+          "type": "option",
           "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
+            "label": "Something for him",
+            "tint": "#DCE8FF"
+          }
+        },
+        "option_3": {
+          "type": "option",
+          "settings": {
+            "label": "Something for us",
+            "tint": "#FFD9D3"
+          }
+        },
+        "option_4": {
+          "type": "option",
+          "settings": {
+            "label": "Something adventurous",
+            "tint": "#DDD8E6"
+          }
+        },
+        "option_5": {
+          "type": "option",
+          "settings": {
+            "label": "Just browsing",
+            "tint": "#DDF2EA"
+          }
         }
       },
-      "name": "t:names.featured_collection",
+      "block_order": [
+        "option_1",
+        "option_2",
+        "option_3",
+        "option_4",
+        "option_5"
+      ],
+      "settings": {}
+    },
+    "pw_vibes": {
+      "type": "pw-vibes",
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "title": "For Her",
+            "text": "Air-pulse, bullets, wands",
+            "bg": "#E9E1FF",
+            "fg": "#1D1530"
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "title": "For Him",
+            "text": "Strokers, sleeves, rings",
+            "bg": "#DCE8FF",
+            "fg": "#1D1530"
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "title": "For Couples",
+            "text": "Remote and app play",
+            "bg": "#FFD9D3",
+            "fg": "#1D1530"
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "title": "The Other Side",
+            "text": "Tease, restraint, impact",
+            "bg": "#1D1530",
+            "fg": "#FFFFFF"
+          }
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "title": "Lube & Care",
+            "text": "The essentials",
+            "bg": "#DDF2EA",
+            "fg": "#1D1530"
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5"
+      ],
+      "settings": {}
+    },
+    "pw_bundle": {
+      "type": "pw-bundle-banner",
+      "blocks": {
+        "line_1": {
+          "type": "line",
+          "settings": {
+            "item": "Mini rechargeable vibrator",
+            "value": "$49.95"
+          }
+        },
+        "line_2": {
+          "type": "line",
+          "settings": {
+            "item": "Water-based lube 50ml",
+            "value": "$14.95"
+          }
+        },
+        "line_3": {
+          "type": "line",
+          "settings": {
+            "item": "Satin blindfold or toy cleaner",
+            "value": "$12.95"
+          }
+        }
+      },
+      "block_order": [
+        "line_1",
+        "line_2",
+        "line_3"
+      ],
+      "settings": {}
+    },
+    "pw_best": {
+      "type": "pw-product-grid",
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "heading": "Bestsellers"
       }
+    },
+    "pw_usp": {
+      "type": "pw-usp",
+      "blocks": {
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "title": "Quieter motors",
+            "text": "Tested at [__ dB] on max setting. Fine for thin walls."
+          }
+        },
+        "point_2": {
+          "type": "point",
+          "settings": {
+            "title": "USB-C, always",
+            "text": "One cable for your phone and your toys. [__] min per charge."
+          }
+        },
+        "point_3": {
+          "type": "point",
+          "settings": {
+            "title": "Shower-proof",
+            "text": "[IPX rating] tested. Rinse clean in seconds."
+          }
+        },
+        "point_4": {
+          "type": "point",
+          "settings": {
+            "title": "Storage pouch included",
+            "text": "Keeps it clean, keeps it private."
+          }
+        }
+      },
+      "block_order": [
+        "point_1",
+        "point_2",
+        "point_3",
+        "point_4"
+      ],
+      "settings": {}
+    },
+    "pw_news": {
+      "type": "pw-newsletter",
+      "settings": {}
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "pw_hero",
+    "pw_trust",
+    "pw_finder",
+    "pw_vibes",
+    "pw_bundle",
+    "pw_best",
+    "pw_usp",
+    "pw_news"
   ]
 }

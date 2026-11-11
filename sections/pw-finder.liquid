@@ -1,0 +1,87 @@
+<section id="pw-finder" class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
+  <div class="pw-wrap">
+    <div class="pw-finder__head">
+      <div class="pw-eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="pw-h">{{ section.settings.heading }}</h2>
+    </div>
+    <pw-finder>
+      <div class="pw-finder__tabs" role="tablist" aria-label="{{ section.settings.eyebrow | escape }}">
+        {%- for block in section.blocks -%}
+          <button type="button" class="pw-chip" role="tab" id="pw-tab-{{ block.id }}" aria-controls="pw-panel-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</button>
+        {%- endfor -%}
+      </div>
+      {%- for block in section.blocks -%}
+        <div class="pw-finder__panel pw-grid" role="tabpanel" id="pw-panel-{{ block.id }}" aria-labelledby="pw-tab-{{ block.id }}" {% unless forloop.first %}hidden{% endunless %}>
+          {%- if block.settings.collection != blank and block.settings.collection.products_count > 0 -%}
+            {%- for product in block.settings.collection.products limit: section.settings.limit -%}
+              {%- render 'pw-product-card', product: product, tint: block.settings.tint -%}
+            {%- endfor -%}
+          {%- else -%}
+            <p class="pw-muted" style="grid-column: 1 / -1; text-align: center">Pick a collection for "{{ block.settings.label }}" in the theme editor.</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </pw-finder>
+  </div>
+</section>
+
+<script>
+  if (!customElements.get('pw-finder')) {
+    customElements.define('pw-finder', class extends HTMLElement {
+      connectedCallback() {
+        this.tabs = [...this.querySelectorAll('[role="tab"]')];
+        this.tabs.forEach((tab, i) => {
+          tab.addEventListener('click', () => this.select(i));
+          tab.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') { e.preventDefault(); this.select((i + 1) % this.tabs.length, true); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); this.select((i - 1 + this.tabs.length) % this.tabs.length, true); }
+          });
+        });
+      }
+      select(index, focus) {
+        this.tabs.forEach((tab, i) => {
+          const on = i === index;
+          tab.setAttribute('aria-selected', on);
+          tab.tabIndex = on ? 0 : -1;
+          document.getElementById(tab.getAttribute('aria-controls')).hidden = !on;
+          if (on && focus) tab.focus();
+        });
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "PW Pleasure Finder",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Pleasure Finder" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What are you looking for?" },
+    { "type": "range", "id": "limit", "label": "Products per option", "min": 2, "max": 8, "step": 1, "default": 3 },
+    { "type": "range", "id": "pad_top", "label": "Top padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 88 },
+    { "type": "range", "id": "pad_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "option",
+      "name": "Option",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Something for me" },
+        { "type": "collection", "id": "collection", "label": "Collection to show" },
+        { "type": "color", "id": "tint", "label": "Card tint", "default": "#E9E1FF" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "PW Pleasure Finder",
+    "blocks": [
+      { "type": "option", "settings": { "label": "Something for me", "tint": "#E9E1FF" } },
+      { "type": "option", "settings": { "label": "Something for him", "tint": "#DCE8FF" } },
+      { "type": "option", "settings": { "label": "Something for us", "tint": "#FFD9D3" } },
+      { "type": "option", "settings": { "label": "Something adventurous", "tint": "#DDD8E6" } },
+      { "type": "option", "settings": { "label": "Just browsing", "tint": "#DDF2EA" } }
+    ]
+  }]
+}
+{% endschema %}

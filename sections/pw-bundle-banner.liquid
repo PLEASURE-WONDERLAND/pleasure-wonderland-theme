@@ -1,0 +1,63 @@
+<section class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
+  <div class="pw-wrap">
+    <div class="pw-bundle">
+      <div class="pw-bundle__copy">
+        {%- if section.settings.pill != blank -%}<span class="pw-pill pw-pill--coral">{{ section.settings.pill }}</span>{%- endif -%}
+        <h2 class="pw-h">{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.text }}</p>
+        <ul class="pw-bundle__list">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}><span>{{ block.settings.item }}</span><span>{{ block.settings.value }}</span></li>
+          {%- endfor -%}
+        </ul>
+        <div class="pw-bundle__price">
+          <div><strong>{{ section.settings.price }}</strong>{%- if section.settings.was != blank -%}<s>{{ section.settings.was }}</s>{%- endif -%}</div>
+          <a href="{{ section.settings.link | default: '#' }}" class="pw-btn pw-btn--light">{{ section.settings.button }}</a>
+        </div>
+      </div>
+      <div class="pw-bundle__art">
+        {%- if section.settings.image -%}
+          {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy' }}
+        {%- else -%}
+          <div class="pw-shape" style="width: 70px; height: 190px; background: #FF7A6B"></div>
+          <div style="width: 90px; height: 150px; background: #E9E1FF; border-radius: 22px"></div>
+          <div style="width: 120px; height: 46px; background: #CFC6E6; border-radius: 12px"></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PW Bundle banner",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "pill", "label": "Pill", "default": "Save $7.90" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Curious Kit" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Everything for a first time, in one plain box. No guesswork, no second order for lube." },
+    { "type": "text", "id": "price", "label": "Bundle price", "default": "$69.95" },
+    { "type": "text", "id": "was", "label": "Was price", "default": "$77.85" },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Build your kit" },
+    { "type": "url", "id": "link", "label": "Button link" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "range", "id": "pad_top", "label": "Top padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 56 },
+    { "type": "range", "id": "pad_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 56 }
+  ],
+  "blocks": [{
+    "type": "line", "name": "Kit item",
+    "settings": [
+      { "type": "text", "id": "item", "label": "Item", "default": "Mini rechargeable vibrator" },
+      { "type": "text", "id": "value", "label": "Value", "default": "$49.95" }
+    ]
+  }],
+  "presets": [{
+    "name": "PW Bundle banner",
+    "blocks": [
+      { "type": "line", "settings": { "item": "Mini rechargeable vibrator", "value": "$49.95" } },
+      { "type": "line", "settings": { "item": "Water-based lube 50ml", "value": "$14.95" } },
+      { "type": "line", "settings": { "item": "Satin blindfold or toy cleaner", "value": "$12.95" } }
+    ]
+  }]
+}
+{% endschema %}

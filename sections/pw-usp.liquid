@@ -1,0 +1,40 @@
+<section class="pw-section pw-usp" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
+  <div class="pw-wrap">
+    <h2 class="pw-h" style="font-size: clamp(30px, 3.5vw, 40px); text-align: center; margin-bottom: 8px">{{ section.settings.heading }}</h2>
+    <p class="pw-muted" style="text-align: center; margin: 0 0 40px; font-size: 17px">{{ section.settings.text }}</p>
+    <div class="pw-usp__grid">
+      {%- for block in section.blocks -%}
+        <div class="pw-usp__item" {{ block.shopify_attributes }}><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PW Why ours",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Better than the generic stuff" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Every own-brand product is sampled, tested and improved before it ships." },
+    { "type": "range", "id": "pad_top", "label": "Top padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 80 },
+    { "type": "range", "id": "pad_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 80 }
+  ],
+  "blocks": [{
+    "type": "point", "name": "Point",
+    "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Quieter motors" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Tested at [__ dB] on max setting." }
+    ]
+  }],
+  "presets": [{
+    "name": "PW Why ours",
+    "blocks": [
+      { "type": "point", "settings": { "title": "Quieter motors", "text": "Tested at [__ dB] on max setting. Fine for thin walls." } },
+      { "type": "point", "settings": { "title": "USB-C, always", "text": "One cable for your phone and your toys. [__] min per charge." } },
+      { "type": "point", "settings": { "title": "Shower-proof", "text": "[IPX rating] tested. Rinse clean in seconds." } },
+      { "type": "point", "settings": { "title": "Storage pouch included", "text": "Keeps it clean, keeps it private." } }
+    ]
+  }]
+}
+{% endschema %}

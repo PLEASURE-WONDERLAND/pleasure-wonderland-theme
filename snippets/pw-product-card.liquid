@@ -1,0 +1,75 @@
+{% doc %}
+  Pleasure Wonderland product card.
+  @param {product} product - Product to show
+  @param {string} [badge] - Optional badge text
+  @param {string} [tint] - Optional background colour for the image area
+{% enddoc %}
+{%- liquid
+  assign tint = tint | default: '#E9E1FF'
+  assign badge_text = badge
+  if badge_text == blank and product.compare_at_price > product.price
+    assign saving = product.compare_at_price | minus: product.price | money_without_trailing_zeros
+    assign badge_text = 'Save ' | append: saving
+  endif
+  assign colour_option = null
+  for option in product.options_with_values
+    assign oname = option.name | downcase
+    if oname == 'colour' or oname == 'color'
+      assign colour_option = option
+    endif
+  endfor
+  assign first_variant = product.selected_or_first_available_variant
+-%}
+<div class="pw-card">
+  <a href="{{ product.url }}" class="pw-card__media" style="background: {{ tint }}" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title, widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw' }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'pw-placeholder' }}
+    {%- endif -%}
+    {%- if badge_text != blank -%}
+      <span class="pw-pill pw-pill--white pw-card__badge">{{ badge_text }}</span>
+    {%- endif -%}
+  </a>
+  <div class="pw-card__body">
+    <div class="pw-card__vendor">{{ product.vendor }}</div>
+    <a href="{{ product.url }}" class="pw-card__title">{{ product.title }}</a>
+    <div class="pw-card__swatches">
+      {%- if colour_option -%}
+        {%- for value in colour_option.values limit: 5 -%}
+          {%- if value.swatch.color -%}
+            {%- assign swatch_bg = value.swatch.color -%}
+          {%- elsif value.swatch.image -%}
+            {%- capture swatch_bg -%}url({{ value.swatch.image | image_url: width: 32 }}) center / cover{%- endcapture -%}
+          {%- else -%}
+            {%- assign swatch_bg = value | handleize | split: '-' | last -%}
+          {%- endif -%}
+          <span class="pw-dot" style="background: {{ swatch_bg }}" title="{{ value | escape }}"></span>
+        {%- endfor -%}
+        <span class="pw-muted" style="font-size: 13px; margin-left: 2px">
+          {{- colour_option.values.size }} {% if colour_option.values.size == 1 %}colour{% else %}colours{% endif -%}
+        </span>
+      {%- endif -%}
+    </div>
+    <div class="pw-card__foot">
+      <span class="pw-card__price">
+        {%- if product.price_varies -%}From {% endif -%}
+        {{- product.price | money -}}
+        {%- if product.compare_at_price > product.price -%}
+          <s class="pw-card__compare">{{ product.compare_at_price | money }}</s>
+        {%- endif -%}
+      </span>
+      {%- if product.has_only_default_variant and first_variant.available -%}
+        <form method="post" action="{{ routes.cart_add_url }}">
+          <input type="hidden" name="id" value="{{ first_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="pw-quickadd">Quick add</button>
+        </form>
+      {%- elsif product.available -%}
+        <a href="{{ product.url }}" class="pw-quickadd" style="display: inline-flex; align-items: center; text-decoration: none">Choose</a>
+      {%- else -%}
+        <button type="button" class="pw-quickadd" disabled>Sold out</button>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
