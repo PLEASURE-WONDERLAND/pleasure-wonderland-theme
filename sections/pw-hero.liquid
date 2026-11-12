@@ -3,6 +3,8 @@
   .pw-hero__tile img.pw-hero__img{position:absolute;inset:10%;width:80%;height:80%;object-fit:contain;object-position:center;filter:drop-shadow(0 18px 28px rgba(29,21,48,.18));transition:transform .4s ease}
   .pw-hero__tile--tall img.pw-hero__img{inset:8% 12%;width:76%;height:84%}
   .pw-hero__tile:hover img.pw-hero__img{transform:translateY(-6px) scale(1.03)}
+  .pw-hero__tile img.pw-hero__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .pw-hero__tile:hover img.pw-hero__photo{transform:scale(1.04)}
   a.pw-hero__tile{display:block}
 </style>
 <section class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
@@ -18,7 +20,12 @@
     </div>
     <div class="pw-hero__art">
       <a href="{{ section.settings.link1 | default: '/products/magic-wand-rechargeable' }}" class="pw-hero__tile pw-hero__tile--tall" style="background: #E9E1FF" aria-label="{{ section.settings.alt1 | escape }}">
+        {%- if section.settings.photo1 -%}
+          {%- assign pw_style = 'object-position:' | append: section.settings.photo1_pos -%}
+          {{ section.settings.photo1 | image_url: width: 1400 | image_tag: class: 'pw-hero__photo', loading: 'eager', fetchpriority: 'high', alt: section.settings.photo1.alt, widths: '400, 600, 800, 1000, 1400', sizes: '(min-width: 990px) 24vw, 50vw', style: pw_style }}
+        {%- else -%}
         {%- assign img1 = section.settings.image1 | default: images['hero-magic-wand.png'] -%}{%- if img1 -%}{{ img1 | image_url: width: 1200 | image_tag: class: 'pw-hero__img', loading: 'eager', fetchpriority: 'high', alt: section.settings.alt1, widths: '400, 600, 800, 1000, 1200', sizes: '(min-width: 990px) 22vw, 45vw' }}{%- else -%}<div class="pw-shape" style="width: 34%; height: 62%; background: #5B3FD1"></div>{%- endif -%}
+        {%- endif -%}
       </a>
       <a href="{{ section.settings.link2 | default: '/products/satisfyer-pro-2-classic-blossom-rose' }}" class="pw-hero__tile" style="background: #FFD9D3" aria-label="{{ section.settings.alt2 | escape }}">
         {%- assign img2 = section.settings.image2 | default: images['hero-satisfyer-blossom.png'] -%}{%- if img2 -%}{{ img2 | image_url: width: 1000 | image_tag: class: 'pw-hero__img', loading: 'eager', alt: section.settings.alt2, widths: '300, 500, 700, 1000', sizes: '(min-width: 990px) 22vw, 45vw' }}{%- else -%}<div style="width: 46%; height: 46%; background: #FF7A6B; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%"></div>{%- endif -%}
@@ -41,6 +48,8 @@
     { "type": "url", "id": "cta1_link", "label": "Button 1 link" },
     { "type": "text", "id": "cta2_label", "label": "Button 2 label", "default": "Help me choose" },
     { "type": "url", "id": "cta2_link", "label": "Button 2 link" },
+    { "type": "image_picker", "id": "photo1", "label": "Tall tile lifestyle photo", "info": "Fills the tall tile. Replaces the tall product image." },
+    { "type": "text", "id": "photo1_pos", "label": "Lifestyle photo focus", "default": "50% 50%" },
     { "type": "image_picker", "id": "image1", "label": "Tall image" },
     { "type": "text", "id": "alt1", "label": "Tall image alt text", "default": "Rechargeable wand massager" },
     { "type": "url", "id": "link1", "label": "Tall image link" },

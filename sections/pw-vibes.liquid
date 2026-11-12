@@ -12,20 +12,29 @@
   .pwv__img img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transition:transform .35s ease}
   .pwv__tile:hover .pwv__img img{transform:scale(1.05)}
   .pwv__badge{align-self:flex-start;position:relative;z-index:3;margin-bottom:10px;background:#FF7A6B;color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:6px 12px}
+  .pwv__tile--photo{padding:20px 12px 12px}
+  .pwv__tile--photo .pwv__title,.pwv__tile--photo .pwv__text,.pwv__tile--photo .pwv__cta,.pwv__tile--photo .pwv__badge{margin-left:12px;margin-right:12px}
+  .pwv__photo{position:relative;flex:1 1 auto;min-height:150px;margin-top:14px;border-radius:20px;overflow:hidden;display:block}
+  .pwv__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .pwv__tile:hover .pwv__photo img{transform:scale(1.05)}
+  .pwv__tile--wide.pwv__tile--photo{min-height:100%}
   @media (max-width:989px){.pwv{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:599px){.pwv{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:6px}.pwv__tile{flex:0 0 68%;scroll-snap-align:start}}
+  @media (max-width:599px){.pwv{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:6px}.pwv__tile{flex:0 0 68%;scroll-snap-align:start}.pwv__tile--wide.pwv__tile--photo{aspect-ratio:4/5}}
 </style>
 <section class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
   <div class="pw-wrap">
     {%- if section.settings.heading != blank -%}<div class="pw-section-head"><h2 class="pw-h">{{ section.settings.heading }}</h2></div>{%- endif -%}
     <div class="pwv">
       {%- for block in section.blocks -%}
-        <a href="{{ block.settings.link | default: '#' }}" class="pwv__tile{% if block.settings.wide %} pwv__tile--wide{% endif %}" style="background: {{ block.settings.bg }}; color: {{ block.settings.fg }}" {{ block.shopify_attributes }}>
+        <a href="{{ block.settings.link | default: '#' }}" class="pwv__tile{% if block.settings.wide %} pwv__tile--wide{% endif %}{% if block.settings.photo %} pwv__tile--photo{% endif %}" style="background: {{ block.settings.bg }}; color: {{ block.settings.fg }}" {{ block.shopify_attributes }}>
           {%- if block.settings.badge != blank -%}<span class="pwv__badge">{{ block.settings.badge }}</span>{%- endif -%}
           <span class="pwv__title" style="color: {{ block.settings.fg }}">{{ block.settings.title }}</span>
           <span class="pwv__text">{{ block.settings.text }}</span>
           <span class="pwv__cta">Shop now <span aria-hidden="true">→</span></span>
-          {%- if block.settings.image -%}<span class="pwv__img">{%- if block.settings.wide -%}{{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', alt: block.settings.title, widths: '500, 800, 1000, 1300, 1600', sizes: '(min-width: 990px) 50vw, 100vw' }}{%- else -%}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: block.settings.title, widths: '400, 600, 800, 1000', sizes: '(min-width: 990px) 25vw, (min-width: 600px) 50vw, 70vw' }}{%- endif -%}</span>{%- endif -%}
+          {%- if block.settings.photo -%}
+            {%- assign pw_style = 'object-position:' | append: block.settings.photo_pos -%}
+            <span class="pwv__photo">{%- if block.settings.wide -%}{{ block.settings.photo | image_url: width: 1600 | image_tag: loading: 'lazy', alt: block.settings.photo.alt, widths: '500, 800, 1000, 1300, 1600', sizes: '(min-width: 990px) 50vw, 100vw', style: pw_style }}{%- else -%}{{ block.settings.photo | image_url: width: 1000 | image_tag: loading: 'lazy', alt: block.settings.photo.alt, widths: '400, 600, 800, 1000', sizes: '(min-width: 990px) 25vw, (min-width: 600px) 50vw, 70vw', style: pw_style }}{%- endif -%}</span>
+          {%- elsif block.settings.image -%}<span class="pwv__img">{%- if block.settings.wide -%}{{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', alt: block.settings.title, widths: '500, 800, 1000, 1300, 1600', sizes: '(min-width: 990px) 50vw, 100vw' }}{%- else -%}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: block.settings.title, widths: '400, 600, 800, 1000', sizes: '(min-width: 990px) 25vw, (min-width: 600px) 50vw, 70vw' }}{%- endif -%}</span>{%- endif -%}
         </a>
       {%- endfor -%}
     </div>
@@ -49,6 +58,8 @@
       { "type": "text", "id": "badge", "label": "Badge (optional)" },
       { "type": "url", "id": "link", "label": "Link" },
       { "type": "checkbox", "id": "wide", "label": "Double width", "default": false },
+      { "type": "image_picker", "id": "photo", "label": "Lifestyle photo", "info": "Shows in a rounded frame under the text. Replaces the product image." },
+      { "type": "text", "id": "photo_pos", "label": "Photo focus", "default": "50% 50%" },
       { "type": "image_picker", "id": "image", "label": "Product image (transparent PNG)" },
       { "type": "color", "id": "bg", "label": "Background", "default": "#E9E1FF" },
       { "type": "color", "id": "fg", "label": "Text colour", "default": "#1D1530" }
