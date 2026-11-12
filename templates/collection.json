@@ -12,49 +12,21 @@
     "pw_head": {
       "type": "pw-collection-hero",
       "blocks": {
-        "chip_0": {
-          "type": "chip",
-          "settings": {
-            "label": "New",
-            "tag": "new"
-          }
-        },
-        "chip_1": {
-          "type": "chip",
-          "settings": {
-            "label": "Beginner-friendly",
-            "tag": "beginner"
-          }
-        },
-        "chip_2": {
-          "type": "chip",
-          "settings": {
-            "label": "Quiet",
-            "tag": "quiet"
-          }
-        },
-        "chip_3": {
-          "type": "chip",
-          "settings": {
-            "label": "Waterproof",
-            "tag": "waterproof"
-          }
-        },
-        "chip_4": {
-          "type": "chip",
-          "settings": {
-            "label": "App-controlled",
-            "tag": "app-controlled"
-          }
-        }
+        "c1": {"type": "chip", "settings": {"label": "Air-pulse", "tag": "air-pulse"}},
+        "c2": {"type": "chip", "settings": {"label": "Rabbits", "tag": "rabbit"}},
+        "c3": {"type": "chip", "settings": {"label": "Wands", "tag": "wand"}},
+        "c4": {"type": "chip", "settings": {"label": "Strokers", "tag": "masturbator"}},
+        "c5": {"type": "chip", "settings": {"label": "App-controlled", "tag": "app-control"}},
+        "c6": {"type": "chip", "settings": {"label": "Beginner-friendly", "tag": "beginner"}},
+        "c7": {"type": "chip", "settings": {"label": "Water-based", "tag": "water-based"}},
+        "c8": {"type": "chip", "settings": {"label": "Long-lasting", "tag": "long-lasting"}},
+        "c9": {"type": "chip", "settings": {"label": "Anal", "tag": "anal"}},
+        "c10": {"type": "chip", "settings": {"label": "Flavoured", "tag": "flavoured"}},
+        "c11": {"type": "chip", "settings": {"label": "Warming & cooling", "tag": "warming-cooling"}},
+        "c12": {"type": "chip", "settings": {"label": "Sensitive skin", "tag": "sensitive"}},
+        "c13": {"type": "chip", "settings": {"label": "Toy care", "tag": "toy-cleaner"}}
       },
-      "block_order": [
-        "chip_0",
-        "chip_1",
-        "chip_2",
-        "chip_3",
-        "chip_4"
-      ],
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13"],
       "settings": {}
     },
     "main": {
@@ -168,12 +140,7 @@
               }
             }
           },
-          "block_order": [
-            "card-gallery",
-            "product_title_4nY4eT",
-            "price_EzJzMm",
-            "swatches"
-          ]
+          "block_order": ["card-gallery", "product_title_4nY4eT", "price_EzJzMm", "swatches"]
         }
       },
       "settings": {
@@ -199,33 +166,11 @@
     "pw_bundle": {
       "type": "pw-bundle-banner",
       "blocks": {
-        "line_1": {
-          "type": "line",
-          "settings": {
-            "item": "Mini rechargeable vibrator",
-            "value": "$49.95"
-          }
-        },
-        "line_2": {
-          "type": "line",
-          "settings": {
-            "item": "Water-based lube 50ml",
-            "value": "$14.95"
-          }
-        },
-        "line_3": {
-          "type": "line",
-          "settings": {
-            "item": "Satin blindfold or toy cleaner",
-            "value": "$12.95"
-          }
-        }
+        "line_1": {"type": "line", "settings": {"item": "Mini rechargeable vibrator", "value": "$49.95"}},
+        "line_2": {"type": "line", "settings": {"item": "Water-based lube 50ml", "value": "$14.95"}},
+        "line_3": {"type": "line", "settings": {"item": "Satin blindfold or toy cleaner", "value": "$12.95"}}
       },
-      "block_order": [
-        "line_1",
-        "line_2",
-        "line_3"
-      ],
+      "block_order": ["line_1", "line_2", "line_3"],
       "settings": {
         "heading": "New to this? Start with the Curious Kit.",
         "link": "shopify://collections/bundles",
@@ -235,43 +180,13 @@
     "pw_faq": {
       "type": "pw-faq",
       "blocks": {
-        "qa_1": {
-          "type": "qa",
-          "settings": {
-            "question": "Which toy should I start with?",
-            "answer": "<p>Try the Pleasure Finder on our homepage, or start with an air-pulse toy or a rechargeable bullet. Both are easy to use and great value.</p>"
-          }
-        },
-        "qa_2": {
-          "type": "qa",
-          "settings": {
-            "question": "How discreet is delivery?",
-            "answer": "<p>Plain outer box, neutral return address and a discreet billing name on your statement.</p>"
-          }
-        },
-        "qa_3": {
-          "type": "qa",
-          "settings": {
-            "question": "How fast is shipping?",
-            "answer": "<p>Order by 2pm on a business day and it ships the same day from Australia. Standard shipping is free over $69.</p>"
-          }
-        }
+        "qa_1": {"type": "qa", "settings": {"question": "Which toy should I start with?", "answer": "<p>Try the Pleasure Finder on our homepage, or start with an air-pulse toy like the Satisfyer Pro 2. It's easy to use and great value.</p>"}},
+        "qa_2": {"type": "qa", "settings": {"question": "How discreet is delivery?", "answer": "<p>Plain outer box, neutral return address and a discreet billing name on your statement.</p>"}},
+        "qa_3": {"type": "qa", "settings": {"question": "How fast is shipping?", "answer": "<p>Order by 2pm on a business day and it ships the same day from Australia. Standard shipping is free over $69.</p>"}}
       },
-      "block_order": [
-        "qa_1",
-        "qa_2",
-        "qa_3"
-      ],
-      "settings": {
-        "heading": "Questions"
-      }
+      "block_order": ["qa_1", "qa_2", "qa_3"],
+      "settings": {"heading": "Questions"}
     }
   },
-  "order": [
-    "pw_head",
-    "main",
-    "pw_addons",
-    "pw_bundle",
-    "pw_faq"
-  ]
+  "order": ["pw_head", "main", "pw_addons", "pw_bundle", "pw_faq"]
 }

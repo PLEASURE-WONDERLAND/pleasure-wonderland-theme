@@ -11,13 +11,18 @@
         <a href="{{ section.settings.guide_link }}" class="pw-colhero__guide"><span>{{ section.settings.guide_label }}</span><span aria-hidden="true">→</span></a>
       {%- endif -%}
     </div>
-    {%- if section.blocks.size > 0 -%}
+    {%- capture chips -%}
+      {%- for block in section.blocks -%}
+        {%- assign tag = block.settings.tag | handleize -%}
+        {%- if c.all_tags contains tag -%}
+          <a href="{{ c.url }}/{{ tag }}" class="pw-chip{% if current_tags contains tag %} is-active{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if chips != blank -%}
       <div class="pw-colhero__chips">
         <a href="{{ c.url }}" class="pw-chip{% if current_tags == blank %} is-active{% endif %}">All {{ c.products_count }}</a>
-        {%- for block in section.blocks -%}
-          {%- assign tag = block.settings.tag | handleize -%}
-          <a href="{{ c.url }}/{{ tag }}" class="pw-chip{% if current_tags contains tag %} is-active{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
-        {%- endfor -%}
+        {{ chips }}
       </div>
     {%- endif -%}
   </div>
@@ -35,7 +40,7 @@
     "type": "chip", "name": "Quick filter",
     "settings": [
       { "type": "text", "id": "label", "label": "Label", "default": "Air-pulse" },
-      { "type": "text", "id": "tag", "label": "Product tag", "default": "air-pulse", "info": "Shows products in this collection with this tag." }
+      { "type": "text", "id": "tag", "label": "Product tag", "default": "air-pulse", "info": "Only shows when products in this collection have this tag." }
     ]
   }],
   "presets": [{ "name": "PW Collection header" }]
