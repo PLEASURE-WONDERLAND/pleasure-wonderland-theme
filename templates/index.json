@@ -47,7 +47,7 @@
           "type": "item",
           "settings": {
             "icon": "battery",
-            "title": "Free gift with kits",
+            "title": "Free gift with toy kits",
             "text": "Toy + lube + a free extra"
           }
         }
@@ -164,11 +164,11 @@
           "type": "tile",
           "settings": {
             "title": "The Control Room",
-            "text": "Tease, restrain, play",
+            "text": "Whips, cuffs, collars and kits",
             "link": "shopify://collections/the-control-room",
             "bg": "#1D1530",
             "fg": "#FFFFFF",
-            "image": "shopify://shop_images/vibe-control.png"
+            "image": "shopify://shop_images/vibe-control-v2.png"
           }
         },
         "tile_6": {
@@ -237,14 +237,14 @@
           "type": "point",
           "settings": {
             "title": "Genuine brands only",
-            "text": "Satisfyer, Magic Wand, Adam & Eve and Wicked, sourced from Australian distributors."
+            "text": "Satisfyer, Magic Wand, Adam & Eve, Sportsheets and Wicked, sourced from Australian distributors."
           }
         },
         "point_2": {
           "type": "point",
           "settings": {
             "title": "Kits that keep it simple",
-            "text": "Toy, lube and a free gift in one plain box. Free shipping on every kit."
+            "text": "Everything you need in one plain box. Free shipping on every kit."
           }
         },
         "point_3": {
@@ -398,7 +398,7 @@
           "type": "item",
           "settings": {
             "big": "FREE",
-            "label": "Gift with every kit"
+            "label": "Gift with our toy kits"
           }
         }
       },

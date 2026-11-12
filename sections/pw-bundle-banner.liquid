@@ -30,8 +30,8 @@
       when 'curious'
         assign kit = all_products['the-curious-kit']
         assign heading = 'The Curious Kit'
-        assign text = 'The easiest way to start. Satisfyer Pro 2 and Wicked lube, with a Fun Factory toy bag on us.'
-        assign lines = 'Satisfyer Pro 2 air-pulse toy|$54.95;Wicked Simply Aqua lube 120 ml|$19.95;Fun Factory toy bag|FREE'
+        assign text = 'The easiest way to start. Satisfyer Pro 2 and Wicked lube, with a vibrating bullet on us.'
+        assign lines = 'Satisfyer Pro 2 air-pulse toy|$54.95;Wicked Simply Aqua lube 120 ml|$19.95;B Yours vibrating bullet|FREE'
         assign button = 'Shop the Curious Kit'
       when 'mens'
         assign kit = all_products['the-mens-room-kit']
@@ -46,11 +46,11 @@
         assign lines = 'Satisfyer Endless Joy couples vibrator|$59.95;Wicked Simply Aqua lube 120 ml|$19.95;Vibrating couples ring|FREE'
         assign button = 'Shop the Together Kit'
       when 'intro'
-        assign kit = all_products['the-control-room-starter-kit']
-        assign heading = 'The Control Room Starter Kit'
-        assign text = 'The simplest way in. Soft under-bed restraints that fit any mattress, with a satin blindfold on us.'
-        assign lines = 'Under-bed restraint kit, 4 soft cuffs|$44.95;Satin blindfold|FREE'
-        assign button = 'Shop the Starter Kit'
+        assign kit = all_products['the-introduction']
+        assign heading = 'New here? Start with The Introduction'
+        assign text = 'Sensory play and light restraint, nothing scary. Five pieces in one plain box.'
+        assign lines = 'Fur-lined wrist cuffs|$26.95;Satin blindfold|$14.95;Feather tickler|$14.95;Sensory fingertips|$19.95;Large storage bag|$14.95'
+        assign button = 'Shop The Introduction'
       when 'backdoor'
         assign kit = all_products['the-backdoor-kit']
         assign heading = 'The Backdoor Kit'
@@ -61,11 +61,11 @@
         assign pill = 'The Control Room'
         assign heading = 'Want to spice it up?'
         assign text = 'Blindfolds, cuffs and beginner kits for couples who want to try a little kink. Everything is soft, adjustable and easy to take off.'
-        assign lines = 'The Tease|Blindfolds;The Restraint|Cuffs and under-bed straps;Starter Kit|Free blindfold'
+        assign lines = 'The Introduction|Beginner kit;The Restraint|Cuffs, collar, bed straps;The Impact|Flogger, paddle, crop'
         assign button = 'Explore The Control Room'
         assign link = '/collections/the-control-room'
-        assign price = 'From $44.95'
-        assign img = all_products['adam-eve-midnight-moods-bondage-kit'].featured_image
+        assign price = 'Kits from $69.95'
+        assign img = all_products['the-control-room'].featured_image
       when 'custom'
         assign pill = section.settings.pill
         assign heading = section.settings.heading
@@ -82,7 +82,10 @@
       if kit.compare_at_price > kit.price
         assign was = kit.compare_at_price | money_without_trailing_zeros
         assign saving = kit.compare_at_price | minus: kit.price | money_without_trailing_zeros
-        assign pill = 'Save ' | append: saving | append: ' + free gift'
+        assign pill = 'Save ' | append: saving
+        if lines contains 'FREE'
+          assign pill = pill | append: ' + free gift'
+        endif
       endif
       assign img = kit.featured_image
     endif

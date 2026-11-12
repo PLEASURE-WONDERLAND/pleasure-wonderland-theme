@@ -15,33 +15,41 @@
         "chip_0": {
           "type": "chip",
           "settings": {
-            "label": "The Tease",
-            "tag": "tease"
+            "label": "Beginner",
+            "tag": "beginner"
           }
         },
         "chip_1": {
           "type": "chip",
           "settings": {
-            "label": "The Restraint",
+            "label": "Restraint",
             "tag": "restraint"
           }
         },
         "chip_2": {
           "type": "chip",
           "settings": {
-            "label": "Beginner kits",
-            "tag": "beginner"
+            "label": "Tease",
+            "tag": "tease"
+          }
+        },
+        "chip_3": {
+          "type": "chip",
+          "settings": {
+            "label": "Impact",
+            "tag": "impact"
           }
         }
       },
       "block_order": [
         "chip_0",
         "chip_1",
-        "chip_2"
+        "chip_2",
+        "chip_3"
       ],
       "settings": {
-        "guide_label": "New to this? Start with the Starter Kit",
-        "guide_link": "shopify://products/the-control-room-starter-kit"
+        "guide_label": "New to this? Start with The Introduction",
+        "guide_link": "shopify://products/the-introduction"
       }
     },
     "main": {
@@ -191,17 +199,24 @@
           "type": "qa",
           "settings": {
             "question": "I'm new to this. Where do I start?",
-            "answer": "<p>Start with the Control Room Starter Kit: soft under-bed restraints plus a free satin blindfold. Everything is adjustable and easy to take off.</p>"
+            "answer": "<p>Start with The Introduction: fur-lined cuffs, a satin blindfold, a feather tickler and sensory fingertips. It is all about touch and anticipation, nothing designed to hurt.</p>"
           }
         },
         "qa_2": {
           "type": "qa",
           "settings": {
-            "question": "Are restraints safe?",
-            "answer": "<p>Keep cuffs loose enough to slide two fingers underneath, agree on a safe word before you start and never leave anyone restrained alone.</p>"
+            "question": "Which kit is right for us?",
+            "answer": "<p>The Restraint for tying down, The Tease for sensation play, The Impact for spanking and flogging. Want it all? The Control Room kit combines the best of each and saves $57.65.</p>"
           }
         },
         "qa_3": {
+          "type": "qa",
+          "settings": {
+            "question": "Are restraints safe?",
+            "answer": "<p>Agree on a safe word, keep cuffs loose enough to slide two fingers underneath, check in often and never leave anyone restrained alone.</p>"
+          }
+        },
+        "qa_4": {
           "type": "qa",
           "settings": {
             "question": "How discreet is delivery?",
@@ -212,7 +227,8 @@
       "block_order": [
         "qa_1",
         "qa_2",
-        "qa_3"
+        "qa_3",
+        "qa_4"
       ],
       "settings": {
         "heading": "Questions"
