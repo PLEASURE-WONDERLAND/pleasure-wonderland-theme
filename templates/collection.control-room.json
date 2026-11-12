@@ -159,19 +159,20 @@
     "pw_bundle": {
       "type": "pw-bundle-banner",
       "blocks": {
-        "line_1": { "type": "line", "settings": { "item": "Padded wrist cuffs", "value": "The Restraint" } },
-        "line_2": { "type": "line", "settings": { "item": "Satin blindfold", "value": "The Tease" } },
-        "line_3": { "type": "line", "settings": { "item": "Feather tickler", "value": "The Tease" } },
-        "line_4": { "type": "line", "settings": { "item": "Soft silicone sensation tool", "value": "The Tease" } }
+        "line_1": { "type": "line", "settings": { "item": "Plush-lined wrist cuffs", "value": "The Restraint" } },
+        "line_2": { "type": "line", "settings": { "item": "Soft padded blindfold", "value": "The Tease" } },
+        "line_3": { "type": "line", "settings": { "item": "Feather tickler and crop", "value": "The Tease" } },
+        "line_4": { "type": "line", "settings": { "item": "Silicone feather teaser", "value": "The Tease" } }
       },
       "block_order": ["line_1", "line_2", "line_3", "line_4"],
       "settings": {
         "heading": "The Introduction",
         "link": "shopify://products/the-introduction-beginner-bondage-kit",
+        "image": "shopify://shop_images/pw-intro-kit-main.jpg",
         "pad_top": 24,
         "pill": "Beginner kit",
         "text": "Your first step into The Control Room. Four beginner-friendly pieces in a black croc-finish case with a red velvet lining, gold clasp and carry handle.",
-        "price": "$79.95",
+        "price": "$99.95",
         "was": "",
         "button": "Shop The Introduction"
       }
