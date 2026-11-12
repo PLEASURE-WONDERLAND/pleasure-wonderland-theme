@@ -22,9 +22,9 @@
     function run() {
       var t = msg();
       document.querySelectorAll('[data-pw-clock]').forEach(function (el) { if (el.textContent !== t) el.textContent = t; });
-      var w = document.createTreeWalker(document.querySelector('header-announcements, .announcement-bar, [class*="announcement"]') || document.body, NodeFilter.SHOW_TEXT);
+      var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
       var node, hits = [];
-      while ((node = w.nextNode())) { if (/ships today from Australia/i.test(node.nodeValue) && !(node.parentElement && node.parentElement.hasAttribute('data-pw-clock'))) hits.push(node); }
+      while ((node = w.nextNode())) { var pe = node.parentElement; if (pe && pe.tagName !== 'SCRIPT' && pe.tagName !== 'STYLE' && /ships today from Australia/i.test(node.nodeValue) && !pe.hasAttribute('data-pw-clock')) hits.push(node); }
       hits.forEach(function (n) { var s = document.createElement('span'); s.setAttribute('data-pw-clock', ''); s.textContent = t; n.parentNode.replaceChild(s, n); });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
