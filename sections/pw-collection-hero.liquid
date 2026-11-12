@@ -30,7 +30,8 @@
     {%- if section.settings.guide_label != blank and section.settings.guide_link != blank -%}<a href="{{ section.settings.guide_link }}" class="pw-colban__guide">{{ section.settings.guide_label }} →</a>{%- endif -%}
   </div>
   <div class="pw-colban__media">
-    {{ c.image | image_url: width: 1800 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1800', sizes: '(min-width: 900px) 58vw, 100vw', alt: c.image.alt, style: 'object-position:' | append: pw_pos }}
+    {%- assign pw_style = 'object-position:' | append: pw_pos -%}
+    {{ c.image | image_url: width: 1800 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1800', sizes: '(min-width: 900px) 58vw, 100vw', alt: c.image.alt, style: pw_style }}
   </div>
 </div>
 {%- endif -%}

@@ -18,7 +18,7 @@
 <section id="pwf-{{ section.id }}">
   <div class="pw-feat__grid{% if section.settings.reverse %} pw-feat--rev{% endif %}">
     <div class="pw-feat__media">
-      {%- if section.settings.image -%}{{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 900px) 50vw, 100vw', alt: section.settings.image.alt, style: 'object-position:' | append: section.settings.pos }}{%- endif -%}
+      {%- if section.settings.image -%}{%- assign pw_style = 'object-position:' | append: section.settings.pos -%}{{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 900px) 50vw, 100vw', alt: section.settings.image.alt, style: pw_style }}{%- endif -%}
     </div>
     <div class="pw-feat__copy">
       {%- if section.settings.eyebrow != blank -%}<p class="pw-feat__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}

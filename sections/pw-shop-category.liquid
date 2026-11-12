@@ -25,7 +25,7 @@
       {%- for block in section.blocks -%}
         <a class="pw-cat__tile" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
           <div class="pw-cat__media">
-            {%- if block.settings.image -%}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '360, 540, 720, 1000', sizes: '(min-width: 900px) 31vw, 47vw', alt: block.settings.image.alt, style: 'object-position:' | append: block.settings.pos }}{%- endif -%}
+            {%- if block.settings.image -%}{%- assign pw_style = 'object-position:' | append: block.settings.pos -%}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '360, 540, 720, 1000', sizes: '(min-width: 900px) 31vw, 47vw', alt: block.settings.image.alt, style: pw_style }}{%- endif -%}
           </div>
           <div class="pw-cat__label"><span class="pw-cat__name">{{ block.settings.title }}</span><span class="pw-cat__go">Shop now</span></div>
           {%- if block.settings.note != blank -%}<span class="pw-cat__note">{{ block.settings.note }}</span>{%- endif -%}
