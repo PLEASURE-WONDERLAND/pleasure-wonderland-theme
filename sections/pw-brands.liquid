@@ -1,0 +1,38 @@
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  .pw-brands{padding:clamp(48px,6vw,80px) 0;background:#fff;border-top:1px solid #eee3d3;border-bottom:1px solid #eee3d3}
+  .pw-brands__head{text-align:center;margin:0 0 30px}
+  .pw-brands__eyebrow{font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#8A6A43;margin:0 0 10px}
+  .pw-brands__title{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(32px,3.4vw,46px);margin:0;color:#121012}
+  .pw-brands__row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 0}
+  .pw-brands__row a{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(22px,2.2vw,30px);color:#121012;text-decoration:none;padding:4px clamp(16px,2.4vw,34px);border-left:1px solid #E9D8BC;white-space:nowrap}
+  .pw-brands__row a:first-child{border-left:0}
+  .pw-brands__row a:hover{color:#5C1426}
+  .pw-brands__note{text-align:center;color:#6b6266;font-size:14px;margin:22px 0 0}
+</style>
+<section class="pw-brands">
+  <div class="pw-wrap">
+    <div class="pw-brands__head">
+      {%- if section.settings.eyebrow != blank -%}<p class="pw-brands__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="pw-brands__title">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="pw-brands__row">
+      {%- for block in section.blocks -%}<a href="{{ routes.search_url }}?q={{ block.settings.name | url_encode }}&type=product" {{ block.shopify_attributes }}>{{ block.settings.name }}</a>{%- endfor -%}
+    </div>
+    {%- if section.settings.note != blank -%}<p class="pw-brands__note">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PW Selected brands",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "100% genuine" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Selected brands" },
+    { "type": "text", "id": "note", "label": "Note", "default": "Sourced from Australian distributors." }
+  ],
+  "blocks": [{ "type": "brand", "name": "Brand", "settings": [ { "type": "text", "id": "name", "label": "Brand name", "default": "Satisfyer" } ] }],
+  "presets": [{ "name": "PW Selected brands" }]
+}
+{% endschema %}
