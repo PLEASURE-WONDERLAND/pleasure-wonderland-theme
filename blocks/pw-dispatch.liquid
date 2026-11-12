@@ -6,6 +6,19 @@
   assign remaining = threshold | minus: after_add
   assign cut = settings.pw_cutoff_hour | default: 14
 -%}
+<style>
+  .pw-ship-bubble{position:absolute;top:18px;right:18px;z-index:3;width:118px;height:118px;border-radius:50%;background:#FF7A6B;color:#1D1530;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(-8deg);box-shadow:0 10px 24px rgba(29,21,48,.18);pointer-events:none;font-family:var(--font-body--family);animation:pwBob 3s ease-in-out infinite}
+  .pw-ship-bubble::before{content:'';position:absolute;inset:7px;border-radius:50%;border:2px dashed rgba(255,255,255,.85)}
+  .pw-ship-bubble::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:3px solid #FF7A6B;opacity:.6;animation:pwPulse 1.8s ease-out infinite}
+  .pw-ship-bubble__top{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+  .pw-ship-bubble__big{font-size:19px;font-weight:800;line-height:1;margin:2px 0}
+  .pw-ship-bubble__big span{color:#fff}
+  .pw-ship-bubble__time{font-size:12px;font-weight:700;background:#1D1530;color:#fff;border-radius:999px;padding:2px 8px;margin-top:3px}
+  @keyframes pwPulse{0%{transform:scale(.95);opacity:.6}100%{transform:scale(1.18);opacity:0}}
+  @keyframes pwBob{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(-8deg) translateY(-3px)}}
+  @media (max-width:749px){.pw-ship-bubble{width:96px;height:96px;top:12px;right:12px}.pw-ship-bubble__big{font-size:16px}.pw-ship-bubble__time{font-size:11px}}
+  @media (prefers-reduced-motion:reduce){.pw-ship-bubble,.pw-ship-bubble::after{animation:none}}
+</style>
 <pw-dispatch
   class="pw-dispatch"
   data-cutoff="{{ cut }}"
@@ -14,7 +27,7 @@
 >
   <p class="pw-dispatch__row">
     <span class="pw-dispatch__dot" aria-hidden="true"></span>
-    <span data-pw-countdown>Order by {% if cut > 12 %}{{ cut | minus: 12 }}pm{% else %}{{ cut }}{% if cut == 12 %}pm{% else %}am{% endif %}{% endif %} for same-day dispatch</span>
+    <span data-pw-countdown>Fast dispatch from Australia</span>
   </p>
   {%- if threshold > 0 and block.settings.show_shipping -%}
     <p class="pw-dispatch__row pw-dispatch__ship">
@@ -43,6 +56,20 @@
         const get = (t) => (parts.find((p) => p.type === t) || {}).value;
         return { day: get('weekday'), h: Number(get('hour')), m: Number(get('minute')) };
       }
+      bubble(time) {
+        const host = document.querySelector('media-gallery .product-media-container') || document.querySelector('.product-media-container');
+        let b = document.querySelector('.pw-ship-bubble');
+        if (!time) { if (b) b.remove(); return; }
+        if (!host) return;
+        if (!b) {
+          b = document.createElement('div');
+          b.className = 'pw-ship-bubble';
+          b.setAttribute('aria-hidden', 'true');
+          if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+          host.appendChild(b);
+        }
+        b.innerHTML = '<span class="pw-ship-bubble__top">Order in</span><span class="pw-ship-bubble__time">' + time + '</span><span class="pw-ship-bubble__big">SHIPS<br><span>TODAY</span></span>';
+      }
       tick() {
         if (!this.out) return;
         const { day, h, m } = this.now();
@@ -50,6 +77,7 @@
         const label = this.cut > 12 ? (this.cut - 12) + 'pm' : this.cut + (this.cut === 12 ? 'pm' : 'am');
         if (weekend && !this.weekends) {
           this.out.innerHTML = 'Order now, <strong>dispatched Monday</strong>';
+          this.bubble(null);
           return;
         }
         const left = this.cut * 60 - (h * 60 + m);
@@ -57,9 +85,11 @@
           const hh = Math.floor(left / 60), mm = left % 60;
           const time = (hh ? hh + 'h ' : '') + mm + 'm';
           this.out.innerHTML = 'Order within <strong>' + time + '</strong> for <strong>same-day dispatch</strong>';
+          this.bubble(time);
         } else {
           const next = (day === 'Fri' && !this.weekends) ? 'Monday' : 'tomorrow';
           this.out.innerHTML = 'Order now, <strong>dispatched ' + next + '</strong> · cut-off ' + label;
+          this.bubble(null);
         }
       }
     });
@@ -70,7 +100,7 @@
   "name": "PW Dispatch countdown",
   "settings": [
     { "type": "checkbox", "id": "show_shipping", "label": "Show free-shipping nudge", "default": true },
-    { "type": "paragraph", "content": "Cut-off time and free-shipping threshold are set in Theme settings > Pleasure Wonderland." }
+    { "type": "paragraph", "content": "Cut-off time and free-shipping threshold are set in Theme settings > Pleasure Wonderland. The 'Ships today' bubble on the main image only shows before the cut-off on dispatch days." }
   ],
   "presets": [{ "name": "PW Dispatch countdown" }]
 }
