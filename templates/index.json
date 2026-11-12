@@ -12,9 +12,12 @@
     "pw_hero": {
       "type": "pw-hero",
       "settings": {
-        "cta1_link": "shopify://collections/bestsellers"
-      },
-      "disabled": true
+        "cta1_link": "shopify://collections/bestsellers",
+        "photo1": "shopify://shop_images/photo-1519644473771-e45d361c9bb8.jpg",
+        "photo1_pos": "45% 50%",
+        "link1": "shopify://collections/for-her",
+        "alt1": "Shop For Her"
+      }
     },
     "pw_trust": {
       "type": "pw-trust-bar",
@@ -58,8 +61,7 @@
         "item_2",
         "item_3",
         "item_4"
-      ],
-      "disabled": true
+      ]
     },
     "pw_finder": {
       "type": "pw-finder",
@@ -112,8 +114,7 @@
         "option_3",
         "option_4",
         "option_5"
-      ],
-      "disabled": true
+      ]
     },
     "pw_vibes": {
       "type": "pw-vibes",
@@ -127,7 +128,9 @@
             "link": "shopify://collections/for-her",
             "bg": "#E9E1FF",
             "fg": "#1D1530",
-            "image": "shopify://shop_images/vibe-her.png"
+            "image": "shopify://shop_images/vibe-her.png",
+            "photo": "shopify://shop_images/photo-1618902751861-3de78572c067.jpg",
+            "photo_pos": "50% 30%"
           }
         },
         "tile_2": {
@@ -138,7 +141,9 @@
             "link": "shopify://collections/for-him",
             "bg": "#DCE8FF",
             "fg": "#1D1530",
-            "image": "shopify://shop_images/vibe-him.png"
+            "image": "shopify://shop_images/vibe-him.png",
+            "photo": "shopify://shop_images/photo-1770610325567-fe87751f3fd3.jpg",
+            "photo_pos": "55% 50%"
           }
         },
         "tile_3": {
@@ -149,7 +154,9 @@
             "link": "shopify://collections/for-couples",
             "bg": "#FFD9D3",
             "fg": "#1D1530",
-            "image": "shopify://shop_images/vibe-couples.png"
+            "image": "shopify://shop_images/vibe-couples.png",
+            "photo": "shopify://shop_images/photo-1615533295613-237331007fe8.jpg",
+            "photo_pos": "45% 45%"
           }
         },
         "tile_4": {
@@ -160,7 +167,9 @@
             "link": "shopify://collections/the-backdoor",
             "bg": "#FFE9CF",
             "fg": "#1D1530",
-            "image": "shopify://shop_images/vibe-backdoor.png"
+            "image": "shopify://shop_images/vibe-backdoor.png",
+            "photo": "shopify://shop_images/photo-1582315856039-67b77bc9b032.jpg",
+            "photo_pos": "50% 70%"
           }
         },
         "tile_5": {
@@ -171,7 +180,9 @@
             "link": "shopify://collections/the-control-room",
             "bg": "#1D1530",
             "fg": "#FFFFFF",
-            "image": "shopify://shop_images/vibe-control-v2.png"
+            "image": "shopify://shop_images/vibe-control-v2.png",
+            "photo": "shopify://shop_images/photo-1579006318110-42d7992b6635.jpg",
+            "photo_pos": "50% 55%"
           }
         },
         "tile_6": {
@@ -183,7 +194,9 @@
             "link": "shopify://collections/lube-essentials",
             "bg": "#DDF2EA",
             "fg": "#1D1530",
-            "image": "shopify://shop_images/vibe-lube.png"
+            "image": "shopify://shop_images/vibe-lube.png",
+            "photo": "shopify://shop_images/photo-1622942819501-d8bd6bc5deb9.jpg",
+            "photo_pos": "50% 45%"
           }
         },
         "tile_7": {
@@ -196,7 +209,9 @@
             "fg": "#1D1530",
             "image": "shopify://shop_images/vibe-kits.png",
             "badge": "Free gift",
-            "wide": true
+            "wide": true,
+            "photo": "shopify://shop_images/photo-1754299708229-3e22250cb6be.jpg",
+            "photo_pos": "50% 35%"
           }
         }
       },
@@ -208,40 +223,32 @@
         "tile_5",
         "tile_6",
         "tile_7"
-      ],
-      "disabled": true
+      ]
     },
     "pw_bundle": {
       "type": "pw-bundle-banner",
       "settings": {
         "mode": "auto"
-      },
-      "disabled": true
+      }
     },
     "pw_best": {
       "type": "pw-product-grid",
       "settings": {
         "heading": "Bestsellers",
-        "collection": "bestsellers",
-        "limit": 4,
-        "link_label": "Shop all bestsellers",
-        "pad_top": 64
+        "collection": "bestsellers"
       }
     },
     "pw_kits": {
       "type": "pw-product-grid",
       "settings": {
-        "heading": "Curated kits",
-        "collection": "bundles",
-        "limit": 4,
-        "link_label": "Shop all kits",
-        "pad_top": 64
+        "heading": "Kits: everything in one box",
+        "collection": "bundles"
       }
     },
     "pw_usp": {
       "type": "pw-usp",
       "settings": {
-        "heading": "Why shop Pleasure Wonderland?",
+        "heading": "Shopping made easy",
         "text": "A short list of proven toys, simple kits and help whenever you need it."
       },
       "blocks": {
@@ -262,8 +269,8 @@
         "point_3": {
           "type": "point",
           "settings": {
-            "title": "Discreet, always",
-            "text": "Plain box, a neutral sender name and a discreet name on your bank statement."
+            "title": "Lube sorted",
+            "text": "Pick \"Toy + lube\" on any toy page and the lube is 20% off."
           }
         },
         "point_4": {
@@ -283,12 +290,12 @@
     },
     "pw_news": {
       "type": "pw-newsletter",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "pw_offer": {
       "type": "pw-offer-band",
-      "settings": {},
-      "disabled": true
+      "settings": {}
     },
     "pw_test": {
       "type": "pw-how-we-test",
@@ -331,8 +338,7 @@
         "step_2",
         "step_3",
         "step_4"
-      ],
-      "disabled": true
+      ]
     },
     "pw_discreet": {
       "type": "pw-discreet",
@@ -380,8 +386,7 @@
         "tick_3",
         "tick_4",
         "tick_5"
-      ],
-      "disabled": true
+      ]
     },
     "pw_promise": {
       "type": "pw-promise",
@@ -421,8 +426,7 @@
         "item_2",
         "item_3",
         "item_4"
-      ],
-      "disabled": true
+      ]
     },
     "pw_warranty": {
       "type": "pw-warranty",
@@ -523,265 +527,25 @@
         "qa_3",
         "qa_4",
         "qa_5"
-      ],
-      "disabled": true
-    },
-    "pw_ed": {
-      "type": "pw-editorial-hero",
-      "settings": {
-        "image": "shopify://shop_images/photo-1565014208903-fdfd6c464221.jpg",
-        "pos": "35% 50%",
-        "eyebrow": "The night-in edit",
-        "heading": "Your bedside drawer deserves an <em>upgrade.</em>",
-        "text": "Toys and intimate essentials from brands you know, shipped fast from Australia in a plain box.",
-        "cta1_label": "Shop bestsellers",
-        "cta1_link": "shopify://collections/bestsellers",
-        "cta2_label": "Explore The Control Room",
-        "cta2_link": "shopify://collections/the-control-room"
-      }
-    },
-    "pw_cats": {
-      "type": "pw-shop-category",
-      "settings": {
-        "eyebrow": "Find your thing",
-        "heading": "Shop by category"
-      },
-      "blocks": {
-        "tile_1": {
-          "type": "tile",
-          "settings": {
-            "title": "For Her",
-            "note": "Air-pulse, wands and rabbits",
-            "link": "shopify://collections/for-her",
-            "image": "shopify://shop_images/photo-1769029174621-c2d9d1f33bd2.jpg",
-            "pos": "50% 40%"
-          }
-        },
-        "tile_2": {
-          "type": "tile",
-          "settings": {
-            "title": "For Him",
-            "note": "Strokers, rings and more",
-            "link": "shopify://collections/for-him",
-            "image": "shopify://shop_images/photo-1518561602890-728830e35ed2.jpg",
-            "pos": "55% 30%"
-          }
-        },
-        "tile_3": {
-          "type": "tile",
-          "settings": {
-            "title": "For Couples",
-            "note": "Made for two",
-            "link": "shopify://collections/for-couples",
-            "image": "shopify://shop_images/photo-1525206809752-65312b959c88.jpg",
-            "pos": "center"
-          }
-        },
-        "tile_4": {
-          "type": "tile",
-          "settings": {
-            "title": "The Control Room",
-            "note": "Restraint, tease and impact",
-            "link": "shopify://collections/the-control-room",
-            "image": "shopify://shop_images/photo-1761068894564-e2b7ba572bb1.jpg",
-            "pos": "50% 35%"
-          }
-        },
-        "tile_5": {
-          "type": "tile",
-          "settings": {
-            "title": "The Backdoor",
-            "note": "Plugs, glass and prostate",
-            "link": "shopify://collections/the-backdoor",
-            "image": "shopify://shop_images/photo-1633445159013-2d94bcf2c4c7.jpg",
-            "pos": "50% 55%"
-          }
-        },
-        "tile_6": {
-          "type": "tile",
-          "settings": {
-            "title": "Lube & Care",
-            "note": "Buy 3, get 15% off the 4th",
-            "link": "shopify://collections/lube-essentials",
-            "image": "shopify://shop_images/photo-1631663027474-f965d42cbe9b.jpg",
-            "pos": "center"
-          }
-        }
-      },
-      "block_order": [
-        "tile_1",
-        "tile_2",
-        "tile_3",
-        "tile_4",
-        "tile_5",
-        "tile_6"
       ]
-    },
-    "pw_cr": {
-      "type": "pw-feature",
-      "settings": {
-        "image": "shopify://shop_images/photo-1769029265139-c6fb718582aa.jpg",
-        "pos": "center",
-        "eyebrow": "Featured collection",
-        "heading": "The Control Room",
-        "text": "Curated kits for exploring power play, from a first blindfold to the full set. Each one arrives ready to go, in a plain box.",
-        "cta_label": "Enter The Control Room",
-        "cta_link": "shopify://collections/the-control-room",
-        "bg": "#121012",
-        "fg": "#F7F1E8",
-        "accent": "#B89668",
-        "btn_bg": "#E9D8BC",
-        "btn_fg": "#121012"
-      },
-      "blocks": {
-        "row_1": {
-          "type": "row",
-          "settings": {
-            "left": "The Introduction",
-            "right": "Start here"
-          }
-        },
-        "row_2": {
-          "type": "row",
-          "settings": {
-            "left": "The Restraint",
-            "right": "Cuffs and ties"
-          }
-        },
-        "row_3": {
-          "type": "row",
-          "settings": {
-            "left": "The Tease",
-            "right": "Blindfolds and ticklers"
-          }
-        },
-        "row_4": {
-          "type": "row",
-          "settings": {
-            "left": "The Impact",
-            "right": "Paddles and floggers"
-          }
-        },
-        "row_5": {
-          "type": "row",
-          "settings": {
-            "left": "The Complete Set",
-            "right": "All of it, one box"
-          }
-        }
-      },
-      "block_order": [
-        "row_1",
-        "row_2",
-        "row_3",
-        "row_4",
-        "row_5"
-      ]
-    },
-    "pw_brands": {
-      "type": "pw-brands",
-      "settings": {},
-      "blocks": {
-        "brand_1": {
-          "type": "brand",
-          "settings": {
-            "name": "Satisfyer"
-          }
-        },
-        "brand_2": {
-          "type": "brand",
-          "settings": {
-            "name": "Magic Wand"
-          }
-        },
-        "brand_3": {
-          "type": "brand",
-          "settings": {
-            "name": "Fun Factory"
-          }
-        },
-        "brand_4": {
-          "type": "brand",
-          "settings": {
-            "name": "Adam & Eve"
-          }
-        },
-        "brand_5": {
-          "type": "brand",
-          "settings": {
-            "name": "Sportsheets"
-          }
-        },
-        "brand_6": {
-          "type": "brand",
-          "settings": {
-            "name": "Wicked"
-          }
-        },
-        "brand_7": {
-          "type": "brand",
-          "settings": {
-            "name": "Doc Johnson"
-          }
-        },
-        "brand_8": {
-          "type": "brand",
-          "settings": {
-            "name": "Blush"
-          }
-        }
-      },
-      "block_order": [
-        "brand_1",
-        "brand_2",
-        "brand_3",
-        "brand_4",
-        "brand_5",
-        "brand_6",
-        "brand_7",
-        "brand_8"
-      ]
-    },
-    "pw_story": {
-      "type": "pw-feature",
-      "settings": {
-        "image": "shopify://shop_images/photo-1770294759013-a5784266a817.jpg",
-        "pos": "center",
-        "reverse": true,
-        "eyebrow": "Our story",
-        "heading": "Pleasure, without the awkward bits.",
-        "text": "Pleasure Wonderland is an Australian store for toys and intimate essentials. We keep the range short, choose brands with a track record and send every order from Australia in a plain box. Questions go to a real person on our team.",
-        "cta_label": "About us",
-        "cta_link": "/pages/about",
-        "bg": "#F7F1E8",
-        "fg": "#121012",
-        "accent": "#5C1426",
-        "btn_bg": "#5C1426",
-        "btn_fg": "#F7F1E8"
-      }
     }
   },
   "order": [
-    "pw_ed",
-    "pw_cats",
-    "pw_best",
-    "pw_cr",
-    "pw_kits",
-    "pw_usp",
-    "pw_warranty",
-    "pw_brands",
-    "pw_story",
-    "pw_reviews",
-    "pw_news",
     "pw_hero",
     "pw_trust",
     "pw_offer",
     "pw_finder",
     "pw_vibes",
     "pw_bundle",
+    "pw_best",
+    "pw_kits",
+    "pw_usp",
     "pw_test",
     "pw_discreet",
     "pw_promise",
-    "pw_faq"
+    "pw_warranty",
+    "pw_reviews",
+    "pw_faq",
+    "pw_news"
   ]
 }
