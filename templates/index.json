@@ -17,6 +17,7 @@
     },
     "pw_trust": {
       "type": "pw-trust-bar",
+      "settings": {},
       "blocks": {
         "item_1": {
           "type": "item",
@@ -46,8 +47,8 @@
           "type": "item",
           "settings": {
             "icon": "battery",
-            "title": "Kits that save",
-            "text": "Toy, lube and cleaner in one box"
+            "title": "Free gift with kits",
+            "text": "Toy + lube + a free extra"
           }
         }
       },
@@ -56,11 +57,11 @@
         "item_2",
         "item_3",
         "item_4"
-      ],
-      "settings": {}
+      ]
     },
     "pw_finder": {
       "type": "pw-finder",
+      "settings": {},
       "blocks": {
         "option_1": {
           "type": "option",
@@ -90,8 +91,8 @@
           "type": "option",
           "settings": {
             "label": "Something adventurous",
-            "collection": "the-control-room",
-            "tint": "#DDD8E6"
+            "tint": "#DDD8E6",
+            "collection": "the-control-room"
           }
         },
         "option_5": {
@@ -109,11 +110,11 @@
         "option_3",
         "option_4",
         "option_5"
-      ],
-      "settings": {}
+      ]
     },
     "pw_vibes": {
       "type": "pw-vibes",
+      "settings": {},
       "blocks": {
         "tile_1": {
           "type": "tile",
@@ -122,47 +123,76 @@
             "text": "Air-pulse, rabbits, wands",
             "link": "shopify://collections/for-her",
             "bg": "#E9E1FF",
-            "fg": "#1D1530"
+            "fg": "#1D1530",
+            "image": "shopify://shop_images/vibe-her.png"
           }
         },
         "tile_2": {
           "type": "tile",
           "settings": {
             "title": "For Him",
-            "text": "Strokers, sleeves, rings",
+            "text": "Strokers and rings",
             "link": "shopify://collections/for-him",
             "bg": "#DCE8FF",
-            "fg": "#1D1530"
+            "fg": "#1D1530",
+            "image": "shopify://shop_images/vibe-him.png"
           }
         },
         "tile_3": {
           "type": "tile",
           "settings": {
             "title": "For Couples",
-            "text": "Remote and app play",
+            "text": "Toys made for two",
             "link": "shopify://collections/for-couples",
             "bg": "#FFD9D3",
-            "fg": "#1D1530"
+            "fg": "#1D1530",
+            "image": "shopify://shop_images/vibe-couples.png"
           }
         },
         "tile_4": {
+          "type": "tile",
+          "settings": {
+            "title": "The Backdoor",
+            "text": "Plugs and prostate",
+            "link": "shopify://collections/the-backdoor",
+            "bg": "#FFE9CF",
+            "fg": "#1D1530",
+            "image": "shopify://shop_images/vibe-backdoor.png"
+          }
+        },
+        "tile_5": {
           "type": "tile",
           "settings": {
             "title": "The Control Room",
             "text": "Tease, restrain, play",
             "link": "shopify://collections/the-control-room",
             "bg": "#1D1530",
-            "fg": "#FFFFFF"
+            "fg": "#FFFFFF",
+            "image": "shopify://shop_images/vibe-control.png"
           }
         },
-        "tile_5": {
+        "tile_6": {
+          "type": "tile",
+          "settings": {
+            "title": "Lube & Care",
+            "text": "The essentials",
+            "link": "shopify://collections/lube-essentials",
+            "bg": "#DDF2EA",
+            "fg": "#1D1530",
+            "image": "shopify://shop_images/vibe-lube.png"
+          }
+        },
+        "tile_7": {
           "type": "tile",
           "settings": {
             "title": "Kits",
-            "text": "Everything in one box",
+            "text": "Toy + lube + a free gift, in one box",
             "link": "shopify://collections/bundles",
-            "bg": "#DDF2EA",
-            "fg": "#1D1530"
+            "bg": "#F3E8FF",
+            "fg": "#1D1530",
+            "image": "shopify://shop_images/vibe-kits.png",
+            "badge": "Free gift",
+            "wide": true
           }
         }
       },
@@ -171,13 +201,16 @@
         "tile_2",
         "tile_3",
         "tile_4",
-        "tile_5"
-      ],
-      "settings": {}
+        "tile_5",
+        "tile_6",
+        "tile_7"
+      ]
     },
     "pw_bundle": {
       "type": "pw-bundle-banner",
-      "settings": {}
+      "settings": {
+        "mode": "auto"
+      }
     },
     "pw_best": {
       "type": "pw-product-grid",
@@ -195,6 +228,10 @@
     },
     "pw_usp": {
       "type": "pw-usp",
+      "settings": {
+        "heading": "Shopping made easy",
+        "text": "A short list of proven toys, simple kits and help whenever you need it."
+      },
       "blocks": {
         "point_1": {
           "type": "point",
@@ -207,7 +244,7 @@
           "type": "point",
           "settings": {
             "title": "Kits that keep it simple",
-            "text": "Toy, lube and toy cleaner in one plain box. Every kit saves you $7.90."
+            "text": "Toy, lube and a free gift in one plain box. Free shipping on every kit."
           }
         },
         "point_3": {
@@ -230,16 +267,12 @@
         "point_2",
         "point_3",
         "point_4"
-      ],
-      "settings": {
-        "heading": "Shopping made easy",
-        "text": "A short list of proven toys, simple kits and help whenever you need it."
-      }
+      ]
     },
     "pw_news": {
       "type": "pw-newsletter",
-      "disabled": true,
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "pw_offer": {
       "type": "pw-offer-band",
@@ -247,6 +280,10 @@
     },
     "pw_test": {
       "type": "pw-how-we-test",
+      "settings": {
+        "heading": "Fewer products. Chosen with data.",
+        "text": "We list the toys that already sell and review well in Australia, and skip the rest."
+      },
       "blocks": {
         "step_1": {
           "type": "step",
@@ -282,14 +319,11 @@
         "step_2",
         "step_3",
         "step_4"
-      ],
-      "settings": {
-        "heading": "Fewer products. Chosen with data.",
-        "text": "We list the toys that already sell and review well in Australia, and skip the rest."
-      }
+      ]
     },
     "pw_discreet": {
       "type": "pw-discreet",
+      "settings": {},
       "blocks": {
         "tick_1": {
           "type": "tick",
@@ -333,11 +367,11 @@
         "tick_3",
         "tick_4",
         "tick_5"
-      ],
-      "settings": {}
+      ]
     },
     "pw_promise": {
       "type": "pw-promise",
+      "settings": {},
       "blocks": {
         "item_1": {
           "type": "item",
@@ -363,8 +397,8 @@
         "item_4": {
           "type": "item",
           "settings": {
-            "big": "$7.90",
-            "label": "Saved on every kit"
+            "big": "FREE",
+            "label": "Gift with every kit"
           }
         }
       },
@@ -373,11 +407,17 @@
         "item_2",
         "item_3",
         "item_4"
-      ],
-      "settings": {}
+      ]
     },
     "pw_warranty": {
       "type": "pw-warranty",
+      "settings": {
+        "big": "100%",
+        "big_sub": "SORTED",
+        "eyebrow": "Our promise",
+        "heading": "Something wrong? We fix it fast.",
+        "text": "Every product is genuine and covered by Australian Consumer Law and the brand's own warranty."
+      },
       "blocks": {
         "point_1": {
           "type": "point",
@@ -413,14 +453,7 @@
         "point_2",
         "point_3",
         "point_4"
-      ],
-      "settings": {
-        "big": "100%",
-        "big_sub": "SORTED",
-        "eyebrow": "Our promise",
-        "heading": "Something wrong? We fix it fast.",
-        "text": "Every product is genuine and covered by Australian Consumer Law and the brand's own warranty."
-      }
+      ]
     },
     "pw_reviews": {
       "type": "pw-reviews",
@@ -428,6 +461,10 @@
     },
     "pw_faq": {
       "type": "pw-faq",
+      "settings": {
+        "heading": "Good questions",
+        "pad_top": 56
+      },
       "blocks": {
         "qa_1": {
           "type": "qa",
@@ -471,11 +508,7 @@
         "qa_3",
         "qa_4",
         "qa_5"
-      ],
-      "settings": {
-        "heading": "Good questions",
-        "pad_top": 56
-      }
+      ]
     }
   },
   "order": [
