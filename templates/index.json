@@ -129,8 +129,8 @@
             "bg": "#E9E1FF",
             "fg": "#1D1530",
             "image": "shopify://shop_images/vibe-her.png",
-            "photo": "shopify://shop_images/pexels-photo-5187653.jpg",
-            "photo_pos": "50% 35%"
+            "photo": "shopify://shop_images/pw-her-toy.jpg",
+            "photo_pos": "50% 40%"
           }
         },
         "tile_2": {
@@ -142,8 +142,8 @@
             "bg": "#DCE8FF",
             "fg": "#1D1530",
             "image": "shopify://shop_images/vibe-him.png",
-            "photo": "shopify://shop_images/pexels-photo-14521368.jpg",
-            "photo_pos": "45% 40%"
+            "photo": "shopify://shop_images/pw-him-bed.jpg",
+            "photo_pos": "66% 50%"
           }
         },
         "tile_3": {
@@ -155,8 +155,8 @@
             "bg": "#FFD9D3",
             "fg": "#1D1530",
             "image": "shopify://shop_images/vibe-couples.png",
-            "photo": "shopify://shop_images/pexels-photo-11636284.jpg",
-            "photo_pos": "50% 35%"
+            "photo": "shopify://shop_images/pw-couples-toy.jpg",
+            "photo_pos": "50% 55%"
           }
         },
         "tile_4": {
