@@ -23,7 +23,7 @@
 <div class="pw-card">
   <a href="{{ product.url }}" class="pw-card__media" style="background: {{ tint }}" aria-label="{{ product.title | escape }}">
     {%- if product.featured_media -%}
-      {{ product.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title, widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw' }}
+      {{ product.featured_media | image_url: width: 1200 | image_tag: loading: 'lazy', alt: product.title, widths: '360, 540, 720, 900, 1200', sizes: '(min-width: 1200px) 340px, (min-width: 990px) 25vw, 50vw' }}
     {%- else -%}
       {{ 'product-1' | placeholder_svg_tag: 'pw-placeholder' }}
     {%- endif -%}
