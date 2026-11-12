@@ -22,7 +22,7 @@
       <a href="{{ section.settings.link1 | default: '/products/magic-wand-rechargeable' }}" class="pw-hero__tile pw-hero__tile--tall" style="background: #E9E1FF" aria-label="{{ section.settings.alt1 | escape }}">
         {%- if section.settings.photo1 -%}
           {%- assign pw_style = 'object-position:' | append: section.settings.photo1_pos -%}
-          {{ section.settings.photo1 | image_url: width: 1400 | image_tag: class: 'pw-hero__photo', loading: 'eager', fetchpriority: 'high', alt: section.settings.photo1.alt, widths: '400, 600, 800, 1000, 1400', sizes: '(min-width: 990px) 24vw, 50vw', style: pw_style }}
+          {{ section.settings.photo1 | image_url: width: 1800 | image_tag: class: 'pw-hero__photo', loading: 'eager', fetchpriority: 'high', alt: section.settings.photo1.alt, widths: '600, 800, 1000, 1400, 1800', sizes: '(min-width: 990px) 24vw, 50vw', style: pw_style }}
         {%- else -%}
         {%- assign img1 = section.settings.image1 | default: images['hero-magic-wand.png'] -%}{%- if img1 -%}{{ img1 | image_url: width: 1200 | image_tag: class: 'pw-hero__img', loading: 'eager', fetchpriority: 'high', alt: section.settings.alt1, widths: '400, 600, 800, 1000, 1200', sizes: '(min-width: 990px) 22vw, 45vw' }}{%- else -%}<div class="pw-shape" style="width: 34%; height: 62%; background: #5B3FD1"></div>{%- endif -%}
         {%- endif -%}

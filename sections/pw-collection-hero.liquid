@@ -39,7 +39,7 @@
             <a href="{{ section.settings.guide_link }}" class="pw-colcard__guide"><span>{{ section.settings.guide_label }}</span><span aria-hidden="true">→</span></a>
           {%- endif -%}
         </div>
-        <div class="pw-colcard__media">{{ c.image | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '400, 600, 800, 1000, 1400', sizes: '(min-width: 750px) 45vw, 100vw', alt: c.image.alt, style: pw_style }}</div>
+        <div class="pw-colcard__media">{{ c.image | image_url: width: 2000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1600, 2000', sizes: '(min-width: 750px) 45vw, 100vw', alt: c.image.alt, style: pw_style }}</div>
       </div>
     {%- else -%}
       <div class="pw-colhero">
