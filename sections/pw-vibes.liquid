@@ -1,12 +1,31 @@
+<style>
+  .pwv{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .pwv__tile{position:relative;display:flex;flex-direction:column;justify-content:flex-start;aspect-ratio:4/5;border-radius:28px;overflow:hidden;padding:24px 24px 0;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease}
+  .pwv__tile:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(29,21,48,.14)}
+  .pwv__tile--wide{grid-column:span 2;aspect-ratio:auto}
+  .pwv__title{font-family:var(--pw-display,inherit);font-size:clamp(22px,2vw,30px);font-weight:800;line-height:1.05;position:relative;z-index:2}
+  .pwv__text{font-size:15px;opacity:.8;margin-top:6px;position:relative;z-index:2}
+  .pwv__cta{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:14px;font-weight:700;position:relative;z-index:2}
+  .pwv__cta span{display:inline-block;transition:transform .2s ease}
+  .pwv__tile:hover .pwv__cta span{transform:translateX(4px)}
+  .pwv__img{position:absolute;left:0;right:0;bottom:0;height:72%;display:flex;align-items:flex-end;justify-content:center;z-index:1}
+  .pwv__img img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transition:transform .35s ease}
+  .pwv__tile:hover .pwv__img img{transform:scale(1.05)}
+  .pwv__badge{position:absolute;top:18px;right:18px;z-index:3;background:#FF7A6B;color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:6px 12px}
+  @media (max-width:989px){.pwv{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:599px){.pwv{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:6px}.pwv__tile{flex:0 0 68%;scroll-snap-align:start}}
+</style>
 <section class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
   <div class="pw-wrap">
     {%- if section.settings.heading != blank -%}<div class="pw-section-head"><h2 class="pw-h">{{ section.settings.heading }}</h2></div>{%- endif -%}
-    <div class="pw-vibes">
+    <div class="pwv">
       {%- for block in section.blocks -%}
-        <a href="{{ block.settings.link | default: '#' }}" class="pw-vibe" style="background: {{ block.settings.bg }}; color: {{ block.settings.fg }}" {{ block.shopify_attributes }}>
-          {%- if block.settings.image -%}{{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy' }}{%- endif -%}
-          <span class="pw-vibe__title" style="color: {{ block.settings.fg }}">{{ block.settings.title }}</span>
-          <span class="pw-vibe__text">{{ block.settings.text }}</span>
+        <a href="{{ block.settings.link | default: '#' }}" class="pwv__tile{% if block.settings.wide %} pwv__tile--wide{% endif %}" style="background: {{ block.settings.bg }}; color: {{ block.settings.fg }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.badge != blank -%}<span class="pwv__badge">{{ block.settings.badge }}</span>{%- endif -%}
+          <span class="pwv__title" style="color: {{ block.settings.fg }}">{{ block.settings.title }}</span>
+          <span class="pwv__text">{{ block.settings.text }}</span>
+          <span class="pwv__cta">Shop now <span aria-hidden="true">→</span></span>
+          {%- if block.settings.image -%}<span class="pwv__img">{{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.title }}</span>{%- endif -%}
         </a>
       {%- endfor -%}
     </div>
@@ -27,21 +46,14 @@
     "settings": [
       { "type": "text", "id": "title", "label": "Title", "default": "For Her" },
       { "type": "text", "id": "text", "label": "Text", "default": "Air-pulse, bullets, wands" },
+      { "type": "text", "id": "badge", "label": "Badge (optional)" },
       { "type": "url", "id": "link", "label": "Link" },
-      { "type": "image_picker", "id": "image", "label": "Background image (optional)" },
+      { "type": "checkbox", "id": "wide", "label": "Double width", "default": false },
+      { "type": "image_picker", "id": "image", "label": "Product image (transparent PNG)" },
       { "type": "color", "id": "bg", "label": "Background", "default": "#E9E1FF" },
       { "type": "color", "id": "fg", "label": "Text colour", "default": "#1D1530" }
     ]
   }],
-  "presets": [{
-    "name": "PW Shop by vibe",
-    "blocks": [
-      { "type": "tile", "settings": { "title": "For Her", "text": "Air-pulse, bullets, wands", "bg": "#E9E1FF" } },
-      { "type": "tile", "settings": { "title": "For Him", "text": "Strokers, sleeves, rings", "bg": "#DCE8FF" } },
-      { "type": "tile", "settings": { "title": "For Couples", "text": "Remote and app play", "bg": "#FFD9D3" } },
-      { "type": "tile", "settings": { "title": "The Control Room", "text": "Tease, restrain, play", "bg": "#1D1530", "fg": "#FFFFFF" } },
-      { "type": "tile", "settings": { "title": "Lube & Care", "text": "The essentials", "bg": "#DDF2EA" } }
-    ]
-  }]
+  "presets": [{ "name": "PW Shop by vibe" }]
 }
 {% endschema %}
