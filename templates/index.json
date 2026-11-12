@@ -13,8 +13,8 @@
       "type": "pw-hero",
       "settings": {
         "cta1_link": "shopify://collections/bestsellers",
-        "photo1": "shopify://shop_images/photo-1519644473771-e45d361c9bb8.jpg",
-        "photo1_pos": "45% 50%",
+        "photo1": "shopify://shop_images/photo-1568663521381-33b7c467fda0.jpg",
+        "photo1_pos": "50% 35%",
         "link1": "shopify://collections/for-her",
         "alt1": "Shop For Her"
       }
@@ -129,7 +129,7 @@
             "bg": "#E9E1FF",
             "fg": "#1D1530",
             "image": "shopify://shop_images/vibe-her.png",
-            "photo": "shopify://shop_images/photo-1618902751861-3de78572c067.jpg",
+            "photo": "shopify://shop_images/photo-1646589391711-f083ec81bc55.jpg",
             "photo_pos": "50% 30%"
           }
         },
@@ -142,8 +142,8 @@
             "bg": "#DCE8FF",
             "fg": "#1D1530",
             "image": "shopify://shop_images/vibe-him.png",
-            "photo": "shopify://shop_images/photo-1770610325567-fe87751f3fd3.jpg",
-            "photo_pos": "55% 50%"
+            "photo": "shopify://shop_images/photo-1469460340997-2f854421e72f.jpg",
+            "photo_pos": "50% 25%"
           }
         },
         "tile_3": {
@@ -155,8 +155,8 @@
             "bg": "#FFD9D3",
             "fg": "#1D1530",
             "image": "shopify://shop_images/vibe-couples.png",
-            "photo": "shopify://shop_images/photo-1615533295613-237331007fe8.jpg",
-            "photo_pos": "45% 45%"
+            "photo": "shopify://shop_images/photo-1570648595512-cf354da4094e.jpg",
+            "photo_pos": "50% 40%"
           }
         },
         "tile_4": {
@@ -195,8 +195,8 @@
             "bg": "#DDF2EA",
             "fg": "#1D1530",
             "image": "shopify://shop_images/vibe-lube.png",
-            "photo": "shopify://shop_images/photo-1622942819501-d8bd6bc5deb9.jpg",
-            "photo_pos": "50% 45%"
+            "photo": "shopify://shop_images/photo-1758605456769-7f3d0939f623.jpg",
+            "photo_pos": "50% 55%"
           }
         },
         "tile_7": {

@@ -1,34 +1,57 @@
 {%- assign c = collection -%}
+{%- assign pw_bg = '#F3E8FF' -%}{%- assign pw_fg = '#1D1530' -%}{%- assign pw_pos = '50% 40%' -%}
 {%- case c.handle -%}
-  {%- when 'the-control-room' -%}{%- assign pw_pos = '50% 55%' -%}
-  {%- when 'for-couples' -%}{%- assign pw_pos = '50% 40%' -%}
-  {%- when 'the-backdoor' -%}{%- assign pw_pos = '50% 60%' -%}
-  {%- when 'for-him' -%}{%- assign pw_pos = '50% 45%' -%}
-  {%- when 'for-her' -%}{%- assign pw_pos = '50% 30%' -%}
-  {%- when 'lube-essentials' -%}{%- assign pw_pos = '50% 45%' -%}
-  {%- else -%}{%- assign pw_pos = '50% 45%' -%}
+  {%- when 'for-her' -%}{%- assign pw_bg = '#E9E1FF' -%}{%- assign pw_pos = '50% 30%' -%}
+  {%- when 'for-him' -%}{%- assign pw_bg = '#DCE8FF' -%}{%- assign pw_pos = '50% 25%' -%}
+  {%- when 'for-couples' -%}{%- assign pw_bg = '#FFD9D3' -%}{%- assign pw_pos = '50% 40%' -%}
+  {%- when 'the-backdoor' -%}{%- assign pw_bg = '#FFE9CF' -%}{%- assign pw_pos = '50% 60%' -%}
+  {%- when 'the-control-room' -%}{%- assign pw_bg = '#1D1530' -%}{%- assign pw_fg = '#FFFFFF' -%}{%- assign pw_pos = '50% 55%' -%}
+  {%- when 'lube-essentials' -%}{%- assign pw_bg = '#DDF2EA' -%}{%- assign pw_pos = '50% 50%' -%}
+  {%- when 'bestsellers' -%}{%- assign pw_bg = '#FFD9D3' -%}{%- assign pw_pos = '50% 40%' -%}
 {%- endcase -%}
 <style>
-  .pw-colhero__banner{position:relative;height:clamp(200px,26vw,360px);border-radius:28px;overflow:hidden;margin:0 0 22px;background:#E9E1FF}
-  .pw-colhero__banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  @media (max-width:599px){.pw-colhero__banner{border-radius:20px;height:210px}}
+  .pw-colcard{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:stretch;border-radius:28px;overflow:hidden;margin:0 0 22px}
+  .pw-colcard__copy{display:flex;flex-direction:column;justify-content:center;gap:10px;padding:32px clamp(22px,4vw,48px)}
+  .pw-colcard__copy .pw-h{font-size:clamp(36px,4.4vw,56px);margin:0;color:inherit}
+  .pw-colcard__copy .pw-rte{opacity:.8;max-width:520px}
+  .pw-colcard__copy .pw-rte p{margin:0}
+  .pw-colcard__guide{align-self:flex-start;display:inline-flex;gap:8px;align-items:center;margin-top:8px;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.7);color:#1D1530;font-weight:700;font-size:14px;text-decoration:none}
+  .pw-colcard__media{position:relative;height:clamp(260px,30vw,400px);aspect-ratio:var(--pw-ar);margin:12px;border-radius:20px;overflow:hidden}
+  .pw-colcard__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  @media (max-width:749px){
+    .pw-colcard{grid-template-columns:1fr}
+    .pw-colcard__media{order:-1;height:auto;width:auto;aspect-ratio:var(--pw-ar-m);max-height:420px;margin:10px 10px 0}
+    .pw-colcard__copy{padding:20px 20px 24px}
+  }
 </style>
 <section class="pw-section" style="--pw-pad-top: 28px; --pw-pad-bottom: 8px">
   <div class="pw-wrap">
     <nav aria-label="Breadcrumb" class="pw-muted" style="font-size: 13px; margin-bottom: 18px"><a href="{{ routes.root_url }}" style="color: inherit">Home</a> / {{ c.title }}</nav>
     {%- if c.image -%}
+      {%- assign pw_ar = c.image.aspect_ratio | at_least: 0.8 | at_most: 1.5 -%}
+      {%- assign pw_ar_m = c.image.aspect_ratio | at_least: 1.0 | at_most: 1.5 -%}
       {%- assign pw_style = 'object-position:' | append: pw_pos -%}
-      <div class="pw-colhero__banner">{{ c.image | image_url: width: 2000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1600, 2000', sizes: '(min-width: 1200px) 1200px, 100vw', alt: c.image.alt, style: pw_style }}</div>
-    {%- endif -%}
-    <div class="pw-colhero">
-      <div style="max-width: 640px">
-        <h1 class="pw-h" style="font-size: clamp(40px, 5vw, 56px); margin-bottom: 10px">{{ c.title }}</h1>
-        {%- if c.description != blank -%}<div class="pw-muted pw-rte">{{ c.description }}</div>{%- endif -%}
+      <div class="pw-colcard" style="background: {{ pw_bg }}; color: {{ pw_fg }}; --pw-ar: {{ pw_ar }}; --pw-ar-m: {{ pw_ar_m }}">
+        <div class="pw-colcard__copy">
+          <h1 class="pw-h">{{ c.title }}</h1>
+          {%- if c.description != blank -%}<div class="pw-rte">{{ c.description }}</div>{%- endif -%}
+          {%- if section.settings.guide_label != blank and section.settings.guide_link != blank -%}
+            <a href="{{ section.settings.guide_link }}" class="pw-colcard__guide"><span>{{ section.settings.guide_label }}</span><span aria-hidden="true">→</span></a>
+          {%- endif -%}
+        </div>
+        <div class="pw-colcard__media">{{ c.image | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '400, 600, 800, 1000, 1400', sizes: '(min-width: 750px) 45vw, 100vw', alt: c.image.alt, style: pw_style }}</div>
       </div>
-      {%- if section.settings.guide_label != blank and section.settings.guide_link != blank -%}
-        <a href="{{ section.settings.guide_link }}" class="pw-colhero__guide"><span>{{ section.settings.guide_label }}</span><span aria-hidden="true">→</span></a>
-      {%- endif -%}
-    </div>
+    {%- else -%}
+      <div class="pw-colhero">
+        <div style="max-width: 640px">
+          <h1 class="pw-h" style="font-size: clamp(40px, 5vw, 56px); margin-bottom: 10px">{{ c.title }}</h1>
+          {%- if c.description != blank -%}<div class="pw-muted pw-rte">{{ c.description }}</div>{%- endif -%}
+        </div>
+        {%- if section.settings.guide_label != blank and section.settings.guide_link != blank -%}
+          <a href="{{ section.settings.guide_link }}" class="pw-colhero__guide"><span>{{ section.settings.guide_label }}</span><span aria-hidden="true">→</span></a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
     {%- capture chips -%}
       {%- for block in section.blocks -%}
         {%- assign tag = block.settings.tag | handleize -%}
