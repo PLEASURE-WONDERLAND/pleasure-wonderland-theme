@@ -30,8 +30,8 @@
       when 'curious'
         assign kit = all_products['the-curious-kit']
         assign heading = 'The Curious Kit'
-        assign text = 'The easiest way to start. Satisfyer Pro 2 and Wicked lube, with a vibrating bullet on us.'
-        assign lines = 'Satisfyer Pro 2 air-pulse toy|$54.95;Wicked Simply Aqua lube 120 ml|$19.95;B Yours vibrating bullet|FREE'
+        assign text = 'The easiest way to start. Satisfyer Pro 2 and Wicked lube, with a rose gold jewel plug on us.'
+        assign lines = 'Satisfyer Pro 2 air-pulse toy|$54.95;Wicked Simply Aqua lube 120 ml|$19.95;Rose gold jewel plug|FREE'
         assign button = 'Shop the Curious Kit'
       when 'mens'
         assign kit = all_products['the-mens-room-kit']
@@ -118,7 +118,7 @@
       </div>
       <div class="pw-bundle__art">
         {%- if img != blank -%}
-          {{ img | image_url: width: 900 | image_tag: loading: 'lazy', alt: heading }}
+          {{ img | image_url: width: 900 | image_tag: loading: 'lazy', alt: heading, style: 'object-fit:contain;width:100%;height:100%' }}
         {%- else -%}
           <div class="pw-shape" style="width: 70px; height: 190px; background: #FF7A6B"></div>
           <div style="width: 90px; height: 150px; background: #E9E1FF; border-radius: 22px"></div>

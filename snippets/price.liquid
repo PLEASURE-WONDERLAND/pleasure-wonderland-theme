@@ -22,6 +22,14 @@
     assign show_compare_price = true
     assign pw_saving = compare_at_price | minus: price
   endif
+  assign pw_gift = false
+  if product_resource.tags contains 'free-gift'
+    assign pw_gift = true
+  endif
+  assign pw_chips = pw_gift
+  if pw_saving > 0
+    assign pw_chips = true
+  endif
 
   if product_resource == blank
     assign price = 1999
@@ -76,7 +84,8 @@
   endif
 -%}
 <style>
-  .pw-save,.pw-gift{display:inline-flex;align-items:center;gap:4px;margin-left:6px;font-weight:700;font-size:12px;line-height:1;padding:4px 8px;border-radius:6px;vertical-align:middle;white-space:nowrap;letter-spacing:.01em}
+  .pw-chips{display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:6px}
+  .pw-save,.pw-gift{display:inline-flex;align-items:center;gap:4px;margin:0;font-weight:700;font-size:12px;line-height:1;padding:4px 8px;border-radius:6px;white-space:nowrap;letter-spacing:.01em}
   .pw-save{background:#FFE7E3;color:#D9412E}
   .pw-gift{background:#FF7A6B;color:#fff}
   .product-information .pw-save,.product-information .pw-gift{font-size:14px;padding:6px 10px;border-radius:8px}
@@ -122,8 +131,10 @@
       >
     {% endif %}
   {% endif %}
-  {%- if show_compare_price and pw_saving > 0 -%}<span class="pw-save">Save {{ pw_saving | money_without_trailing_zeros }}</span>{%- endif -%}
-  {%- if product_resource.tags contains 'free-gift' -%}<span class="pw-gift"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 7h-2.2A3 3 0 0 0 12 3.8 3 3 0 0 0 6.2 7H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm-7-1a1 1 0 1 1 1 1h-1V6Zm-4 0a1 1 0 0 1 2 0v1h-1a1 1 0 0 1-1-1Zm2 14H7v-8h4v8Zm0-10H5V9h6v1Zm6 10h-4v-8h4v8Zm2-10h-6V9h6v1Z"/></svg>Free gift</span>{%- endif -%}
+  {%- if pw_chips -%}<span class="pw-chips">
+    {%- if pw_saving > 0 -%}<span class="pw-save">Save {{ pw_saving | money_without_trailing_zeros }}</span>{%- endif -%}
+    {%- if pw_gift -%}<span class="pw-gift"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 7h-2.2A3 3 0 0 0 12 3.8 3 3 0 0 0 6.2 7H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm-7-1a1 1 0 1 1 1 1h-1V6Zm-4 0a1 1 0 0 1 2 0v1h-1a1 1 0 0 1-1-1Zm2 14H7v-8h4v8Zm0-10H5V9h6v1Zm6 10h-4v-8h4v8Zm2-10h-6V9h6v1Z"/></svg>Free gift</span>{%- endif -%}
+  </span>{%- endif -%}
   {%- if selected_variant.unit_price and show_unit_price %}
     {%- liquid
       if use_currency

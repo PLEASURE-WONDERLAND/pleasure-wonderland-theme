@@ -22,6 +22,52 @@
   @media (max-width:749px){.pw-ship-bubble{width:96px;height:96px;top:12px;right:12px}.pw-ship-bubble__big{font-size:16px}.pw-ship-bubble__time{font-size:11px}}
   @media (prefers-reduced-motion:reduce){.pw-ship-bubble,.pw-ship-bubble::after{animation:none}}
 </style>
+{%- if block.settings.show_buy_now -%}
+<style>
+  .product-information shopify-accelerated-checkout,.product-information .shopify-payment-button,.product-information shopify-accelerated-checkout-cart{display:none!important}
+  .pw-buynow{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:4px;padding:15px 18px;border-radius:999px;border:2px solid #1D1530;background:#fff;color:#1D1530;font:inherit;font-weight:700;font-size:16px;cursor:pointer;transition:background .2s,color .2s}
+  .pw-buynow:hover{background:#1D1530;color:#fff}
+  .pw-buynow[disabled]{opacity:.6;cursor:wait}
+  .pw-pay{margin-top:12px;text-align:center}
+  .pw-pay__label{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:#5E5873;margin-bottom:8px}
+  .pw-pay__icons{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+  .pw-pay__icons svg{width:42px;height:28px}
+  .pw-pay__note{font-size:12px;color:#5E5873;margin-top:8px}
+</style>
+<button type="button" class="pw-buynow" data-pw-buynow>Buy now, ships in a plain box <span aria-hidden="true">&rarr;</span></button>
+<div class="pw-pay">
+  <div class="pw-pay__label"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 9V7A5 5 0 0 0 7 7v2H5v13h14V9h-2Zm-8-2a3 3 0 0 1 6 0v2H9V7Zm8 13H7v-9h10v9Z"/></svg>Secure checkout with</div>
+  <div class="pw-pay__icons">
+    {%- assign pw_types = shop.enabled_payment_types -%}
+    {%- if pw_types.size == 0 -%}{%- assign pw_types = 'apple_pay,google_pay,visa,master,american_express,paypal' | split: ',' -%}{%- endif -%}
+    {%- for type in pw_types -%}{{ type | payment_type_svg_tag }}{%- endfor -%}
+  </div>
+  <p class="pw-pay__note">Your statement shows a discreet business name.</p>
+</div>
+<script>
+  if (!window.__pwBuyNow) {
+    window.__pwBuyNow = true;
+    document.addEventListener('click', async (e) => {
+      const btn = e.target.closest('[data-pw-buynow]');
+      if (!btn) return;
+      const form = document.querySelector('.product-information form[action*="/cart/add"], form[action*="/cart/add"]');
+      const id = form && form.querySelector('[name="id"]') && form.querySelector('[name="id"]').value;
+      if (!id) return;
+      const q = form.querySelector('[name="quantity"]');
+      const qty = Math.max(1, Number(q && q.value) || 1);
+      const tier = document.querySelector('pw-bundle-tiers input[type="radio"]:checked');
+      const items = [{ id: Number(id), quantity: qty }];
+      if (tier && tier.dataset.items) tier.dataset.items.split(',').filter(Boolean).forEach((x) => items.push({ id: Number(x), quantity: 1 }));
+      btn.disabled = true;
+      try {
+        const r = await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ items }) });
+        if (!r.ok) throw new Error((await r.json()).description || 'Could not add to cart');
+        window.location.href = '/checkout';
+      } catch (err) { btn.disabled = false; btn.textContent = err.message; }
+    });
+  }
+</script>
+{%- endif -%}
 <pw-dispatch
   class="pw-dispatch"
   data-cutoff="{{ cut }}"
@@ -154,6 +200,7 @@
   "name": "PW Dispatch countdown",
   "settings": [
     { "type": "checkbox", "id": "show_shipping", "label": "Show free-shipping progress", "default": true },
+    { "type": "checkbox", "id": "show_buy_now", "label": "Replace express checkout with Buy now + payment icons", "default": true },
     { "type": "paragraph", "content": "Cut-off time and free-shipping threshold are set in Theme settings > Pleasure Wonderland. The free-shipping message reads the live cart, the selected variant, the bundle tier and the quantity." }
   ],
   "presets": [{ "name": "PW Dispatch countdown" }]
