@@ -62,7 +62,8 @@
         window.addEventListener('resize', this.onResize);
         this.refreshShip = () => this.updateShip();
         ['cart:update', 'cart:updated', 'variant:update', 'variant:change'].forEach((e) => document.addEventListener(e, () => setTimeout(this.refreshShip, 150)));
-        document.addEventListener('change', (e) => { if (e.target.closest('form')) setTimeout(this.refreshShip, 150); });
+        document.addEventListener('change', (e) => { if (e.target.closest('form, pw-bundle-tiers')) setTimeout(this.refreshShip, 150); });
+        document.addEventListener('click', (e) => { if (e.target.closest('quantity-selector-component, .quantity-selector, pw-bundle-tiers, [name="quantity"]')) setTimeout(this.refreshShip, 250); });
         window.addEventListener('pageshow', this.refreshShip);
         document.addEventListener('visibilitychange', () => { if (!document.hidden) this.refreshShip(); });
         if (!window.__pwFetchWrapped) {
@@ -71,14 +72,26 @@
           window.fetch = function () { const p = f.apply(this, arguments); try { const u = String(arguments[0] && arguments[0].url || arguments[0]); if (/\/cart\/(add|change|update|clear)/.test(u)) p.then(() => setTimeout(() => document.dispatchEvent(new CustomEvent('pw:cart')), 300)); } catch (e) {} return p; };
         }
         document.addEventListener('pw:cart', this.refreshShip);
+        document.addEventListener('pw:tier', this.refreshShip);
         this.updateShip();
       }
       disconnectedCallback() { clearInterval(this.timer); window.removeEventListener('resize', this.onResize); }
       money(c) { const v = c / 100; return '$' + (Number.isInteger(v) ? v : v.toFixed(2)); }
       variantPrice() {
-        const input = document.querySelector('form[action*="/cart/add"] [name="id"]');
+        const form = document.querySelector('form[action*="/cart/add"]');
+        const input = form && form.querySelector('[name="id"]');
         const id = (input && input.value) || (this.ship && this.ship.dataset.first);
-        return Number(this.prices[id] || Object.values(this.prices)[0] || 0);
+        const base = Number(this.prices[id] || Object.values(this.prices)[0] || 0);
+        const q = form && form.querySelector('[name="quantity"]');
+        const qty = Math.max(1, Number(q && q.value) || 1);
+        let total = base * qty;
+        const tier = document.querySelector('pw-bundle-tiers input[type="radio"]:checked');
+        if (tier && tier.value !== '1') {
+          const s = tier.closest('label') && tier.closest('label').querySelector('.pw-tier__price strong');
+          const t = Number(tier.dataset.price) || (s ? Math.round(parseFloat(s.textContent.replace(/[^0-9.]/g, '')) * 100) : 0);
+          if (t) total = t + base * (qty - 1);
+        }
+        return total;
       }
       async updateShip() {
         if (!this.ship || !this.threshold) return;
@@ -92,7 +105,7 @@
         } else if (cart >= t) {
           html = '<p class="pw-freeship__msg pw-freeship__msg--free"><span aria-hidden="true">🎉</span><span>You have unlocked <strong>free shipping</strong></span></p>'; pct = 100;
         } else if (cart + item >= t) {
-          html = '<p class="pw-freeship__msg pw-freeship__msg--free"><span aria-hidden="true">🚚</span><span>Add this and your order ships <strong>free</strong></span></p>'; pct = 100;
+          html = '<p class="pw-freeship__msg pw-freeship__msg--free"><span aria-hidden="true">🚚</span><span>This order ships <strong>free</strong></span></p>'; pct = 100;
         } else {
           const left = t - cart - item;
           pct = Math.round(((cart + item) / t) * 100);
@@ -141,7 +154,7 @@
   "name": "PW Dispatch countdown",
   "settings": [
     { "type": "checkbox", "id": "show_shipping", "label": "Show free-shipping progress", "default": true },
-    { "type": "paragraph", "content": "Cut-off time and free-shipping threshold are set in Theme settings > Pleasure Wonderland. The free-shipping message reads the live cart and the selected variant, and updates when the cart changes." }
+    { "type": "paragraph", "content": "Cut-off time and free-shipping threshold are set in Theme settings > Pleasure Wonderland. The free-shipping message reads the live cart, the selected variant, the bundle tier and the quantity." }
   ],
   "presets": [{ "name": "PW Dispatch countdown" }]
 }
