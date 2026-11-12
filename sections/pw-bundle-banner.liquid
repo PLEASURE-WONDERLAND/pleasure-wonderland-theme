@@ -118,7 +118,7 @@
       </div>
       <div class="pw-bundle__art">
         {%- if img != blank -%}
-          {{ img | image_url: width: 900 | image_tag: loading: 'lazy', alt: heading, style: 'object-fit:contain;width:100%;height:100%' }}
+          {{ img | image_url: width: 1400 | image_tag: loading: 'lazy', alt: heading, widths: '500, 800, 1100, 1400', sizes: '(min-width: 990px) 45vw, 92vw', style: 'object-fit:contain;width:100%;height:100%' }}
         {%- else -%}
           <div class="pw-shape" style="width: 70px; height: 190px; background: #FF7A6B"></div>
           <div style="width: 90px; height: 150px; background: #E9E1FF; border-radius: 22px"></div>

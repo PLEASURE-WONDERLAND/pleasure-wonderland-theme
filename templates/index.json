@@ -153,7 +153,7 @@
           "type": "tile",
           "settings": {
             "title": "The Backdoor",
-            "text": "Plugs and prostate",
+            "text": "Plugs, glass and prostate",
             "link": "shopify://collections/the-backdoor",
             "bg": "#FFE9CF",
             "fg": "#1D1530",
@@ -175,7 +175,8 @@
           "type": "tile",
           "settings": {
             "title": "Lube & Care",
-            "text": "The essentials",
+            "text": "Buy 3, get 15% off the 4th",
+            "badge": "Buy 3 save",
             "link": "shopify://collections/lube-essentials",
             "bg": "#DDF2EA",
             "fg": "#1D1530",
@@ -258,7 +259,7 @@
           "type": "point",
           "settings": {
             "title": "Real people, fast replies",
-            "text": "Not sure what to get? Email us and we'll help you choose."
+            "text": "Not sure what to get? Live chat or email us and a real human will help you choose."
           }
         }
       },
@@ -412,11 +413,11 @@
     "pw_warranty": {
       "type": "pw-warranty",
       "settings": {
-        "big": "100%",
-        "big_sub": "SORTED",
+        "big": "+12",
+        "big_sub": "MONTHS ON US",
         "eyebrow": "Our promise",
-        "heading": "Something wrong? We fix it fast.",
-        "text": "Every product is genuine and covered by Australian Consumer Law and the brand's own warranty."
+        "heading": "Built to last. Backed even longer.",
+        "text": "Every toy keeps its full manufacturer warranty, then we add an extra 12 months on top. You'll probably never need it, but if you do, we go the extra mile."
       },
       "blocks": {
         "point_1": {
@@ -436,15 +437,15 @@
         "point_3": {
           "type": "point",
           "settings": {
-            "title": "Covered by Australian Consumer Law.",
-            "text": "Plus the brand's own warranty on every genuine product."
+            "title": "+12 months warranty, on us.",
+            "text": "Stacked on top of the maker's warranty, which is normally 2 to 5 years."
           }
         },
         "point_4": {
           "type": "point",
           "settings": {
-            "title": "Real people, fast replies.",
-            "text": "Email us and we sort it quickly."
+            "title": "Real humans, fast replies.",
+            "text": "Live chat or email. Zero bots, zero AI."
           }
         }
       },
