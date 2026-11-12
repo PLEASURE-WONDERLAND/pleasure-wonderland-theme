@@ -31,7 +31,7 @@
         "ann_gift": {
           "type": "_announcement",
           "settings": {
-            "text": "Free gift with every kit · Shop kits →",
+            "text": "Free gift with our toy kits · Shop kits →",
             "link": "shopify://collections/bundles",
             "font": "var(--font-subheading--family)",
             "font_size": "0.8125rem",
