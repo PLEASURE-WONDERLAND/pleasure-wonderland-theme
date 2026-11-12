@@ -1,9 +1,6 @@
 {%- liquid
   assign product = closest.product
-  assign variant = product.selected_or_first_available_variant
   assign threshold = settings.pw_free_shipping | default: 69 | times: 100
-  assign after_add = cart.total_price | plus: variant.price
-  assign remaining = threshold | minus: after_add
   assign cut = settings.pw_cutoff_hour | default: 14
 -%}
 <style>
@@ -14,6 +11,12 @@
   .pw-ship-bubble__big{font-size:19px;font-weight:800;line-height:1;margin:2px 0}
   .pw-ship-bubble__big span{color:#fff}
   .pw-ship-bubble__time{font-size:12px;font-weight:700;background:#1D1530;color:#fff;border-radius:999px;padding:2px 8px;margin-top:3px}
+  .pw-freeship{margin-top:8px}
+  .pw-freeship__msg{display:flex;align-items:center;gap:8px;font-size:15px}
+  .pw-freeship__msg--free{background:#FFE7E3;color:#1D1530;border-radius:12px;padding:10px 12px;font-weight:600}
+  .pw-freeship__msg--free strong{color:#E2513F}
+  .pw-freeship__bar{height:6px;border-radius:999px;background:#EEE9F8;margin-top:8px;overflow:hidden}
+  .pw-freeship__bar span{display:block;height:100%;background:linear-gradient(90deg,#5B3FD1,#FF7A6B);border-radius:999px;transition:width .4s ease}
   @keyframes pwPulse{0%{transform:scale(.95);opacity:.6}100%{transform:scale(1.18);opacity:0}}
   @keyframes pwBob{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(-8deg) translateY(-3px)}}
   @media (max-width:749px){.pw-ship-bubble{width:96px;height:96px;top:12px;right:12px}.pw-ship-bubble__big{font-size:16px}.pw-ship-bubble__time{font-size:11px}}
@@ -23,21 +26,23 @@
   class="pw-dispatch"
   data-cutoff="{{ cut }}"
   data-weekends="{{ settings.pw_dispatch_weekends }}"
+  data-threshold="{{ threshold }}"
+  data-show-ship="{{ block.settings.show_shipping }}"
   {{ block.shopify_attributes }}
 >
+  <script type="application/json" data-pw-prices>{ {%- for v in product.variants -%}"{{ v.id }}":{{ v.price }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%} }</script>
   <p class="pw-dispatch__row">
     <span class="pw-dispatch__dot" aria-hidden="true"></span>
     <span data-pw-countdown>Fast dispatch from Australia</span>
   </p>
   {%- if threshold > 0 and block.settings.show_shipping -%}
-    <p class="pw-dispatch__row pw-dispatch__ship">
-      <span aria-hidden="true">🚚</span>
-      {%- if remaining > 0 -%}
-        <span>Add <strong>{{ remaining | money }}</strong> more for free shipping</span>
+    <div class="pw-freeship" data-pw-freeship data-first="{{ product.selected_or_first_available_variant.id }}">
+      {%- if product.selected_or_first_available_variant.price >= threshold -%}
+        <p class="pw-freeship__msg pw-freeship__msg--free"><span aria-hidden="true">🚚</span><span><strong>Free shipping</strong> on this item</span></p>
       {%- else -%}
-        <span><strong>Free shipping</strong> on this order</span>
+        <p class="pw-freeship__msg"><span aria-hidden="true">🚚</span><span>Free shipping on orders over {{ threshold | money_without_trailing_zeros }}</span></p>
       {%- endif -%}
-    </p>
+    </div>
   {%- endif -%}
 </pw-dispatch>
 <script>
@@ -45,15 +50,56 @@
     customElements.define('pw-dispatch', class extends HTMLElement {
       connectedCallback() {
         this.out = this.querySelector('[data-pw-countdown]');
+        this.ship = this.querySelector('[data-pw-freeship]');
         this.cut = Number(this.dataset.cutoff || 14);
         this.weekends = this.dataset.weekends === 'true';
+        this.threshold = Number(this.dataset.threshold || 0);
+        try { this.prices = JSON.parse(this.querySelector('[data-pw-prices]').textContent); } catch (e) { this.prices = {}; }
         this.tick();
         setTimeout(() => this.tick(), 800);
         this.timer = setInterval(() => this.tick(), 30000);
         this.onResize = () => this.bubble(this.lastTime);
         window.addEventListener('resize', this.onResize);
+        this.refreshShip = () => this.updateShip();
+        ['cart:update', 'cart:updated', 'variant:update', 'variant:change'].forEach((e) => document.addEventListener(e, () => setTimeout(this.refreshShip, 150)));
+        document.addEventListener('change', (e) => { if (e.target.closest('form')) setTimeout(this.refreshShip, 150); });
+        window.addEventListener('pageshow', this.refreshShip);
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) this.refreshShip(); });
+        if (!window.__pwFetchWrapped) {
+          window.__pwFetchWrapped = true;
+          const f = window.fetch;
+          window.fetch = function () { const p = f.apply(this, arguments); try { const u = String(arguments[0] && arguments[0].url || arguments[0]); if (/\/cart\/(add|change|update|clear)/.test(u)) p.then(() => setTimeout(() => document.dispatchEvent(new CustomEvent('pw:cart')), 300)); } catch (e) {} return p; };
+        }
+        document.addEventListener('pw:cart', this.refreshShip);
+        this.updateShip();
       }
       disconnectedCallback() { clearInterval(this.timer); window.removeEventListener('resize', this.onResize); }
+      money(c) { const v = c / 100; return '$' + (Number.isInteger(v) ? v : v.toFixed(2)); }
+      variantPrice() {
+        const input = document.querySelector('form[action*="/cart/add"] [name="id"]');
+        const id = (input && input.value) || (this.ship && this.ship.dataset.first);
+        return Number(this.prices[id] || Object.values(this.prices)[0] || 0);
+      }
+      async updateShip() {
+        if (!this.ship || !this.threshold) return;
+        const item = this.variantPrice();
+        let cart = 0;
+        try { const r = await fetch('/cart.js', { headers: { Accept: 'application/json' } }); const c = await r.json(); cart = c.total_price || 0; } catch (e) {}
+        const t = this.threshold;
+        let html, pct;
+        if (item >= t) {
+          html = '<p class="pw-freeship__msg pw-freeship__msg--free"><span aria-hidden="true">🚚</span><span><strong>Free shipping</strong> on this item</span></p>'; pct = 100;
+        } else if (cart >= t) {
+          html = '<p class="pw-freeship__msg pw-freeship__msg--free"><span aria-hidden="true">🎉</span><span>You have unlocked <strong>free shipping</strong></span></p>'; pct = 100;
+        } else if (cart + item >= t) {
+          html = '<p class="pw-freeship__msg pw-freeship__msg--free"><span aria-hidden="true">🚚</span><span>Add this and your order ships <strong>free</strong></span></p>'; pct = 100;
+        } else {
+          const left = t - cart - item;
+          pct = Math.round(((cart + item) / t) * 100);
+          html = '<p class="pw-freeship__msg"><span aria-hidden="true">🚚</span><span>' + (cart > 0 ? 'With this item, add ' : 'Add ') + '<strong>' + this.money(left) + '</strong> more for free shipping</span></p>';
+        }
+        this.ship.innerHTML = html + '<div class="pw-freeship__bar" aria-hidden="true"><span style="width:' + pct + '%"></span></div>';
+      }
       now() {
         const parts = new Intl.DateTimeFormat('en-AU', { timeZone: 'Australia/Sydney', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
         const get = (t) => (parts.find((p) => p.type === t) || {}).value;
@@ -65,15 +111,8 @@
         const host = hosts.find((e) => e.getBoundingClientRect().width > 0);
         let b = document.querySelector('.pw-ship-bubble');
         if (!time || !host) { if (b) b.remove(); return; }
-        if (!b) {
-          b = document.createElement('div');
-          b.className = 'pw-ship-bubble';
-          b.setAttribute('aria-hidden', 'true');
-        }
-        if (b.parentElement !== host) {
-          if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
-          host.appendChild(b);
-        }
+        if (!b) { b = document.createElement('div'); b.className = 'pw-ship-bubble'; b.setAttribute('aria-hidden', 'true'); }
+        if (b.parentElement !== host) { if (getComputedStyle(host).position === 'static') host.style.position = 'relative'; host.appendChild(b); }
         b.innerHTML = '<span class="pw-ship-bubble__top">Order in</span><span class="pw-ship-bubble__time">' + time + '</span><span class="pw-ship-bubble__big">SHIPS<br><span>TODAY</span></span>';
       }
       tick() {
@@ -81,11 +120,7 @@
         const { day, h, m } = this.now();
         const weekend = day === 'Sat' || day === 'Sun';
         const label = this.cut > 12 ? (this.cut - 12) + 'pm' : this.cut + (this.cut === 12 ? 'pm' : 'am');
-        if (weekend && !this.weekends) {
-          this.out.innerHTML = 'Order now, <strong>dispatched Monday</strong>';
-          this.bubble(null);
-          return;
-        }
+        if (weekend && !this.weekends) { this.out.innerHTML = 'Order now, <strong>dispatched Monday</strong>'; this.bubble(null); return; }
         const left = this.cut * 60 - (h * 60 + m);
         if (left > 0) {
           const hh = Math.floor(left / 60), mm = left % 60;
@@ -105,8 +140,8 @@
 {
   "name": "PW Dispatch countdown",
   "settings": [
-    { "type": "checkbox", "id": "show_shipping", "label": "Show free-shipping nudge", "default": true },
-    { "type": "paragraph", "content": "Cut-off time and free-shipping threshold are set in Theme settings > Pleasure Wonderland. The 'Ships today' bubble on the main image only shows before the cut-off on dispatch days." }
+    { "type": "checkbox", "id": "show_shipping", "label": "Show free-shipping progress", "default": true },
+    { "type": "paragraph", "content": "Cut-off time and free-shipping threshold are set in Theme settings > Pleasure Wonderland. The free-shipping message reads the live cart and the selected variant, and updates when the cart changes." }
   ],
   "presets": [{ "name": "PW Dispatch countdown" }]
 }
