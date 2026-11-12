@@ -12,16 +12,36 @@
     "pw_head": {
       "type": "pw-collection-hero",
       "blocks": {
-        "chip_0": { "type": "chip", "settings": { "label": "The Tease", "tag": "tease" } },
-        "chip_1": { "type": "chip", "settings": { "label": "The Restraint", "tag": "restraint" } },
-        "chip_2": { "type": "chip", "settings": { "label": "The Impact", "tag": "impact" } },
-        "chip_3": { "type": "chip", "settings": { "label": "The Control", "tag": "control" } },
-        "chip_4": { "type": "chip", "settings": { "label": "Beginner kits", "tag": "beginner" } }
+        "chip_0": {
+          "type": "chip",
+          "settings": {
+            "label": "The Tease",
+            "tag": "tease"
+          }
+        },
+        "chip_1": {
+          "type": "chip",
+          "settings": {
+            "label": "The Restraint",
+            "tag": "restraint"
+          }
+        },
+        "chip_2": {
+          "type": "chip",
+          "settings": {
+            "label": "Beginner kits",
+            "tag": "beginner"
+          }
+        }
       },
-      "block_order": ["chip_0", "chip_1", "chip_2", "chip_3", "chip_4"],
+      "block_order": [
+        "chip_0",
+        "chip_1",
+        "chip_2"
+      ],
       "settings": {
-        "guide_label": "New to this? Start with The Introduction",
-        "guide_link": "shopify://products/the-introduction-beginner-bondage-kit"
+        "guide_label": "New to this? Start with the Starter Kit",
+        "guide_link": "shopify://products/the-control-room-starter-kit"
       }
     },
     "main": {
@@ -135,7 +155,12 @@
               }
             }
           },
-          "block_order": ["card-gallery", "product_title_4nY4eT", "price_EzJzMm", "swatches"]
+          "block_order": [
+            "card-gallery",
+            "product_title_4nY4eT",
+            "price_EzJzMm",
+            "swatches"
+          ]
         }
       },
       "settings": {
@@ -152,41 +177,52 @@
         "padding-block-end": 32
       }
     },
-    "pw_addons": {
-      "type": "pw-addon-row",
-      "settings": { "collection": "lube-essentials" }
-    },
     "pw_bundle": {
       "type": "pw-bundle-banner",
-      "blocks": {
-        "line_1": { "type": "line", "settings": { "item": "Plush-lined wrist cuffs", "value": "The Restraint" } },
-        "line_2": { "type": "line", "settings": { "item": "Soft padded blindfold", "value": "The Tease" } },
-        "line_3": { "type": "line", "settings": { "item": "Feather tickler and crop", "value": "The Tease" } },
-        "line_4": { "type": "line", "settings": { "item": "Silicone feather teaser", "value": "The Tease" } }
-      },
-      "block_order": ["line_1", "line_2", "line_3", "line_4"],
       "settings": {
-        "heading": "The Introduction",
-        "link": "shopify://products/the-introduction-beginner-bondage-kit",
-        "image": "shopify://shop_images/pw-intro-kit-main.jpg",
-        "pad_top": 24,
-        "pill": "Beginner kit",
-        "text": "Your first step into The Control Room. Four beginner-friendly pieces in a black croc-finish case with a red velvet lining, gold clasp and carry handle.",
-        "price": "$99.95",
-        "was": "",
-        "button": "Shop The Introduction"
+        "mode": "auto",
+        "pad_top": 24
       }
     },
     "pw_faq": {
       "type": "pw-faq",
       "blocks": {
-        "qa_1": { "type": "qa", "settings": { "question": "I'm new to this. Where do I start?", "answer": "<p>Start with The Introduction kit, or pick from The Tease (blindfolds and ticklers). Everything is soft, adjustable and easy to take off.</p>" } },
-        "qa_2": { "type": "qa", "settings": { "question": "Are the cuffs safe?", "answer": "<p>Our cuffs are padded and adjustable, and the connecting clip undoes in a second. Keep them loose enough to slide two fingers underneath, agree on a safe word before you start and never leave anyone restrained alone.</p>" } },
-        "qa_3": { "type": "qa", "settings": { "question": "How discreet is delivery?", "answer": "<p>Plain box, neutral sender name, discreet billing name. Order by 2pm for same-day dispatch.</p>" } }
+        "qa_1": {
+          "type": "qa",
+          "settings": {
+            "question": "I'm new to this. Where do I start?",
+            "answer": "<p>Start with the Control Room Starter Kit: soft under-bed restraints plus a free satin blindfold. Everything is adjustable and easy to take off.</p>"
+          }
+        },
+        "qa_2": {
+          "type": "qa",
+          "settings": {
+            "question": "Are restraints safe?",
+            "answer": "<p>Keep cuffs loose enough to slide two fingers underneath, agree on a safe word before you start and never leave anyone restrained alone.</p>"
+          }
+        },
+        "qa_3": {
+          "type": "qa",
+          "settings": {
+            "question": "How discreet is delivery?",
+            "answer": "<p>Plain box, neutral sender name, discreet billing name. Order by 2pm for same-day dispatch.</p>"
+          }
+        }
       },
-      "block_order": ["qa_1", "qa_2", "qa_3"],
-      "settings": { "heading": "Questions" }
+      "block_order": [
+        "qa_1",
+        "qa_2",
+        "qa_3"
+      ],
+      "settings": {
+        "heading": "Questions"
+      }
     }
   },
-  "order": ["pw_head", "main", "pw_addons", "pw_bundle", "pw_faq"]
+  "order": [
+    "pw_head",
+    "pw_bundle",
+    "main",
+    "pw_faq"
+  ]
 }

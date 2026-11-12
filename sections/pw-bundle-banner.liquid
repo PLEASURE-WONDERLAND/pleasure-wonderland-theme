@@ -20,7 +20,7 @@
 {%- for key in key_list -%}
   {%- liquid
     assign kit = blank
-    assign pill = 'Save $7.90'
+    assign pill = ''
     assign link = ''
     assign img = blank
     assign was = ''
@@ -28,33 +28,32 @@
       when 'curious'
         assign kit = all_products['the-curious-kit']
         assign heading = 'The Curious Kit'
-        assign text = 'The easiest way to start. A Satisfyer Pro 2, lube and toy cleaner in one plain box, so there is nothing else to buy.'
-        assign lines = 'Satisfyer Pro 2 air-pulse toy|$54.95;Wicked Simply Aqua lube 120 ml|$19.95;Wicked Simply Cleene toy cleaner|$15.95'
+        assign text = 'The easiest way to start. Satisfyer Pro 2 and Wicked lube in one plain box, with a satin blindfold on us.'
+        assign lines = 'Satisfyer Pro 2 air-pulse toy|$54.95;Wicked Simply Aqua lube 120 ml|$19.95;Satin blindfold|FREE'
         assign button = 'Shop the Curious Kit'
       when 'mens'
         assign kit = all_products['the-mens-room-kit']
         assign heading = "The Men's Room Kit"
-        assign text = 'A warming, vibrating Satisfyer stroker with lube and toy cleaner. One order, ready to go.'
-        assign lines = 'Satisfyer Men Heat Vibration|$84.95;Wicked Simply Aqua lube 120 ml|$19.95;Wicked Simply Cleene toy cleaner|$15.95'
+        assign text = 'A warming, vibrating Satisfyer stroker with lube, and the toy cleaner is on us.'
+        assign lines = 'Satisfyer Men Heat Vibration|$84.95;Wicked Simply Aqua lube 120 ml|$19.95;Wicked toy cleaner|FREE'
         assign button = "Shop the Men's Room Kit"
       when 'together'
         assign kit = all_products['the-together-kit']
         assign heading = 'The Together Kit'
-        assign text = 'Your first toy for two. Satisfyer Endless Joy bends to fit both of you, with lube and toy cleaner included.'
-        assign lines = 'Satisfyer Endless Joy couples vibrator|$59.95;Wicked Simply Aqua lube 120 ml|$19.95;Wicked Simply Cleene toy cleaner|$15.95'
+        assign text = 'Your first toy for two. Satisfyer Endless Joy and lube, with a satin blindfold on us.'
+        assign lines = 'Satisfyer Endless Joy couples vibrator|$59.95;Wicked Simply Aqua lube 120 ml|$19.95;Satin blindfold|FREE'
         assign button = 'Shop the Together Kit'
       when 'intro'
-        assign kit = all_products['the-introduction-beginner-bondage-kit']
-        assign pill = 'Beginner kit'
-        assign heading = 'The Introduction'
-        assign text = 'Your first step into The Control Room. Three beginner-friendly pieces in a black croc-finish case with a red velvet lining.'
-        assign lines = 'Plush-lined wrist cuffs|The Restraint;Soft padded blindfold|The Tease;Silicone feather teaser|The Tease'
-        assign button = 'Shop The Introduction'
+        assign kit = all_products['the-control-room-starter-kit']
+        assign heading = 'The Control Room Starter Kit'
+        assign text = 'The simplest way in. Soft under-bed restraints that fit any mattress, with a satin blindfold on us.'
+        assign lines = 'Under-bed restraint kit, 4 soft cuffs|$44.95;Satin blindfold|FREE'
+        assign button = 'Shop the Starter Kit'
       when 'spice'
         assign pill = 'The Control Room'
         assign heading = 'Want to spice it up?'
         assign text = 'Blindfolds, cuffs and beginner kits for couples who want to try a little kink. Everything is soft, adjustable and easy to take off.'
-        assign lines = 'The Tease|Blindfolds and ticklers;The Restraint|Cuffs and under-bed straps;Beginner kits|Everything in one box'
+        assign lines = 'The Tease|Blindfolds;The Restraint|Cuffs and under-bed straps;Starter Kit|Free blindfold'
         assign button = 'Explore The Control Room'
         assign link = '/collections/the-control-room'
         assign price = 'From $44.95'
@@ -74,6 +73,8 @@
       assign price = kit.price | money_without_trailing_zeros
       if kit.compare_at_price > kit.price
         assign was = kit.compare_at_price | money_without_trailing_zeros
+        assign saving = kit.compare_at_price | minus: kit.price | money_without_trailing_zeros
+        assign pill = 'Save ' | append: saving | append: ' + free gift'
       endif
       assign img = kit.featured_image
     endif
@@ -95,12 +96,12 @@
             {%- assign rows = lines | split: ';' -%}
             {%- for row in rows -%}
               {%- assign cells = row | split: '|' -%}
-              <li><span>{{ cells[0] }}</span><span>{{ cells[1] }}</span></li>
+              <li><span>{{ cells[0] }}</span>{%- if cells[1] == 'FREE' -%}<span style="background:#FF7A6B;color:#fff;border-radius:999px;padding:2px 12px;font-weight:700">FREE</span>{%- else -%}<span>{{ cells[1] }}</span>{%- endif -%}</li>
             {%- endfor -%}
           {%- endif -%}
         </ul>
         <div class="pw-bundle__price">
-          <div><strong>{{ price }}</strong>{%- if was != blank -%}<s>{{ was }}</s>{%- endif -%}</div>
+          <div><strong style="font-size:1.35em">{{ price }}</strong>{%- if was != blank -%}<s>{{ was }}</s>{%- endif -%}</div>
           <a href="{{ link | default: '#' }}" class="pw-btn pw-btn--light">{{ button }}</a>
         </div>
       </div>
