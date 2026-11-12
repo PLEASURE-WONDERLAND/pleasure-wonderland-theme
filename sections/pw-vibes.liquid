@@ -9,7 +9,7 @@
   .pwv__cta span{display:inline-block;transition:transform .2s ease}
   .pwv__tile:hover .pwv__cta span{transform:translateX(4px)}
   .pwv__img{position:absolute;left:0;right:0;bottom:0;height:72%;display:flex;align-items:flex-end;justify-content:center;z-index:1}
-  .pwv__img img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transition:transform .35s ease}
+  .pwv__img img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transition:transform .35s ease;image-rendering:auto}
   .pwv__tile:hover .pwv__img img{transform:scale(1.05)}
   .pwv__badge{position:absolute;top:18px;right:18px;z-index:3;background:#FF7A6B;color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:6px 12px}
   @media (max-width:989px){.pwv{grid-template-columns:repeat(2,1fr)}}
@@ -25,7 +25,7 @@
           <span class="pwv__title" style="color: {{ block.settings.fg }}">{{ block.settings.title }}</span>
           <span class="pwv__text">{{ block.settings.text }}</span>
           <span class="pwv__cta">Shop now <span aria-hidden="true">→</span></span>
-          {%- if block.settings.image -%}<span class="pwv__img">{{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.title }}</span>{%- endif -%}
+          {%- if block.settings.image -%}<span class="pwv__img">{%- if block.settings.wide -%}{{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', alt: block.settings.title, widths: '500, 800, 1000, 1300, 1600', sizes: '(min-width: 990px) 50vw, 100vw' }}{%- else -%}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: block.settings.title, widths: '400, 600, 800, 1000', sizes: '(min-width: 990px) 25vw, (min-width: 600px) 50vw, 70vw' }}{%- endif -%}</span>{%- endif -%}
         </a>
       {%- endfor -%}
     </div>
