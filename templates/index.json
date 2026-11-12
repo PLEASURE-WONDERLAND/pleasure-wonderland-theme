@@ -37,17 +37,17 @@
         "item_3": {
           "type": "item",
           "settings": {
-            "icon": "battery",
-            "title": "USB-C rechargeable",
-            "text": "Across our own range"
+            "icon": "shield",
+            "title": "Genuine brands",
+            "text": "Sourced from Australian distributors"
           }
         },
         "item_4": {
           "type": "item",
           "settings": {
-            "icon": "shield",
-            "title": "2-year warranty+",
-            "text": "Faulty? We send the replacement first"
+            "icon": "battery",
+            "title": "Kits that save",
+            "text": "Toy, lube and cleaner in one box"
           }
         }
       },
@@ -90,8 +90,8 @@
           "type": "option",
           "settings": {
             "label": "Something adventurous",
-            "tint": "#DDD8E6",
-            "collection": "the-control-room"
+            "collection": "the-control-room",
+            "tint": "#DDD8E6"
           }
         },
         "option_5": {
@@ -119,7 +119,7 @@
           "type": "tile",
           "settings": {
             "title": "For Her",
-            "text": "Air-pulse, bullets, wands",
+            "text": "Air-pulse, rabbits, wands",
             "link": "shopify://collections/for-her",
             "bg": "#E9E1FF",
             "fg": "#1D1530"
@@ -150,17 +150,17 @@
           "settings": {
             "title": "The Control Room",
             "text": "Tease, restrain, play",
+            "link": "shopify://collections/the-control-room",
             "bg": "#1D1530",
-            "fg": "#FFFFFF",
-            "link": "shopify://collections/the-control-room"
+            "fg": "#FFFFFF"
           }
         },
         "tile_5": {
           "type": "tile",
           "settings": {
-            "title": "Lube & Care",
-            "text": "The essentials",
-            "link": "shopify://collections/lube-essentials",
+            "title": "Kits",
+            "text": "Everything in one box",
+            "link": "shopify://collections/bundles",
             "bg": "#DDF2EA",
             "fg": "#1D1530"
           }
@@ -177,37 +177,7 @@
     },
     "pw_bundle": {
       "type": "pw-bundle-banner",
-      "blocks": {
-        "line_1": {
-          "type": "line",
-          "settings": {
-            "item": "Mini rechargeable vibrator",
-            "value": "$49.95"
-          }
-        },
-        "line_2": {
-          "type": "line",
-          "settings": {
-            "item": "Water-based lube 50ml",
-            "value": "$14.95"
-          }
-        },
-        "line_3": {
-          "type": "line",
-          "settings": {
-            "item": "Satin blindfold or toy cleaner",
-            "value": "$12.95"
-          }
-        }
-      },
-      "block_order": [
-        "line_1",
-        "line_2",
-        "line_3"
-      ],
-      "settings": {
-        "link": "shopify://collections/bundles"
-      }
+      "settings": {}
     },
     "pw_best": {
       "type": "pw-product-grid",
@@ -216,35 +186,42 @@
         "collection": "bestsellers"
       }
     },
+    "pw_kits": {
+      "type": "pw-product-grid",
+      "settings": {
+        "heading": "Kits: everything in one box",
+        "collection": "bundles"
+      }
+    },
     "pw_usp": {
       "type": "pw-usp",
       "blocks": {
         "point_1": {
           "type": "point",
           "settings": {
-            "title": "Quieter motors",
-            "text": "Tested at [__ dB] on max setting. Fine for thin walls."
+            "title": "Genuine brands only",
+            "text": "Satisfyer, Magic Wand, Adam & Eve and Wicked, sourced from Australian distributors."
           }
         },
         "point_2": {
           "type": "point",
           "settings": {
-            "title": "USB-C, always",
-            "text": "One cable for your phone and your toys. [__] min per charge."
+            "title": "Kits that keep it simple",
+            "text": "Toy, lube and toy cleaner in one plain box. Every kit saves you $7.90."
           }
         },
         "point_3": {
           "type": "point",
           "settings": {
-            "title": "Shower-proof",
-            "text": "[IPX rating] tested. Rinse clean in seconds."
+            "title": "Lube sorted",
+            "text": "Pick \"Toy + lube\" on any toy page and the lube is 20% off."
           }
         },
         "point_4": {
           "type": "point",
           "settings": {
-            "title": "Storage pouch included",
-            "text": "Keeps it clean, keeps it private."
+            "title": "Real people, fast replies",
+            "text": "Not sure what to get? Email us and we'll help you choose."
           }
         }
       },
@@ -254,12 +231,15 @@
         "point_3",
         "point_4"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Shopping made easy",
+        "text": "A short list of proven toys, simple kits and help whenever you need it."
+      }
     },
     "pw_news": {
       "type": "pw-newsletter",
-      "settings": {},
-      "disabled": true
+      "disabled": true,
+      "settings": {}
     },
     "pw_offer": {
       "type": "pw-offer-band",
@@ -271,29 +251,29 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "title": "We read the bad reviews",
-            "text": "We go through the complaints on the bestsellers: too loud, weak battery, fiddly charging, hard to clean."
+            "title": "We follow the data",
+            "text": "We only list toys that already sell well and review well in Australia."
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "title": "We sample the alternatives",
-            "text": "We order samples from several manufacturers and ask for changes where they fall short."
+            "title": "We read the bad reviews",
+            "text": "Too loud, weak battery, fiddly charging, hard to clean. If a toy has a pattern of complaints, we skip it."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
-            "title": "We test them ourselves",
-            "text": "Noise, run time, charging, water resistance, comfort and how easy it is to clean."
+            "title": "We keep the range short",
+            "text": "A few great options in each category, so choosing takes minutes."
           }
         },
         "step_4": {
           "type": "step",
           "settings": {
-            "title": "Only the best gets listed",
-            "text": "If it doesn't beat what's already out there, it doesn't go on sale."
+            "title": "We look after you",
+            "text": "Plain box, same-day dispatch and fast help if anything goes wrong."
           }
         }
       },
@@ -303,7 +283,10 @@
         "step_3",
         "step_4"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Fewer products. Chosen with data.",
+        "text": "We list the toys that already sell and review well in Australia, and skip the rest."
+      }
     },
     "pw_discreet": {
       "type": "pw-discreet",
@@ -380,8 +363,8 @@
         "item_4": {
           "type": "item",
           "settings": {
-            "big": "2 yrs+",
-            "label": "Warranty on our own range"
+            "big": "$7.90",
+            "label": "Saved on every kit"
           }
         }
       },
@@ -392,6 +375,52 @@
         "item_4"
       ],
       "settings": {}
+    },
+    "pw_warranty": {
+      "type": "pw-warranty",
+      "blocks": {
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "title": "Faulty? Sorted fast.",
+            "text": "Tell us what happened and we send the replacement first."
+          }
+        },
+        "point_2": {
+          "type": "point",
+          "settings": {
+            "title": "Free return shipping.",
+            "text": "We send a prepaid label for the faulty one."
+          }
+        },
+        "point_3": {
+          "type": "point",
+          "settings": {
+            "title": "Covered by Australian Consumer Law.",
+            "text": "Plus the brand's own warranty on every genuine product."
+          }
+        },
+        "point_4": {
+          "type": "point",
+          "settings": {
+            "title": "Real people, fast replies.",
+            "text": "Email us and we sort it quickly."
+          }
+        }
+      },
+      "block_order": [
+        "point_1",
+        "point_2",
+        "point_3",
+        "point_4"
+      ],
+      "settings": {
+        "big": "100%",
+        "big_sub": "SORTED",
+        "eyebrow": "Our promise",
+        "heading": "Something wrong? We fix it fast.",
+        "text": "Every product is genuine and covered by Australian Consumer Law and the brand's own warranty."
+      }
     },
     "pw_reviews": {
       "type": "pw-reviews",
@@ -424,15 +453,15 @@
         "qa_4": {
           "type": "qa",
           "settings": {
-            "question": "Are your products body-safe?",
-            "answer": "<p>Our own range uses body-safe materials, and every product is tested before it goes on sale. Material details are listed on each product page.</p>"
+            "question": "Are your products genuine?",
+            "answer": "<p>Yes. Every brand we sell comes from an Australian distributor. Material details are listed on each product page.</p>"
           }
         },
         "qa_5": {
           "type": "qa",
           "settings": {
             "question": "Can I return a toy?",
-            "answer": "<p>Our own range comes with a 2-year warranty+. If something goes wrong, we send you a replacement first and a prepaid return label, so you're never left waiting. [Change-of-mind returns policy for hygiene products.]</p>"
+            "answer": "<p>If anything is faulty, we send a replacement first and a prepaid return label, so you're never left waiting. For hygiene reasons we can't take back opened toys or lubes for a change of mind. Unopened items in their sealed packaging can be returned within 30 days.</p>"
           }
         }
       },
@@ -447,46 +476,6 @@
         "heading": "Good questions",
         "pad_top": 56
       }
-    },
-    "pw_warranty": {
-      "type": "pw-warranty",
-      "settings": {},
-      "blocks": {
-        "point_1": {
-          "type": "point",
-          "settings": {
-            "title": "2-year cover",
-            "text": "on everything in our own range."
-          }
-        },
-        "point_2": {
-          "type": "point",
-          "settings": {
-            "title": "Replacement sent first.",
-            "text": "We ship your new one straight away, so you're never left waiting."
-          }
-        },
-        "point_3": {
-          "type": "point",
-          "settings": {
-            "title": "Free return shipping.",
-            "text": "We send a prepaid label for the faulty one."
-          }
-        },
-        "point_4": {
-          "type": "point",
-          "settings": {
-            "title": "Real people, fast replies.",
-            "text": "Email us and we sort it quickly."
-          }
-        }
-      },
-      "block_order": [
-        "point_1",
-        "point_2",
-        "point_3",
-        "point_4"
-      ]
     }
   },
   "order": [
@@ -497,8 +486,9 @@
     "pw_vibes",
     "pw_bundle",
     "pw_best",
-    "pw_test",
+    "pw_kits",
     "pw_usp",
+    "pw_test",
     "pw_discreet",
     "pw_promise",
     "pw_warranty",
