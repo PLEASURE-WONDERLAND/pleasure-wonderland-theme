@@ -48,23 +48,29 @@
         this.cut = Number(this.dataset.cutoff || 14);
         this.weekends = this.dataset.weekends === 'true';
         this.tick();
+        setTimeout(() => this.tick(), 800);
         this.timer = setInterval(() => this.tick(), 30000);
+        this.onResize = () => this.bubble(this.lastTime);
+        window.addEventListener('resize', this.onResize);
       }
-      disconnectedCallback() { clearInterval(this.timer); }
+      disconnectedCallback() { clearInterval(this.timer); window.removeEventListener('resize', this.onResize); }
       now() {
         const parts = new Intl.DateTimeFormat('en-AU', { timeZone: 'Australia/Sydney', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
         const get = (t) => (parts.find((p) => p.type === t) || {}).value;
         return { day: get('weekday'), h: Number(get('hour')), m: Number(get('minute')) };
       }
       bubble(time) {
-        const host = document.querySelector('media-gallery .product-media-container') || document.querySelector('.product-media-container');
+        this.lastTime = time;
+        const hosts = Array.from(document.querySelectorAll('media-gallery .product-media-container, .product-media-container'));
+        const host = hosts.find((e) => e.getBoundingClientRect().width > 0);
         let b = document.querySelector('.pw-ship-bubble');
-        if (!time) { if (b) b.remove(); return; }
-        if (!host) return;
+        if (!time || !host) { if (b) b.remove(); return; }
         if (!b) {
           b = document.createElement('div');
           b.className = 'pw-ship-bubble';
           b.setAttribute('aria-hidden', 'true');
+        }
+        if (b.parentElement !== host) {
           if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
           host.appendChild(b);
         }
