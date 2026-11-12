@@ -23,19 +23,23 @@
   assign t2_price = t2_full | minus: t2_save
   assign t3_price = t3_full | minus: t3_save
   comment
-    Every toy page opens on Toy + lube. Add-on products (tagged addon or essentials) open on Just the toy.
+    Every toy page opens on Toy + lube. Add-on products (tagged addon or essentials) open on Just the toy. Kits and Control Room gear hide this block.
   endcomment
   assign default_tier = '2'
   assign tag_str = main_p.tags | join: ',' | downcase | prepend: ',' | append: ','
   if tag_str contains ',addon,' or tag_str contains ',essentials,'
     assign default_tier = '1'
   endif
+  assign pw_skip = false
+  if tag_str contains ',bundle,' or tag_str contains ',control-room,' or tag_str contains ',cr-component,'
+    assign pw_skip = true
+  endif
   assign t3_label = block.settings.tier3_label
   if t3_label == blank or t3_label == 'The Upgrade Kit'
     assign t3_label = 'Toy + lube + cleaner'
   endif
 -%}
-{%- if main_p != blank and a1 != blank -%}
+{%- if main_p != blank and a1 != blank and pw_skip == false -%}
 <pw-bundle-tiers class="pw-tiers" data-default="{{ default_tier }}" data-variant-source {{ block.shopify_attributes }}>
   <div class="pw-tiers__label">{{ block.settings.heading }}</div>
   <div class="pw-tiers__options" role="radiogroup" aria-label="{{ block.settings.heading | escape }}">
@@ -115,7 +119,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Bundle & save" },
     { "type": "product", "id": "addon_1", "label": "Add-on 1 (e.g. lube)" },
     { "type": "product", "id": "addon_2", "label": "Add-on 2 (e.g. toy cleaner)" },
-    { "type": "text", "id": "default_tags", "label": "Not used", "info": "Every toy now opens on Toy + lube automatically. Products tagged addon or essentials open on Just the toy." },
+    { "type": "text", "id": "default_tags", "label": "Not used", "info": "Every toy now opens on Toy + lube automatically. Products tagged addon or essentials open on Just the toy. Products tagged bundle, control-room or cr-component hide this block." },
     { "type": "text", "id": "tier1_label", "label": "Tier 1 label", "default": "Just the toy" },
     { "type": "text", "id": "tier2_label", "label": "Tier 2 label", "default": "Toy + lube" },
     { "type": "text", "id": "tier3_label", "label": "Tier 3 label", "default": "Toy + lube + cleaner" },
