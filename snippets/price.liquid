@@ -26,8 +26,13 @@
   if product_resource.tags contains 'free-gift'
     assign pw_gift = true
   endif
+  assign pw_ship = false
+  assign pw_thr = settings.pw_free_shipping | default: 69 | times: 100
+  if selected_variant.price >= pw_thr
+    assign pw_ship = true
+  endif
   assign pw_chips = pw_gift
-  if pw_saving > 0
+  if pw_saving > 0 or pw_ship
     assign pw_chips = true
   endif
 
@@ -85,10 +90,11 @@
 -%}
 <style>
   .pw-chips{display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:6px}
-  .pw-save,.pw-gift{display:inline-flex;align-items:center;gap:4px;margin:0;font-weight:700;font-size:12px;line-height:1;padding:4px 8px;border-radius:6px;white-space:nowrap;letter-spacing:.01em}
+  .pw-save,.pw-gift,.pw-ship{display:inline-flex;align-items:center;gap:4px;margin:0;font-weight:700;font-size:12px;line-height:1;padding:4px 8px;border-radius:6px;white-space:nowrap;letter-spacing:.01em}
   .pw-save{background:#FFE7E3;color:#D9412E}
   .pw-gift{background:#FF7A6B;color:#fff}
-  .product-information .pw-save,.product-information .pw-gift{font-size:14px;padding:6px 10px;border-radius:8px}
+  .pw-ship{background:#E3F3EC;color:#12694B}
+  .product-information .pw-save,.product-information .pw-gift,.product-information .pw-ship{font-size:14px;padding:6px 10px;border-radius:8px}
 </style>
 <div ref="priceContainer">
   {% if has_volume_pricing %}
@@ -134,6 +140,7 @@
   {%- if pw_chips -%}<span class="pw-chips">
     {%- if pw_saving > 0 -%}<span class="pw-save">Save {{ pw_saving | money_without_trailing_zeros }}</span>{%- endif -%}
     {%- if pw_gift -%}<span class="pw-gift"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 7h-2.2A3 3 0 0 0 12 3.8 3 3 0 0 0 6.2 7H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm-7-1a1 1 0 1 1 1 1h-1V6Zm-4 0a1 1 0 0 1 2 0v1h-1a1 1 0 0 1-1-1Zm2 14H7v-8h4v8Zm0-10H5V9h6v1Zm6 10h-4v-8h4v8Zm2-10h-6V9h6v1Z"/></svg>Free gift</span>{%- endif -%}
+    {%- if pw_ship -%}<span class="pw-ship"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h11v9H3z"/><path d="M14 9h4l3 3v3h-7"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg>Free shipping</span>{%- endif -%}
   </span>{%- endif -%}
   {%- if selected_variant.unit_price and show_unit_price %}
     {%- liquid

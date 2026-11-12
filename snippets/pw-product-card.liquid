@@ -7,9 +7,18 @@
 {%- liquid
   assign tint = tint | default: '#E9E1FF'
   assign badge_text = badge
-  if badge_text == blank and product.compare_at_price > product.price
-    assign saving = product.compare_at_price | minus: product.price | money_without_trailing_zeros
-    assign badge_text = 'Save ' | append: saving
+  assign pw_saving = 0
+  if product.compare_at_price > product.price
+    assign pw_saving = product.compare_at_price | minus: product.price
+  endif
+  assign pw_gift = false
+  if product.tags contains 'free-gift'
+    assign pw_gift = true
+  endif
+  assign pw_thr = settings.pw_free_shipping | default: 69 | times: 100
+  assign pw_ship = false
+  if product.selected_or_first_available_variant.price >= pw_thr
+    assign pw_ship = true
   endif
   assign colour_option = null
   for option in product.options_with_values
@@ -95,5 +104,12 @@
         <button type="button" class="pw-quickadd" disabled>Sold out</button>
       {%- endif -%}
     </div>
+    {%- if pw_saving > 0 or pw_gift or pw_ship -%}
+      <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px">
+        {%- if pw_saving > 0 -%}<span style="display: inline-flex; align-items: center; font-weight: 700; font-size: 12px; line-height: 1; padding: 5px 8px; border-radius: 6px; background: #FFE7E3; color: #D9412E">Save {{ pw_saving | money_without_trailing_zeros }}</span>{%- endif -%}
+        {%- if pw_gift -%}<span style="display: inline-flex; align-items: center; font-weight: 700; font-size: 12px; line-height: 1; padding: 5px 8px; border-radius: 6px; background: #FF7A6B; color: #fff">Free gift</span>{%- endif -%}
+        {%- if pw_ship -%}<span style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; font-size: 12px; line-height: 1; padding: 5px 8px; border-radius: 6px; background: #E3F3EC; color: #12694B"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h11v9H3z"/><path d="M14 9h4l3 3v3h-7"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg>Free shipping</span>{%- endif -%}
+      </div>
+    {%- endif -%}
   </div>
 </div>
