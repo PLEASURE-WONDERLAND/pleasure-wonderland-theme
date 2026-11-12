@@ -22,17 +22,14 @@
   assign t3_save = addons3 | times: pct | divided_by: 100
   assign t2_price = t2_full | minus: t2_save
   assign t3_price = t3_full | minus: t3_save
-  assign default_tier = '1'
-  assign bundle_tags = block.settings.default_tags | downcase | split: ','
+  comment
+    Every toy page opens on Toy + lube. Add-on products (tagged addon or essentials) open on Just the toy.
+  endcomment
+  assign default_tier = '2'
   assign tag_str = main_p.tags | join: ',' | downcase | prepend: ',' | append: ','
-  for t in bundle_tags
-    assign tt = t | strip
-    assign tkey = ',' | append: tt | append: ','
-    if tt != blank and tag_str contains tkey
-      assign default_tier = '2'
-      break
-    endif
-  endfor
+  if tag_str contains ',addon,' or tag_str contains ',essentials,'
+    assign default_tier = '1'
+  endif
 -%}
 {%- if main_p != blank and a1 != blank -%}
 <pw-bundle-tiers class="pw-tiers" data-default="{{ default_tier }}" data-variant-source {{ block.shopify_attributes }}>
@@ -66,7 +63,7 @@
   if (!customElements.get('pw-bundle-tiers')) {
     customElements.define('pw-bundle-tiers', class extends HTMLElement {
       connectedCallback() {
-        const def = this.querySelector('input[type="radio"][value="' + (this.dataset.default || '1') + '"]');
+        const def = this.querySelector('input[type="radio"][value="' + (this.dataset.default || '2') + '"]');
         if (def) def.checked = true;
         this.msg = this.querySelector('.pw-tiers__msg');
         this.scope = this.closest('.product-information, product-information, main') || document;
@@ -113,7 +110,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Bundle & save" },
     { "type": "product", "id": "addon_1", "label": "Add-on 1 (e.g. lube)" },
     { "type": "product", "id": "addon_2", "label": "Add-on 2 (e.g. toy cleaner)" },
-    { "type": "text", "id": "default_tags", "label": "Pre-select toy + lube for these tags", "default": "vibrator,air-pulse,suction,wand,bullet,g-spot,rabbit,couples-vibrator", "info": "Comma separated product tags. Other products start on Just the toy." },
+    { "type": "text", "id": "default_tags", "label": "Not used", "info": "Every toy now opens on Toy + lube automatically. Products tagged addon or essentials open on Just the toy." },
     { "type": "text", "id": "tier1_label", "label": "Tier 1 label", "default": "Just the toy" },
     { "type": "text", "id": "tier2_label", "label": "Tier 2 label", "default": "Toy + lube" },
     { "type": "text", "id": "tier3_label", "label": "Tier 3 label", "default": "The Upgrade Kit" },
