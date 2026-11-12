@@ -150,10 +150,7 @@
                   "blocks": {}
                 }
               },
-              "block_order": [
-                "text_xpVMaM",
-                "price_tVjtKg"
-              ]
+              "block_order": ["text_xpVMaM", "price_tVjtKg"]
             },
             "divider_VJhene": {
               "type": "_divider",
@@ -193,26 +190,9 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
-                  "static": true,
-                  "settings": {
-                    "style_class": "button"
-                  },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                }
+                "quantity": {"type": "quantity", "static": true, "settings": {}, "blocks": {}},
+                "add-to-cart": {"type": "add-to-cart", "static": true, "settings": {"style_class": "button"}, "blocks": {}},
+                "accelerated-checkout": {"type": "accelerated-checkout", "static": true, "settings": {}, "blocks": {}}
               },
               "block_order": []
             },
@@ -244,9 +224,8 @@
             "pw_tiers": {
               "type": "pw-bundle-tiers",
               "settings": {
-                "addon_1": "pleasure-wonderland-water-based-lube-100ml",
-                "addon_2": "pleasure-wonderland-toy-cleaner-spray-100ml",
-                "default_tags": "vibrator,air-pulse,suction,wand,bullet,g-spot,rabbit,couples-vibrator"
+                "addon_1": "wicked-simply-aqua-water-based-lube-120ml",
+                "addon_2": "wicked-simply-cleene-toy-cleaner-120ml"
               }
             },
             "pw_trust": {
@@ -260,34 +239,18 @@
             },
             "pw_dispatch": {
               "type": "pw-dispatch",
-              "settings": {
-                "show_shipping": true
-              }
+              "settings": {"show_shipping": true}
             }
           },
-          "block_order": [
-            "group_icgrde",
-            "divider_VJhene",
-            "variant_picker_R3rGDr",
-            "pw_tiers",
-            "buy_buttons_eYQEYi",
-            "pw_dispatch",
-            "pw_trust",
-            "text_aEtTtq"
-          ]
+          "block_order": ["group_icgrde", "divider_VJhene", "variant_picker_R3rGDr", "pw_tiers", "buy_buttons_eYQEYi", "pw_dispatch", "pw_trust", "text_aEtTtq"]
         },
         "disclosures": {
           "type": "disclosures",
-          "settings": {
-            "padding-block-start": 0,
-            "padding-block-end": 0
-          },
+          "settings": {"padding-block-start": 0, "padding-block-end": 0},
           "blocks": {}
         }
       },
-      "block_order": [
-        "disclosures"
-      ],
+      "block_order": ["disclosures"],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
@@ -405,16 +368,10 @@
               "blocks": {}
             }
           },
-          "block_order": [
-            "product_card_gallery_DNizbJ",
-            "product_title_M7MJkb",
-            "price_gLWgA6"
-          ]
+          "block_order": ["product_card_gallery_DNizbJ", "product_title_M7MJkb", "price_gLWgA6"]
         }
       },
-      "block_order": [
-        "text_cbcgyb"
-      ],
+      "block_order": ["text_cbcgyb"],
       "name": "t:names.product_recommendations",
       "settings": {
         "product": "{{ closest.product }}",
@@ -437,22 +394,11 @@
     "pw_fbt": {
       "type": "pw-fbt",
       "settings": {
-        "products": [
-          "pleasure-wonderland-water-based-lube-100ml",
-          "pleasure-wonderland-toy-cleaner-spray-100ml"
-        ],
+        "products": ["wicked-simply-aqua-water-based-lube-120ml", "wicked-simply-cleene-toy-cleaner-120ml", "wicked-jelle-anal-lube-120ml"],
         "text": "Tick what you want. Add-ons are 20% off with your toy, packed in the same plain box."
       }
     },
-    "pw_specs": {
-      "type": "pw-specs",
-      "settings": {}
-    }
+    "pw_specs": {"type": "pw-specs", "settings": {}}
   },
-  "order": [
-    "main",
-    "pw_fbt",
-    "pw_specs",
-    "product_recommendations_qggXJq"
-  ]
+  "order": ["main", "pw_fbt", "pw_specs", "product_recommendations_qggXJq"]
 }
