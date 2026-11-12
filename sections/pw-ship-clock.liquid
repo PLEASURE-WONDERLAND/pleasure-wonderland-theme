@@ -1,0 +1,36 @@
+<style>
+  .pw-buynow{background:#FF7A6B!important;border-color:#FF7A6B!important;color:#1D1530!important;box-shadow:0 8px 20px rgba(255,122,107,.35)}
+  .pw-buynow:hover{background:#F2604F!important;border-color:#F2604F!important;color:#1D1530!important;transform:translateY(-1px)}
+</style>
+{%- assign cut = settings.pw_cutoff_hour | default: 14 -%}
+<script>
+  (function () {
+    if (window.__pwClock) return; window.__pwClock = true;
+    var CUT = {{ cut }}, WEEKENDS = {{ settings.pw_dispatch_weekends | default: false | json }};
+    function now() {
+      var p = new Intl.DateTimeFormat('en-AU', { timeZone: 'Australia/Sydney', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+      var g = function (t) { var x = p.find(function (q) { return q.type === t; }); return x ? x.value : ''; };
+      return { d: g('weekday'), h: +g('hour'), m: +g('minute') };
+    }
+    function msg() {
+      var n = now(), wk = n.d === 'Sat' || n.d === 'Sun';
+      if (wk && !WEEKENDS) return 'Order now, dispatched Monday from Australia';
+      var left = CUT * 60 - (n.h * 60 + n.m);
+      if (left > 0) { var hh = Math.floor(left / 60), mm = left % 60; return '⏱ Order in ' + (hh ? hh + 'h ' : '') + mm + 'm, ships today from Australia'; }
+      return 'Order now, dispatched ' + ((n.d === 'Fri' && !WEEKENDS) ? 'Monday' : 'tomorrow') + ' from Australia';
+    }
+    function run() {
+      var t = msg();
+      document.querySelectorAll('[data-pw-clock]').forEach(function (el) { if (el.textContent !== t) el.textContent = t; });
+      var w = document.createTreeWalker(document.querySelector('header-announcements, .announcement-bar, [class*="announcement"]') || document.body, NodeFilter.SHOW_TEXT);
+      var node, hits = [];
+      while ((node = w.nextNode())) { if (/ships today from Australia/i.test(node.nodeValue) && !(node.parentElement && node.parentElement.hasAttribute('data-pw-clock'))) hits.push(node); }
+      hits.forEach(function (n) { var s = document.createElement('span'); s.setAttribute('data-pw-clock', ''); s.textContent = t; n.parentNode.replaceChild(s, n); });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+    setInterval(run, 30000);
+  })();
+</script>
+{% schema %}
+{ "name": "PW Dispatch clock", "settings": [{ "type": "paragraph", "content": "Turns the announcement containing 'ships today from Australia' into a live Sydney-time countdown to the dispatch cut-off." }] }
+{% endschema %}

@@ -1,3 +1,10 @@
+<style>
+  .pw-hero__tile{position:relative;overflow:hidden}
+  .pw-hero__tile img.pw-hero__img{position:absolute;inset:10%;width:80%;height:80%;object-fit:contain;object-position:center;filter:drop-shadow(0 18px 28px rgba(29,21,48,.18));transition:transform .4s ease}
+  .pw-hero__tile--tall img.pw-hero__img{inset:8% 12%;width:76%;height:84%}
+  .pw-hero__tile:hover img.pw-hero__img{transform:translateY(-6px) scale(1.03)}
+  a.pw-hero__tile{display:block}
+</style>
 <section class="pw-section" style="--pw-pad-top: {{ section.settings.pad_top }}px; --pw-pad-bottom: {{ section.settings.pad_bottom }}px">
   <div class="pw-wrap pw-hero">
     <div class="pw-hero__copy">
@@ -10,15 +17,15 @@
       </div>
     </div>
     <div class="pw-hero__art">
-      <div class="pw-hero__tile pw-hero__tile--tall" style="background: #E9E1FF">
-        {%- if section.settings.image1 -%}{{ section.settings.image1 | image_url: width: 900 | image_tag: loading: 'eager', fetchpriority: 'high' }}{%- else -%}<div class="pw-shape" style="width: 34%; height: 62%; background: #5B3FD1"></div>{%- endif -%}
-      </div>
-      <div class="pw-hero__tile" style="background: #FFD9D3">
-        {%- if section.settings.image2 -%}{{ section.settings.image2 | image_url: width: 600 | image_tag }}{%- else -%}<div style="width: 46%; height: 46%; background: #FF7A6B; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%"></div>{%- endif -%}
-      </div>
-      <div class="pw-hero__tile" style="background: #DDF2EA">
-        {%- if section.settings.image3 -%}{{ section.settings.image3 | image_url: width: 600 | image_tag }}{%- else -%}<div class="pw-shape" style="width: 18%; height: 62%; background: #1D1530"></div>{%- endif -%}
-      </div>
+      <a href="{{ section.settings.link1 | default: '/products/satisfyer-pro-2' }}" class="pw-hero__tile pw-hero__tile--tall" style="background: #E9E1FF" aria-label="{{ section.settings.alt1 | escape }}">
+        {%- assign img1 = section.settings.image1 | default: images['hero-satisfyer-pro-2.png'] -%}{%- if img1 -%}{{ img1 | image_url: width: 1200 | image_tag: class: 'pw-hero__img', loading: 'eager', fetchpriority: 'high', alt: section.settings.alt1, widths: '400, 600, 800, 1000, 1200', sizes: '(min-width: 990px) 22vw, 45vw' }}{%- else -%}<div class="pw-shape" style="width: 34%; height: 62%; background: #5B3FD1"></div>{%- endif -%}
+      </a>
+      <a href="{{ section.settings.link2 | default: '/products/satisfyer-pro-2-classic-blossom-rose' }}" class="pw-hero__tile" style="background: #FFD9D3" aria-label="{{ section.settings.alt2 | escape }}">
+        {%- assign img2 = section.settings.image2 | default: images['hero-satisfyer-blossom.png'] -%}{%- if img2 -%}{{ img2 | image_url: width: 1000 | image_tag: class: 'pw-hero__img', loading: 'eager', alt: section.settings.alt2, widths: '300, 500, 700, 1000', sizes: '(min-width: 990px) 22vw, 45vw' }}{%- else -%}<div style="width: 46%; height: 46%; background: #FF7A6B; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%"></div>{%- endif -%}
+      </a>
+      <a href="{{ section.settings.link3 | default: '/collections/lube-essentials' }}" class="pw-hero__tile" style="background: #DDF2EA" aria-label="{{ section.settings.alt3 | escape }}">
+        {%- assign img3 = section.settings.image3 | default: images['hero-wicked-hybrid.png'] -%}{%- if img3 -%}{{ img3 | image_url: width: 1000 | image_tag: class: 'pw-hero__img', loading: 'eager', alt: section.settings.alt3, widths: '300, 500, 700, 1000', sizes: '(min-width: 990px) 22vw, 45vw' }}{%- else -%}<div class="pw-shape" style="width: 18%; height: 62%; background: #1D1530"></div>{%- endif -%}
+      </a>
     </div>
   </div>
 </section>
@@ -35,8 +42,14 @@
     { "type": "text", "id": "cta2_label", "label": "Button 2 label", "default": "Help me choose" },
     { "type": "url", "id": "cta2_link", "label": "Button 2 link" },
     { "type": "image_picker", "id": "image1", "label": "Tall image" },
+    { "type": "text", "id": "alt1", "label": "Tall image alt text", "default": "Rose gold air-pulse toy" },
+    { "type": "url", "id": "link1", "label": "Tall image link" },
     { "type": "image_picker", "id": "image2", "label": "Image 2" },
+    { "type": "text", "id": "alt2", "label": "Image 2 alt text", "default": "Rose-shaped air-pulse toy" },
+    { "type": "url", "id": "link2", "label": "Image 2 link" },
     { "type": "image_picker", "id": "image3", "label": "Image 3" },
+    { "type": "text", "id": "alt3", "label": "Image 3 alt text", "default": "Water-based lubricant" },
+    { "type": "url", "id": "link3", "label": "Image 3 link" },
     { "type": "range", "id": "pad_top", "label": "Top padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 72 },
     { "type": "range", "id": "pad_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 72 }
   ],
