@@ -6,9 +6,17 @@
     {%- capture x %}text_{{ i }}{% endcapture -%}
     {%- assign tt = block.settings[t] -%}
     {%- assign tx = block.settings[x] -%}
-    {%- if is_third_party and tt contains 'arranty' -%}
-      {%- assign tt = block.settings.third_party_title | replace: '[vendor]', closest.product.vendor -%}
-      {%- assign tx = block.settings.third_party_text -%}
+    {%- if tt contains 'arranty' -%}
+      {%- assign tt = block.settings.warranty_title -%}
+      {%- assign tx = block.settings.warranty_text -%}
+    {%- elsif tt contains 'ispatch' -%}
+      {%- if is_third_party -%}
+        {%- assign tt = block.settings.third_party_title | replace: '[vendor]', closest.product.vendor -%}
+        {%- assign tx = block.settings.third_party_text -%}
+      {%- else -%}
+        {%- assign tt = 'Fast dispatch' -%}
+        {%- assign tx = 'From Australian stock' -%}
+      {%- endif -%}
     {%- endif -%}
     {%- if tt != blank -%}
       <div class="pw-trustgrid__item"><strong>{{ tt }}</strong><span class="pw-muted">{{ tx }}</span></div>
@@ -24,12 +32,16 @@
     { "type": "text", "id": "text_1", "label": "Text 1", "default": "Discreet billing name" },
     { "type": "text", "id": "title_2", "label": "Title 2", "default": "Dispatched today" },
     { "type": "text", "id": "text_2", "label": "Text 2", "default": "Order by 2pm" },
-    { "type": "text", "id": "title_3", "label": "Title 3", "default": "2-year warranty+" },
-    { "type": "text", "id": "text_3", "label": "Text 3", "default": "Replacement sent first" },
+    { "type": "text", "id": "title_3", "label": "Title 3", "default": "Warranty" },
+    { "type": "text", "id": "text_3", "label": "Text 3", "default": "On top of the maker's" },
     { "type": "text", "id": "title_4", "label": "Title 4", "default": "Free shipping over $69" },
     { "type": "text", "id": "text_4", "label": "Text 4", "default": "Australia-wide" },
+    { "type": "header", "content": "Warranty item" },
+    { "type": "paragraph", "content": "Any item whose title mentions warranty shows this instead." },
+    { "type": "text", "id": "warranty_title", "label": "Title", "default": "+12 months warranty, on us" },
+    { "type": "text", "id": "warranty_text", "label": "Text", "default": "Stacked on top of the maker's own" },
     { "type": "header", "content": "Third-party products" },
-    { "type": "paragraph", "content": "On products tagged third-party, any item mentioning a warranty is swapped for this one, because Warranty+ covers our own range only." },
+    { "type": "paragraph", "content": "On products tagged third-party, the dispatch item is swapped for this one. The live dispatch countdown sits above." },
     { "type": "text", "id": "third_party_title", "label": "Title", "default": "100% genuine [vendor]" },
     { "type": "text", "id": "third_party_text", "label": "Text", "default": "Held in stock in Australia" }
   ]

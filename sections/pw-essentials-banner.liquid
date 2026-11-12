@@ -1,0 +1,61 @@
+{%- if collection.handle == section.settings.handle -%}
+<style>
+  .pw-ess{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;background:linear-gradient(120deg,#1D1530 0%,#3A2A78 60%,#5B3FD1 100%);color:#fff;border-radius:28px;padding:24px 28px;margin-top:8px}
+  .pw-ess__badge{width:96px;height:96px;border-radius:50%;background:#FF7A6B;color:#1D1530;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-8deg);font-weight:800;line-height:1;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+  .pw-ess__badge b{font-size:30px}.pw-ess__badge small{font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+  .pw-ess__title{font-family:var(--pw-display,inherit);font-size:clamp(24px,3vw,38px);font-weight:800;line-height:1.05;margin:0;color:#fff}
+  .pw-ess__text{opacity:.85;margin:6px 0 0;font-size:16px}
+  .pw-ess__steps{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .pw-ess__step{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;transition:background .3s}
+  .pw-ess__step.on{background:#fff;color:#1D1530}.pw-ess__step--gift{background:rgba(255,122,107,.25)}.pw-ess__step--gift.on{background:#FF7A6B;color:#1D1530}
+  .pw-ess__status{font-size:14px;font-weight:600;margin-top:10px}
+  .pw-ess__auto{background:#fff;color:#1D1530;border-radius:999px;padding:10px 16px;font-weight:700;font-size:14px;white-space:nowrap}
+  @media (max-width:749px){.pw-ess{grid-template-columns:auto 1fr;padding:20px}.pw-ess__auto{grid-column:1/-1;text-align:center;white-space:normal}.pw-ess__badge{width:78px;height:78px}.pw-ess__badge b{font-size:24px}}
+</style>
+<section class="pw-section" style="--pw-pad-top: 8px; --pw-pad-bottom: 8px">
+  <div class="pw-wrap">
+    <pw-ess class="pw-ess" data-ids="{%- for p in collection.products limit: 250 -%}{{ p.id }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}">
+      <div class="pw-ess__badge"><b>15%</b><small>off 4th</small></div>
+      <div>
+        <h2 class="pw-ess__title">{{ section.settings.heading }}</h2>
+        <p class="pw-ess__text">{{ section.settings.text }}</p>
+        <div class="pw-ess__steps" aria-hidden="true"><span class="pw-ess__step">1</span><span class="pw-ess__step">2</span><span class="pw-ess__step">3</span><span class="pw-ess__step pw-ess__step--gift">%</span></div>
+        <p class="pw-ess__status" data-status>Add any 3 essentials and your 4th is 15% off.</p>
+      </div>
+      <span class="pw-ess__auto">Applied automatically at checkout</span>
+    </pw-ess>
+  </div>
+</section>
+<script>
+  if (!customElements.get('pw-ess')) customElements.define('pw-ess', class extends HTMLElement {
+    connectedCallback() {
+      this.ids = (this.dataset.ids || '').split(',').map(Number);
+      this.update = this.update.bind(this); this.update();
+      ['pw:cart', 'cart:update', 'cart:updated'].forEach((e) => document.addEventListener(e, () => setTimeout(this.update, 300)));
+      document.addEventListener('submit', (e) => { if (e.target.closest('form[action*="/cart/add"]')) setTimeout(this.update, 1200); });
+      window.addEventListener('pageshow', this.update);
+    }
+    async update() {
+      let n = 0;
+      try { const c = await (await fetch('/cart.js', { headers: { Accept: 'application/json' } })).json(); c.items.forEach((i) => { if (this.ids.includes(i.product_id)) n += i.quantity; }); } catch (e) {}
+      this.querySelectorAll('.pw-ess__step').forEach((s, i) => s.classList.toggle('on', i < Math.min(n, 4)));
+      const st = this.querySelector('[data-status]');
+      if (n >= 4) st.textContent = 'Nice. 15% off your 4th essential is applied at checkout.';
+      else if (n === 3) st.textContent = '3 in your cart. Add one more and it is 15% off.';
+      else if (n > 0) st.textContent = n + ' in your cart. Add ' + (3 - n) + ' more, then your 4th is 15% off.';
+      else st.textContent = 'Add any 3 essentials and your 4th is 15% off.';
+    }
+  });
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "PW Buy 3 essentials",
+  "settings": [
+    { "type": "text", "id": "handle", "label": "Show on collection (handle)", "default": "lube-essentials" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Buy 3 and save" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Stock up on lube, toy cleaner and care. Mix and match any essentials: buy 3 and your 4th is 15% off." }
+  ],
+  "presets": [{ "name": "PW Buy 3 essentials" }]
+}
+{% endschema %}
