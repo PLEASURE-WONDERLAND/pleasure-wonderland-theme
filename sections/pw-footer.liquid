@@ -24,7 +24,8 @@
     {%- endfor -%}
   </div>
   <div class="pw-wrap pw-footer__base">
-    <span>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal_name }}. {{ section.settings.notice }}</span>
+    {%- assign pw_notice = section.settings.notice | replace: '[discreet descriptor]', 'a discreet business name' | replace: '[Discreet descriptor]', 'a discreet business name' -%}
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal_name }}. {{ pw_notice }}</span>
     <span style="display: flex; gap: 14px; flex-wrap: wrap">
       {%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}
     </span>
@@ -41,7 +42,7 @@
   "settings": [
     { "type": "textarea", "id": "blurb", "label": "Blurb", "default": "Tested toys and intimate essentials, shipped fast from Australia in a plain box." },
     { "type": "text", "id": "legal_name", "label": "Legal name", "default": "Pleasure Wonderland" },
-    { "type": "text", "id": "notice", "label": "Notice", "default": "Adults 18+ only. Billing shows as [discreet descriptor]." }
+    { "type": "text", "id": "notice", "label": "Notice", "default": "Adults 18+ only. Billing shows as a discreet business name." }
   ],
   "blocks": [{
     "type": "menu", "name": "Menu column",
