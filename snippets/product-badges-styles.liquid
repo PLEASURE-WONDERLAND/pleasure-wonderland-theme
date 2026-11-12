@@ -1,5 +1,6 @@
 {%- doc -%}
   Product badge styles consolidated into a single snippet.
+  Pleasure Wonderland: the generic Sale badge is hidden because the price row shows a Save $X pill and the main images carry their own savings badge.
 
   @example
   {% render 'product-badges-styles' %}
@@ -11,6 +12,7 @@
 
     position: absolute;
     z-index: var(--layer-flat);
+    display: none;
   }
 
   .product-badges--bottom-left {
