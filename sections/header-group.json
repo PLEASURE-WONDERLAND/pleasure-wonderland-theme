@@ -55,12 +55,27 @@
             "text_color": "#FFFFFF"
           },
           "blocks": {}
+        },
+        "ann_ess": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Lube & essentials: buy 3, get 15% off the 4th →",
+            "link": "shopify://collections/lube-essentials",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.8125rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none",
+            "text_color": "#FFFFFF"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
+        "ann_ship",
         "announcement_BxgCk9",
         "ann_gift",
-        "ann_ship"
+        "ann_ess"
       ],
       "name": "t:names.announcement_bar",
       "settings": {
@@ -131,10 +146,20 @@
         "enable_transparent_header_product": false,
         "enable_transparent_header_collection": false
       }
+    },
+    "pw_clock": {
+      "type": "pw-ship-clock",
+      "settings": {}
+    },
+    "pw_ess": {
+      "type": "pw-essentials-banner",
+      "settings": {}
     }
   },
   "order": [
     "header_announcements_9jGBFp",
-    "header_section"
+    "header_section",
+    "pw_clock",
+    "pw_ess"
   ]
 }
