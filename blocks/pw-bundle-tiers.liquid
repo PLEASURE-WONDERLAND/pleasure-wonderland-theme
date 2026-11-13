@@ -22,6 +22,7 @@
   assign t3_save = addons3 | times: pct | divided_by: 100
   assign t2_price = t2_full | minus: t2_save
   assign t3_price = t3_full | minus: t3_save
+  assign pw_thr = settings.pw_free_shipping | default: 69 | times: 100
   comment
     Every toy page opens on Toy + lube. Add-on products (tagged addon or essentials) open on Just the toy. Kits and Control Room gear hide this block.
   endcomment
@@ -39,28 +40,33 @@
     assign t3_label = 'Toy + lube + cleaner'
   endif
 -%}
+{%- capture pw_ship_chip -%}<span class="pw-tier__ship"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M1 4h13v11H1zM14 8h5l4 4v3h-9"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Free shipping</span>{%- endcapture -%}
 {%- if main_p != blank and a1 != blank and pw_skip == false -%}
-<pw-bundle-tiers class="pw-tiers" data-default="{{ default_tier }}" data-variant-source {{ block.shopify_attributes }}>
+<style>
+  .pw-tier__price{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+  .pw-tier__ship{display:inline-flex;align-items:center;gap:4px;background:#E3F3EC;color:#12694B;font-size:11px;font-weight:700;line-height:1;padding:4px 7px;border-radius:6px;white-space:nowrap}
+</style>
+<pw-bundle-tiers class="pw-tiers" data-default="{{ default_tier }}" data-threshold="{{ pw_thr }}" data-variant-source {{ block.shopify_attributes }}>
   <div class="pw-tiers__label">{{ block.settings.heading }}</div>
   <div class="pw-tiers__options" role="radiogroup" aria-label="{{ block.settings.heading | escape }}">
     <label class="pw-tier">
       <input type="radio" name="pw-tier-{{ block.id }}" value="1" data-price="{{ base }}"{% if default_tier == "1" %} checked{% endif %}>
       <span class="pw-tier__radio" aria-hidden="true"></span>
       <span class="pw-tier__text"><strong>{{ block.settings.tier1_label }}</strong><span class="pw-muted">{{ main_p.title }}</span></span>
-      <span class="pw-tier__price"><strong>{{ base | money }}</strong></span>
+      <span class="pw-tier__price"><strong>{{ base | money }}</strong>{%- if base >= pw_thr -%}{{ pw_ship_chip }}{%- endif -%}</span>
     </label>
     <label class="pw-tier">
       <input type="radio" name="pw-tier-{{ block.id }}" value="2" data-price="{{ t2_price }}"{% if default_tier == "2" %} checked{% endif %} data-items="{{ a1.selected_or_first_available_variant.id }}">
       <span class="pw-tier__radio" aria-hidden="true"></span>
       <span class="pw-tier__text"><strong>{{ block.settings.tier2_label }}</strong><span class="pw-muted">+ {{ a1.title }}</span></span>
-      <span class="pw-tier__price"><strong>{{ t2_price | money }}</strong>{%- if t2_save > 0 -%}<span class="pw-tier__save">Save {{ t2_save | money }}</span>{%- endif -%}</span>
+      <span class="pw-tier__price"><strong>{{ t2_price | money }}</strong>{%- if t2_save > 0 -%}<span class="pw-tier__save">Save {{ t2_save | money }}</span>{%- endif -%}{%- if t2_price >= pw_thr -%}{{ pw_ship_chip }}{%- endif -%}</span>
     </label>
     {%- if a2 != blank -%}
       <label class="pw-tier">
         <input type="radio" name="pw-tier-{{ block.id }}" value="3" data-price="{{ t3_price }}" data-items="{{ a1.selected_or_first_available_variant.id }},{{ a2.selected_or_first_available_variant.id }}">
         <span class="pw-tier__radio" aria-hidden="true"></span>
         <span class="pw-tier__text"><strong>{{ t3_label }}{% if block.settings.badge != blank %} <span class="pw-pill pw-pill--coral" style="padding: 3px 9px; font-size: 11px">{{ block.settings.badge }}</span>{% endif %}</strong><span class="pw-muted">+ {{ a1.title }} + {{ a2.title }}</span></span>
-        <span class="pw-tier__price"><strong>{{ t3_price | money }}</strong>{%- if t3_save > 0 -%}<span class="pw-tier__save">Save {{ t3_save | money }}</span>{%- endif -%}</span>
+        <span class="pw-tier__price"><strong>{{ t3_price | money }}</strong>{%- if t3_save > 0 -%}<span class="pw-tier__save">Save {{ t3_save | money }}</span>{%- endif -%}{%- if t3_price >= pw_thr -%}{{ pw_ship_chip }}{%- endif -%}</span>
       </label>
     {%- endif -%}
   </div>
@@ -124,7 +130,7 @@
     { "type": "text", "id": "tier2_label", "label": "Tier 2 label", "default": "Toy + lube" },
     { "type": "text", "id": "tier3_label", "label": "Tier 3 label", "default": "Toy + lube + cleaner" },
     { "type": "text", "id": "badge", "label": "Tier 3 badge", "default": "Most popular" },
-    { "type": "range", "id": "addon_percent", "label": "Add-on discount", "min": 0, "max": 50, "step": 5, "unit": "%", "default": 20, "info": "Display only. Matches the automatic discount 'Bundle add-ons 20% off' (lube and cleaner, orders over $50). Change both together." }
+    { "type": "range", "id": "addon_percent", "label": "Add-on discount", "min": 0, "max": 50, "step": 5, "unit": "%", "default": 20, "info": "Display only. Matches the automatic discount 'Bundle add-ons 20% off' (lube and cleaner, orders over $50). Change both together. A Free shipping tag shows on any option whose price reaches the free shipping threshold in theme settings." }
   ]
 }
 {% endschema %}
