@@ -314,3 +314,11 @@ a.pw-chip { text-decoration: none; }
 .pw-dispatch__dot { width: 10px; height: 10px; border-radius: 50%; background: #1F9D6B; box-shadow: 0 0 0 0 rgba(31, 157, 107, .5); animation: pw-pulse 2s infinite; flex: 0 0 auto; }
 @keyframes pw-pulse { 0% { box-shadow: 0 0 0 0 rgba(31, 157, 107, .5); } 70% { box-shadow: 0 0 0 8px rgba(31, 157, 107, 0); } 100% { box-shadow: 0 0 0 0 rgba(31, 157, 107, 0); } }
 @media (prefers-reduced-motion: reduce) { .pw-dispatch__dot { animation: none; } }
+
+/* PayPal Pay in 4 */
+.pw-paylater { margin: 2px 0 0; font-size: 14px; line-height: 1.5; color: var(--pw-ink, #1D1530); display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+.pw-paylater__pp { font-family: Verdana, Arial, sans-serif; font-weight: 700; font-style: italic; font-size: 15px; letter-spacing: -.3px; }
+.pw-paylater__pp b { color: #003087; font-weight: 800; }
+.pw-paylater__pp i { color: #009CDE; font-weight: 800; }
+.pw-paylater__tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; background: var(--pw-lilac, #E9E1FF); color: var(--pw-purple, #5B3FD1); }
+.pw-paylater--cart { justify-content: center; font-size: 13px; }

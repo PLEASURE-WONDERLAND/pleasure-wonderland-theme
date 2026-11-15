@@ -1,0 +1,23 @@
+{%- liquid
+  assign p = product | default: closest.product
+  assign price = p.selected_or_first_available_variant.price
+  assign min = block.settings.min | times: 100
+  assign max = block.settings.max | times: 100
+-%}
+{%- if price >= min and price <= max -%}
+  <p class="pw-paylater" {{ block.shopify_attributes }}>
+    or 4 interest-free payments of <strong>{{ price | divided_by: 4 | money }}</strong> with
+    <span class="pw-paylater__pp" aria-label="PayPal"><b>Pay</b><i>Pal</i></span>
+    <span class="pw-paylater__tag">Pay in 4</span>
+  </p>
+{%- endif -%}
+{% schema %}
+{
+  "name": "PW PayPal Pay in 4",
+  "settings": [
+    { "type": "number", "id": "min", "label": "Minimum price (AUD)", "default": 30 },
+    { "type": "number", "id": "max", "label": "Maximum price (AUD)", "default": 2000 }
+  ],
+  "presets": [{ "name": "PW PayPal Pay in 4" }]
+}
+{% endschema %}

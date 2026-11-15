@@ -69,6 +69,9 @@
       </div>
     {%- endif -%}
 
+    {%- if cart.total_price >= 3000 and cart.total_price <= 200000 -%}
+      <p class="pw-paylater pw-paylater--cart">Or 4 interest-free payments of <strong>{{ cart.total_price | divided_by: 4 | money }}</strong> with <span class="pw-paylater__pp" aria-label="PayPal"><b>Pay</b><i>Pal</i></span> Pay in 4</p>
+    {%- endif -%}
     <p class="pw-cartboost__trust">🔒 Discreet plain packaging · Order by {{ cut_label }} for same-day dispatch · Ships from Australia</p>
   </div>
 {%- endif -%}
