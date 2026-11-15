@@ -67,7 +67,18 @@
         {{ 'content.duties_included' | t }}
       {%- endif -%}
 
-      {%- if shop.shipping_policy.body != blank -%}
+      {%- liquid
+        assign pw_threshold = settings.pw_free_shipping | default: 0 | times: 100
+        assign pw_price = selected_variant.price | default: product_resource.selected_or_first_available_variant.price
+        assign pw_left = pw_threshold | minus: cart.total_price | minus: pw_price
+      -%}
+      {%- if pw_threshold > 0 -%}
+        {%- if pw_left <= 0 -%}
+          <strong class="pw-freeship-note">Free shipping</strong> on this order.
+        {%- else -%}
+          Free shipping on orders over {{ pw_threshold | money_without_trailing_zeros }}.
+        {%- endif -%}
+      {%- elsif shop.shipping_policy.body != blank -%}
         {{ 'content.shipping_policy' | t }}
       {%- endif -%}
     </div>
