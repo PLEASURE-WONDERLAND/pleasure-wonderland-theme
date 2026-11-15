@@ -57,32 +57,7 @@
     show_sale_price_first: block_settings.show_sale_price_first
   %}
 
-  {% if block_settings.show_tax_info %}
-    <div class="tax-note">
-      {%- if cart.duties_included and cart.taxes_included -%}
-        {{ 'content.duties_and_taxes_included' | t }}
-      {%- elsif cart.taxes_included -%}
-        {{ 'content.taxes_included' | t }}
-      {%- elsif cart.duties_included -%}
-        {{ 'content.duties_included' | t }}
-      {%- endif -%}
-
-      {%- liquid
-        assign pw_threshold = settings.pw_free_shipping | default: 0 | times: 100
-        assign pw_price = selected_variant.price | default: product_resource.selected_or_first_available_variant.price
-        assign pw_left = pw_threshold | minus: cart.total_price | minus: pw_price
-      -%}
-      {%- if pw_threshold > 0 -%}
-        {%- if pw_left <= 0 -%}
-          <strong class="pw-freeship-note">Free shipping</strong> on this order.
-        {%- else -%}
-          Free shipping on orders over {{ pw_threshold | money_without_trailing_zeros }}.
-        {%- endif -%}
-      {%- elsif shop.shipping_policy.body != blank -%}
-        {{ 'content.shipping_policy' | t }}
-      {%- endif -%}
-    </div>
-  {% endif %}
+  {%- comment -%} Tax and shipping note removed for Pleasure Wonderland {%- endcomment -%}
 
   {%- if selected_variant != blank and block_settings.show_installments -%}
     <div class="installments">
