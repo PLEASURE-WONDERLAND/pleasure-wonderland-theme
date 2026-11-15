@@ -6,3 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
 {{ 'pw-brand.css' | asset_url | stylesheet_tag }}
 <script type="module" src="{{ 'pw-cart.js' | asset_url }}"></script>
+
+{%- if settings.pw_paypal_client_id != blank -%}
+  <script src="https://www.paypal.com/sdk/js?client-id={{ settings.pw_paypal_client_id | url_encode }}&components=messages&currency={{ cart.currency.iso_code | default: 'AUD' }}" data-namespace="paypal" defer></script>
+{%- endif -%}

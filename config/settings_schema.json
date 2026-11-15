@@ -2177,6 +2177,16 @@
         "id": "pw_welcome_code",
         "label": "Welcome code",
         "default": "WELCOME20"
+      },
+      {
+        "type": "header",
+        "content": "PayPal Pay Later"
+      },
+      {
+        "type": "text",
+        "id": "pw_paypal_client_id",
+        "label": "PayPal client ID",
+        "info": "Shows PayPal's official Pay in 4 message on product pages and in the cart."
       }
     ]
   }

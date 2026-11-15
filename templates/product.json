@@ -265,10 +265,7 @@
             },
             "pw_paylater": {
               "type": "pw-paylater",
-              "settings": {
-                "min": 30,
-                "max": 2000
-              }
+              "settings": {}
             }
           },
           "block_order": [

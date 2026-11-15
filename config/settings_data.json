@@ -55,6 +55,7 @@
     "cart_type": "drawer",
     "auto_open_cart_drawer": true,
     "pw_free_shipping": 69,
+    "pw_paypal_client_id": "BAA1QqgIBDyuXCpmK6xKpiS_4B98m0K2F423gpytZ0pA084n4sz2cuK1ugxH_Yt1RzP3grvYAsX1DB0icU",
     "pw_cutoff_hour": 14,
     "pw_cart_upsells": ["pleasure-wonderland-water-based-lube-100ml", "pleasure-wonderland-toy-cleaner-spray-100ml"],
     "cart_price_font": "subheading",
